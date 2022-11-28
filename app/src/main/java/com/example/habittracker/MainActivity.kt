@@ -3,20 +3,19 @@ package com.example.habittracker
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.viewModels
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.habittracker.ui.mainScreen.MainScreenViewModel
+import com.example.habittracker.ui.AppNavHost
+import com.example.habittracker.ui.mainScreen.HabitViewModel
 import com.example.habittracker.ui.theme.HabitTrackerTheme
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+    private val habitViewModel :HabitViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -26,14 +25,9 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    Greeting()
+                     AppNavHost(habitViewModel=habitViewModel)
                 }
             }
         }
     }
-}
-@Composable
-fun Greeting(habitViewModel: MainScreenViewModel = viewModel()) {
-    val habitName by habitViewModel.state
-    Text(text = habitName)
 }

@@ -44,3 +44,4 @@ google-services.json
 
 # Android Profiling
 *.hprof
+/app/schemas/com.example.habittracker.data.room.HabitDatabase/1.json
