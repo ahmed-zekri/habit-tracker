@@ -10,6 +10,8 @@ import com.example.habittracker.data.model.Habit
 interface HabitDAO {
     @Query("select * from HABIT")
     suspend fun getAllHabits(): List<Habit>
+    @Query("select * from HABIT where name=:name ")
+    suspend fun getHabitByName(name:String): List<Habit>
     @Insert
     suspend fun addHabits(habit: Habit)
     @Delete

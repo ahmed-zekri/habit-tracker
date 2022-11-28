@@ -7,10 +7,9 @@ import javax.inject.Inject
 
 class HabitRepositoryImpl @Inject constructor(private val habitDAO: HabitDAO) : HabitsRepository {
     override suspend fun getAllHabits(): List<Habit> = habitDAO.getAllHabits()
-    override suspend fun addHabit(habit: Habit)=habitDAO.addHabits(habit)
-
-    override suspend fun removeHabit(habit: Habit)=habitDAO.removeHabits(habit)
-
+    override suspend fun getHabitsByName(name: String): List<Habit> = habitDAO.getHabitByName(name)
+    override suspend fun addHabit(habit: Habit) = habitDAO.addHabits(habit)
+    override suspend fun removeHabit(habit: Habit) = habitDAO.removeHabits(habit)
     override fun editHabit(habit: Habit) {
         TODO("Not yet implemented")
     }
