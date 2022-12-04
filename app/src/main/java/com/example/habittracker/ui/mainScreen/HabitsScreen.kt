@@ -3,10 +3,7 @@ package com.example.habittracker.ui.mainScreen
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.material.icons.Icons
@@ -69,20 +66,23 @@ fun HabitsScreen(mainScreenViewModel: HabitViewModel = viewModel()) {
             },
             title = { Text(text = "Adding Habit") },
             text = {
-                TextField(
-                    value = "",
-                    onValueChange = {},
-                    placeholder = { Text(text = "Enter habit name") })
-                Button(onClick = {openImageDialog.value=true}) {
-                    
+                Column {
+                    TextField(
+                        value = "",
+                        onValueChange = {},
+                        placeholder = { Text(text = "Enter habit name") })
+                    Button(onClick = {openImageDialog.value=true}) {
+                        Text(text = "Open image picker")
+                    }
                 }
+                
             })
     if (openImageDialog.value)
         AlertDialog(
             onDismissRequest = { },
             confirmButton = {
                 Button(onClick = {
-                    openDialog.value = false
+                    openImageDialog.value = false
                 }) { Text(text = "Choose an image") }
             },
             title = { Text(text = "Choosing image") },
