@@ -3,13 +3,16 @@ package com.example.habittracker.ui.mainScreen
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Accessibility
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material3.*
+import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -20,14 +23,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.habittracker.data.constants.ICONS
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HabitsScreen(mainScreenViewModel: HabitViewModel = viewModel()) {
     val state by mainScreenViewModel.state
     val openDialog = remember { mutableStateOf(false) }
-    val openImageDialog = remember { mutableStateOf(false) }
 
     LazyVerticalGrid(modifier = Modifier
         .background(color = Color(255, 112, 76))
@@ -57,44 +57,10 @@ fun HabitsScreen(mainScreenViewModel: HabitViewModel = viewModel()) {
         }
     })
     if (openDialog.value)
-        AlertDialog(
-            onDismissRequest = { },
-            confirmButton = {
-                Button(onClick = {
-                    openDialog.value = false
-                }) { Text(text = "Add habit") }
-            },
-            title = { Text(text = "Adding Habit") },
-            text = {
-                Column {
-                    TextField(
-                        value = "",
-                        onValueChange = {},
-                        placeholder = { Text(text = "Enter habit name") })
-                    Button(onClick = {openImageDialog.value=true}) {
-                        Text(text = "Open image picker")
-                    }
-                }
-                
-            })
-    if (openImageDialog.value)
-        AlertDialog(
-            onDismissRequest = { },
-            confirmButton = {
-                Button(onClick = {
-                    openImageDialog.value = false
-                }) { Text(text = "Choose an image") }
-            },
-            title = { Text(text = "Choosing image") },
-            text = {
-                LazyVerticalGrid(columns = GridCells.Adaptive(80.dp)) {
-                    items(ICONS.size){
-                        index->
-                        Icon(imageVector = ICONS[index], contentDescription =null )
+        HabitAlertDialog {
 
-                    }
-                }
-            })
+        }
+
 }
 
 fun showHabit() {
