@@ -3,10 +3,7 @@ package com.example.habittracker.ui.mainScreen
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.material.icons.Icons
@@ -38,8 +35,7 @@ fun HabitsScreen(mainScreenViewModel: HabitViewModel = viewModel()) {
         items(habits.size + 1) { index ->
             Box(
                 modifier = Modifier
-                    .size(185.dp)
-                    .padding(5.dp)
+                    .size(200.dp)
             ) {
                 if (index < habits.size)
                     Text(
@@ -51,22 +47,35 @@ fun HabitsScreen(mainScreenViewModel: HabitViewModel = viewModel()) {
                             .align(Alignment.BottomCenter)
                             .padding(top = 150.dp)
                     )
-                Box(Modifier.size(500.dp)) {
+
+                Box {
                     Canvas(modifier = Modifier
                         .fillMaxSize()
                         .clickable {
                             if (index < habits.size) showHabit() else openDialog.value = true
                         }) {
-                        drawCircle(color = Color.White, style = Stroke(25f), radius = 150f)
+                        drawCircle(color = Color.White, style = Stroke(25f), radius = 170f)
                     }
-                    Icon(
-                        modifier = Modifier
-                            .size(80.dp)
-                            .align(Alignment.Center),
-                        imageVector = if (index < habits.size) ICONS.find { it.name == habits[index].image }
-                            ?: Icons.Default.NoTransfer else Icons.Default.Add,
-                        contentDescription = null
-                    )
+                    Column(
+                        Modifier.align(Alignment.Center),
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
+                        Icon(
+                            modifier = Modifier
+                                .size(70.dp),
+                            imageVector = if (index < habits.size) ICONS.find { it.name == habits[index].image }
+                                ?: Icons.Default.NoTransfer else Icons.Default.Add,
+                            contentDescription = null
+                        )
+                        if (index < habits.size)
+                            Text(
+                                text = habits[index].streak.toString(),
+                                color = Color.White,
+                                fontWeight = FontWeight.Bold,
+                                fontSize = 17.sp,
+                                modifier = Modifier.padding(top=5.dp)
+                            )
+                    }
                 }
             }
         }
