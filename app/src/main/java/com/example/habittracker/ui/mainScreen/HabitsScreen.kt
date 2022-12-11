@@ -10,11 +10,10 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Accessibility
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.NoTransfer
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -23,16 +22,17 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.habittracker.data.constants.ICONS
 
 @Composable
 fun HabitsScreen(mainScreenViewModel: HabitViewModel = viewModel()) {
-    val state by mainScreenViewModel.state
+    val habits = mainScreenViewModel.state.value.habits
     val openDialog = remember { mutableStateOf(false) }
 
     LazyVerticalGrid(modifier = Modifier
         .background(color = Color(255, 112, 76))
         .fillMaxSize(), columns = GridCells.Adaptive(160.dp), content = {
-        items(state.habits.size + 1) { index ->
+        items(habits.size + 1) { index ->
             Box(
                 modifier = Modifier
                     .size(150.dp)
@@ -41,7 +41,7 @@ fun HabitsScreen(mainScreenViewModel: HabitViewModel = viewModel()) {
                 Canvas(modifier = Modifier
                     .fillMaxSize()
                     .clickable {
-                        if (index < state.habits.size) showHabit() else openDialog.value = true
+                        if (index < habits.size) showHabit() else openDialog.value = true
                     }) {
                     drawCircle(color = Color.White, style = Stroke(25f), radius = 150f)
                 }
@@ -50,7 +50,8 @@ fun HabitsScreen(mainScreenViewModel: HabitViewModel = viewModel()) {
                     modifier = Modifier
                         .align(Alignment.Center)
                         .size(70.dp),
-                    imageVector = if (index < state.habits.size) Icons.Default.Accessibility else Icons.Default.Add,
+                    imageVector = if (index < habits.size) ICONS.find { it.name == habits[index].image }
+                        ?: Icons.Default.NoTransfer else Icons.Default.Add,
                     contentDescription = null
                 )
             }
@@ -58,9 +59,10 @@ fun HabitsScreen(mainScreenViewModel: HabitViewModel = viewModel()) {
     })
     if (openDialog.value)
         HabitAlertDialog {
-
+            openDialog.value = false
+            mainScreenViewModel.addHabit(this)
+            mainScreenViewModel.getHabits()
         }
-
 }
 
 fun showHabit() {

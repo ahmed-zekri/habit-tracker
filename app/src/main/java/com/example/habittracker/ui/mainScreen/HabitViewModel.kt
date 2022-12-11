@@ -15,7 +15,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HabitViewModel @Inject constructor(
-    val addHabitUseCase: AddHabitUseCase, val getAllHabitsUseCase: GetAllHabitsUseCase
+    private val addHabitUseCase: AddHabitUseCase,
+    private val getAllHabitsUseCase: GetAllHabitsUseCase
 ) : ViewModel() {
     private val _state = mutableStateOf(HabitState())
     val state: State<HabitState> = _state
@@ -41,17 +42,13 @@ class HabitViewModel @Inject constructor(
     }
 
     fun getHabits() {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch {
             getAllHabitsUseCase().collect {
                 when (it) {
                     is ResultHolder.Success<*> ->
-                        launch(Dispatchers.Main) {
-                            _state.value = HabitState(habits = it.data as List<Habit>)
-                        }
+                        _state.value = HabitState(habits = it.data ?: listOf())
                     is ResultHolder.Error<*> ->
-                        launch(Dispatchers.Main) {
-                            _state.value = HabitState(error = it.error!!)
-                        }
+                        _state.value = HabitState(error = it.error!!)
                 }
             }
         }
