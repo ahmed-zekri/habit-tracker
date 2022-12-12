@@ -32,47 +32,49 @@ fun HabitsScreen(mainScreenViewModel: HabitViewModel = viewModel()) {
         items(habits.size + 1) { index ->
             Box(
                 modifier = Modifier
-                    .size(180.dp)
+                    .size(200.dp)
                     .padding(start = 25.dp, top = 5.dp)
             ) {
-                if (index < habits.size)
-                    Text(
-                        text = habits[index].name,
-                        color = Color.White,
-                        fontWeight = FontWeight.Bold,
-                        fontSize = 20.sp,
-                        modifier = Modifier
-                            .align(Alignment.BottomCenter)
-                            .padding(end = 25.dp)
-                    )
-
-                Box {
-                    DoubleColorCircularProgressBar(
-                        progress = 0.4f,
-                        stroke = 7.dp,
-                        colorProgress = Color.White,
-                        colorRemaining = Color.Black
-                    )
-                    Column(
-                        Modifier.align(Alignment.Center),
-                        horizontalAlignment = Alignment.CenterHorizontally
-                    ) {
-                        Icon(
-                            modifier = Modifier
-                                .size(70.dp),
-                            imageVector = if (index < habits.size) ICONS.find { it.name == habits[index].image }
-                                ?: Icons.Default.NoTransfer else Icons.Default.Add,
-                            contentDescription = null
+                Column {
+                    Box {
+                        DoubleColorCircularProgressBar(
+                            progress = 0.4f,
+                            stroke = 7.dp,
+                            colorProgress = Color.White,
+                            colorRemaining = Color.Black
                         )
-                        if (index < habits.size)
-                            Text(
-                                text = habits[index].streak.toString(),
-                                color = Color.White,
-                                fontWeight = FontWeight.Bold,
-                                fontSize = 17.sp,
-                                modifier = Modifier.padding(top = 5.dp)
+                        Column(
+                            Modifier
+                                .align(Alignment.Center)
+                                .padding(top = 20.dp),
+                            horizontalAlignment = Alignment.CenterHorizontally
+                        ) {
+                            Icon(
+                                modifier = Modifier
+                                    .size(70.dp),
+                                imageVector = if (index < habits.size) ICONS.find { it.name == habits[index].image }
+                                    ?: Icons.Default.NoTransfer else Icons.Default.Add,
+                                contentDescription = null, tint = Color.White
                             )
+                            if (index < habits.size)
+                                Text(
+                                    text = habits[index].streak.toString(),
+                                    color = Color.White,
+                                    fontWeight = FontWeight.Bold,
+                                    fontSize = 17.sp,
+                                    modifier = Modifier.padding(top = 5.dp)
+                                )
+                        }
                     }
+                    if (index < habits.size)
+                        Text(
+                            text = habits[index].name,
+                            color = Color.White,
+                            fontWeight = FontWeight.Bold,
+                            fontSize = 20.sp,
+                            modifier = Modifier
+                                .align(Alignment.CenterHorizontally)
+                        )
                 }
             }
         }
