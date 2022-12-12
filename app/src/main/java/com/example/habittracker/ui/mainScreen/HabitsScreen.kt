@@ -1,6 +1,7 @@
 package com.example.habittracker.ui.mainScreen
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
@@ -20,6 +21,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.habittracker.data.constants.ICONS
+import com.example.habittracker.data.model.Habit
 
 @Composable
 fun HabitsScreen(mainScreenViewModel: HabitViewModel = viewModel()) {
@@ -34,11 +36,17 @@ fun HabitsScreen(mainScreenViewModel: HabitViewModel = viewModel()) {
                 modifier = Modifier
                     .size(200.dp)
                     .padding(start = 25.dp, top = 5.dp)
+                    .clickable {
+                        if (index == habits.size)
+                            openDialog.value = true
+                        else
+                            showHabit(habits[index])
+                    }
             ) {
                 Column {
                     Box {
                         DoubleColorCircularProgressBar(
-                            progress = 0.4f,
+                            progress = if (index == habits.size) 1f else habits[index].streak.toFloat() / habits[index].goal,
                             stroke = 7.dp,
                             colorProgress = Color.White,
                             colorRemaining = Color.Black
@@ -59,7 +67,7 @@ fun HabitsScreen(mainScreenViewModel: HabitViewModel = viewModel()) {
                             if (index < habits.size)
                                 Text(
                                     text = habits[index].streak.toString(),
-                                    color = Color.White,
+                                    color = Color.Black,
                                     fontWeight = FontWeight.Bold,
                                     fontSize = 17.sp,
                                     modifier = Modifier.padding(top = 5.dp)
@@ -87,6 +95,5 @@ fun HabitsScreen(mainScreenViewModel: HabitViewModel = viewModel()) {
         }
 }
 
-fun showHabit() {
-    TODO("Not yet implemented")
+fun showHabit(habit: Habit) {
 }

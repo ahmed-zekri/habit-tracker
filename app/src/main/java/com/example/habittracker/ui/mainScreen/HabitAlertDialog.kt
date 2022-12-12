@@ -8,6 +8,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.core.text.isDigitsOnly
 import com.example.habittracker.data.constants.ICONS
 import com.example.habittracker.data.model.Habit
 
@@ -21,6 +22,12 @@ fun HabitAlertDialog(onConfirm: Habit.() -> Unit) {
     val habitText = remember {
         mutableStateOf<String?>(null)
     }
+    val currentStreak = remember {
+        mutableStateOf(0)
+    }
+    val goal = remember {
+        mutableStateOf(1)
+    }
 
     AlertDialog(
         onDismissRequest = { },
@@ -33,9 +40,9 @@ fun HabitAlertDialog(onConfirm: Habit.() -> Unit) {
                             onConfirm(
                                 Habit(
                                     name = habitText,
-                                    goal = 1,
+                                    goal = goal.value,
                                     best = 1,
-                                    streak = 1,
+                                    streak = currentStreak.value,
                                     image = iconName
                                 )
                             )
@@ -47,9 +54,37 @@ fun HabitAlertDialog(onConfirm: Habit.() -> Unit) {
         text = {
             Column {
                 OutlinedTextField(
-                    value = habitText.value ?: "", label = { Text(text = "Habit name")},
+                    value = habitText.value ?: "", label = { Text(text = "Habit name") },
                     onValueChange = { habitText.value = it },
                     placeholder = { Text(text = "Enter habit name") },
+                    trailingIcon = {
+                        iconName.value?.let { iconName ->
+                            ICONS.find { it.name == iconName }?.let { icon ->
+                                Icon(imageVector = icon, contentDescription = null)
+                            }
+                        }
+                    })
+                OutlinedTextField(
+                    value = currentStreak.value.toString(), label = { Text(text = "Streak") },
+                    onValueChange = {
+                        if (it.isNotEmpty() && it.isDigitsOnly())
+                            currentStreak.value = it.toInt()
+                    },
+                    placeholder = { Text(text = "Current streak") },
+                    trailingIcon = {
+                        iconName.value?.let { iconName ->
+                            ICONS.find { it.name == iconName }?.let { icon ->
+                                Icon(imageVector = icon, contentDescription = null)
+                            }
+                        }
+                    })
+                OutlinedTextField(
+                    value = goal.value.toString(), label = { Text(text = "Goal") },
+                    onValueChange = {
+                        if (it.isNotEmpty() && it.isDigitsOnly())
+                            goal.value = it.toInt()
+                    },
+                    placeholder = { Text(text = "Goal") },
                     trailingIcon = {
                         iconName.value?.let { iconName ->
                             ICONS.find { it.name == iconName }?.let { icon ->
@@ -65,7 +100,7 @@ fun HabitAlertDialog(onConfirm: Habit.() -> Unit) {
             }
         })
     if (openImageDialog.value) {
-        HabitAlertImageDialog(iconName.value,{
+        HabitAlertImageDialog(iconName.value, {
             openImageDialog.value = false
             iconName.value = this
         }) {
