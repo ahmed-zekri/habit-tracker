@@ -1,8 +1,6 @@
 package com.example.habittracker.ui.mainScreen
 
-import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
@@ -17,7 +15,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -35,7 +32,8 @@ fun HabitsScreen(mainScreenViewModel: HabitViewModel = viewModel()) {
         items(habits.size + 1) { index ->
             Box(
                 modifier = Modifier
-                    .size(200.dp)
+                    .size(180.dp)
+                    .padding(start = 25.dp, top = 5.dp)
             ) {
                 if (index < habits.size)
                     Text(
@@ -45,17 +43,16 @@ fun HabitsScreen(mainScreenViewModel: HabitViewModel = viewModel()) {
                         fontSize = 20.sp,
                         modifier = Modifier
                             .align(Alignment.BottomCenter)
-                            .padding(top = 150.dp)
+                            .padding(end = 25.dp)
                     )
 
                 Box {
-                    Canvas(modifier = Modifier
-                        .fillMaxSize()
-                        .clickable {
-                            if (index < habits.size) showHabit() else openDialog.value = true
-                        }) {
-                        drawCircle(color = Color.White, style = Stroke(25f), radius = 170f)
-                    }
+                    DoubleColorCircularProgressBar(
+                        progress = 0.4f,
+                        stroke = 7.dp,
+                        colorProgress = Color.White,
+                        colorRemaining = Color.Black
+                    )
                     Column(
                         Modifier.align(Alignment.Center),
                         horizontalAlignment = Alignment.CenterHorizontally
@@ -73,7 +70,7 @@ fun HabitsScreen(mainScreenViewModel: HabitViewModel = viewModel()) {
                                 color = Color.White,
                                 fontWeight = FontWeight.Bold,
                                 fontSize = 17.sp,
-                                modifier = Modifier.padding(top=5.dp)
+                                modifier = Modifier.padding(top = 5.dp)
                             )
                     }
                 }
