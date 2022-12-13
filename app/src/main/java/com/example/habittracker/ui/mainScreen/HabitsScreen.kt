@@ -34,8 +34,7 @@ fun HabitsScreen(mainScreenViewModel: HabitViewModel = viewModel()) {
         items(habits.size + 1) { index ->
             Box(
                 modifier = Modifier
-                    .size(200.dp)
-                    .padding(start = 25.dp, top = 5.dp)
+                    .size(210.dp)
                     .clickable {
                         if (index == habits.size)
                             openDialog.value = true
@@ -44,7 +43,7 @@ fun HabitsScreen(mainScreenViewModel: HabitViewModel = viewModel()) {
                     }
             ) {
                 Column {
-                    Box {
+                    Box(Modifier.padding(start = 25.dp,top = 20.dp)) {
                         DoubleColorCircularProgressBar(
                             progress = if (index == habits.size) 1f else habits[index].streak.toFloat() / habits[index].goal,
                             stroke = 7.dp,
@@ -54,7 +53,7 @@ fun HabitsScreen(mainScreenViewModel: HabitViewModel = viewModel()) {
                         Column(
                             Modifier
                                 .align(Alignment.Center)
-                                .padding(top = 20.dp),
+                                .padding(top = 3.dp),
                             horizontalAlignment = Alignment.CenterHorizontally
                         ) {
                             Icon(
@@ -81,7 +80,7 @@ fun HabitsScreen(mainScreenViewModel: HabitViewModel = viewModel()) {
                             fontWeight = FontWeight.Bold,
                             fontSize = 20.sp,
                             modifier = Modifier
-                                .align(Alignment.CenterHorizontally)
+                                .align(Alignment.CenterHorizontally).padding(start = 20.dp, top = 10.dp)
                         )
                 }
             }
