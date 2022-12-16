@@ -11,6 +11,7 @@ import androidx.compose.ui.unit.dp
 import androidx.core.text.isDigitsOnly
 import com.example.habittracker.data.constants.ICONS
 import com.example.habittracker.data.model.Habit
+import java.util.*
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -47,7 +48,8 @@ fun HabitAlertDialog(onConfirm: Habit.() -> Unit, onClose: () -> Unit) {
                                     goal = goal.value,
                                     best = 1,
                                     streak = currentStreak.value,
-                                    image = iconName
+                                    image = iconName,
+                                    date = Calendar.getInstance().time
                                 )
                             )
                         }
