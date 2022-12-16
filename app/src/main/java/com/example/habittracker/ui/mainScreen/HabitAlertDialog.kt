@@ -14,7 +14,7 @@ import com.example.habittracker.data.model.Habit
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HabitAlertDialog(onConfirm: Habit.() -> Unit) {
+fun HabitAlertDialog(onConfirm: Habit.() -> Unit, onClose: () -> Unit) {
     val openImageDialog = remember { mutableStateOf(false) }
     val iconName = remember {
         mutableStateOf<String?>(null)
@@ -30,7 +30,11 @@ fun HabitAlertDialog(onConfirm: Habit.() -> Unit) {
     }
 
     AlertDialog(
-        onDismissRequest = { },
+        onDismissRequest = { openImageDialog.value = false }, dismissButton = {
+            Button(
+                onClick = onClose
+            ) { Text(text = "Close") }
+        },
         confirmButton = {
             Button(
                 enabled = habitText.value?.isNotEmpty() == true && iconName.value?.isNotEmpty() == true,

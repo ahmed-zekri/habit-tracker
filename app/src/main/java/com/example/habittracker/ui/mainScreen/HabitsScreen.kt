@@ -43,7 +43,7 @@ fun HabitsScreen(mainScreenViewModel: HabitViewModel = viewModel()) {
                     }
             ) {
                 Column {
-                    Box(Modifier.padding(start = 25.dp,top = 20.dp)) {
+                    Box(Modifier.padding(start = 25.dp, top = 20.dp)) {
                         DoubleColorCircularProgressBar(
                             progress = if (index == habits.size) 1f else habits[index].streak.toFloat() / habits[index].goal,
                             stroke = 7.dp,
@@ -80,17 +80,20 @@ fun HabitsScreen(mainScreenViewModel: HabitViewModel = viewModel()) {
                             fontWeight = FontWeight.Bold,
                             fontSize = 20.sp,
                             modifier = Modifier
-                                .align(Alignment.CenterHorizontally).padding(start = 20.dp, top = 10.dp)
+                                .align(Alignment.CenterHorizontally)
+                                .padding(start = 20.dp, top = 10.dp)
                         )
                 }
             }
         }
     })
     if (openDialog.value)
-        HabitAlertDialog {
+        HabitAlertDialog({
             openDialog.value = false
             mainScreenViewModel.addHabit(this)
             mainScreenViewModel.getHabits()
+        }) {
+            openDialog.value = false
         }
 }
 
