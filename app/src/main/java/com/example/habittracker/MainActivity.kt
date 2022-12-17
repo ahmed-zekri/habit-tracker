@@ -9,13 +9,15 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import com.example.habittracker.ui.AppNavHost
+import com.example.habittracker.ui.mainScreen.HabitCreationViewModel
 import com.example.habittracker.ui.mainScreen.HabitViewModel
 import com.example.habittracker.ui.theme.HabitTrackerTheme
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
-    private val habitViewModel :HabitViewModel by viewModels()
+    private val habitCreationViewModel: HabitCreationViewModel by viewModels()
+    private val habitViewModel: HabitViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -25,7 +27,10 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                     AppNavHost(habitViewModel=habitViewModel)
+                    AppNavHost(
+                        habitCreationViewModel = habitCreationViewModel,
+                        habitViewModel = habitViewModel
+                    )
                 }
             }
         }

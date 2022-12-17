@@ -1,5 +1,6 @@
 package com.example.habittracker.ui.mainScreen
 
+import android.os.Bundle
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -20,11 +21,17 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavHostController
 import com.example.habittracker.data.constants.ICONS
 import com.example.habittracker.data.model.Habit
+import com.example.habittracker.data.utils.navigate
+import com.example.habittracker.ui.Destinations
 
 @Composable
-fun HabitsScreen(mainScreenViewModel: HabitViewModel = viewModel()) {
+fun HabitsCreationScreen(
+    mainScreenViewModel: HabitCreationViewModel = viewModel(),
+    navHostController: NavHostController
+) {
     val habits = mainScreenViewModel.state.value.habits
     val openDialog = remember { mutableStateOf(false) }
 
@@ -39,7 +46,7 @@ fun HabitsScreen(mainScreenViewModel: HabitViewModel = viewModel()) {
                         if (index == habits.size)
                             openDialog.value = true
                         else
-                            showHabit(habits[index])
+                            showHabit(habits[index], navHostController)
                     }
             ) {
                 Column {
@@ -97,5 +104,10 @@ fun HabitsScreen(mainScreenViewModel: HabitViewModel = viewModel()) {
         }
 }
 
-fun showHabit(habit: Habit) {
+fun showHabit(habit: Habit, navHostController: NavHostController) {
+    navHostController.apply {
+        navigate(route = Destinations.Habit.path, args = Bundle().apply {
+            putParcelable("habit", habit)
+        })
+    }
 }
