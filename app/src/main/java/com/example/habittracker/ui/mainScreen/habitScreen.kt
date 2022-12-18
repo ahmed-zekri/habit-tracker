@@ -18,29 +18,30 @@ import com.example.habittracker.data.utils.getParcelableData
 import java.util.*
 
 @Composable
-fun HabitScreen(
+fun habitScreen(
     habitViewModel: HabitViewModel = viewModel(), navHostController: NavHostController
-) {
-    val habitState = remember {
+) =
+    remember {
         mutableStateOf(
             navHostController.currentBackStackEntry?.arguments?.getParcelableData(
                 "habit",
                 Habit::class.java
             )
         )
-    }.apply { value?.let { habitViewModel.setHabit(it) } }
-    habitState.value?.let { habit ->
-        Column(horizontalAlignment = Alignment.CenterHorizontally) {
-            val calendar = Calendar.getInstance().apply { time = habit.date }
-
-            Text(
-                text = habitViewModel.extractDateString(calendar),
-                modifier = Modifier.padding(10.dp),
-                fontWeight = FontWeight.Bold,
-                fontSize = 20.sp
-            )
+    }.apply {
+        value?.let { habit ->
+            habitViewModel.setHabit(habit)
+            Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                val calendar = Calendar.getInstance().apply { time = habit.date }
+                Text(
+                    text = habitViewModel.extractDateString(calendar),
+                    modifier = Modifier.padding(10.dp),
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 20.sp
+                )
+            }
         }
     }
-}
+
 
 

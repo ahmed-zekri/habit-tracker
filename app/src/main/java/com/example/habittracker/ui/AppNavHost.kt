@@ -7,7 +7,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.habittracker.ui.mainScreen.HabitCreationViewModel
-import com.example.habittracker.ui.mainScreen.HabitScreen
+import com.example.habittracker.ui.mainScreen.habitScreen
 import com.example.habittracker.ui.mainScreen.HabitViewModel
 import com.example.habittracker.ui.mainScreen.HabitsCreationScreen
 
@@ -28,7 +28,7 @@ fun AppNavHost(
             HabitsCreationScreen(habitCreationViewModel, navHostController)
         }
         composable(Destinations.Habit.path) {
-            HabitScreen(habitViewModel, navHostController)
+            habitScreen(habitViewModel, navHostController)
         }
     }
 }
