@@ -36,21 +36,27 @@ fun habitScreen(
     }.apply {
         value?.let { habit ->
             habitViewModel.setHabit(habit)
-            Column(Modifier.fillMaxSize(), horizontalAlignment = CenterHorizontally) {
+            Column(
+                Modifier
+                    .fillMaxSize()
+                    .background(Color(red = 147, green = 194, blue = 67)),
+                horizontalAlignment = CenterHorizontally
+            ) {
                 val calendar = Calendar.getInstance().apply { time = habit.date }
                 Text(
                     text = habitViewModel.extractDateString(calendar),
                     modifier = Modifier
                         .padding(30.dp),
                     fontWeight = FontWeight.Bold,
-                    fontSize = 20.sp
+                    fontSize = 20.sp,
+                    color = Color.White
                 )
                 ICONS.find { it.name == habit.image }?.let {
                     Box(
                         modifier = Modifier
                             .size(80.dp)
                             .background(
-                                color = Color(red = 245, green = 23, blue = 79),
+                                color = Color.White,
                                 shape = CircleShape
                             )
                     ) {
@@ -60,10 +66,16 @@ fun habitScreen(
                             modifier = Modifier
                                 .padding(20.dp)
                                 .align(Center)
-                                .size(65.dp), tint = Color.White
+                                .size(65.dp), tint = Color.Black
                         )
                     }
                 }
+                Text(
+                    text = habit.name,
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 20.sp,
+                    color = Color.White, modifier = Modifier.padding(top = 10.dp)
+                )
             }
         }
     }
