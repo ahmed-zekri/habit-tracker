@@ -1,21 +1,34 @@
 package com.example.habittracker.ui.mainScreen
 
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.padding
+import androidx.compose.animation.core.Animatable
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material3.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.core.text.isDigitsOnly
-import com.example.habittracker.data.constants.ICONS
+import androidx.compose.ui.unit.sp
 import com.example.habittracker.data.model.Habit
 import java.util.*
 
+@Preview(showBackground = true)
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HabitAlertDialog(onConfirm: Habit.() -> Unit, onClose: () -> Unit) {
+fun HabitAlertDialog(
+    visibilityState: State<Boolean>? = null,
+    onConfirm: (Habit.() -> Unit)? = null,
+    onClose: (() -> Unit)? = null
+) {
+    val modifier = remember {
+        Modifier
+            .background(Color(red = 219, green = 71, blue = 71))
+    }
     val openImageDialog = remember { mutableStateOf(false) }
     val iconName = remember {
         mutableStateOf<String?>(null)
@@ -23,88 +36,55 @@ fun HabitAlertDialog(onConfirm: Habit.() -> Unit, onClose: () -> Unit) {
     val habitText = remember {
         mutableStateOf<String?>(null)
     }
-    val currentStreak = remember {
-        mutableStateOf(0)
-    }
-    val goal = remember {
-        mutableStateOf(1)
+    val animatedFade = remember {
+        Animatable(0f)
     }
 
-    AlertDialog(
-        onDismissRequest = { openImageDialog.value = false }, dismissButton = {
-            Button(
-                onClick = onClose
-            ) { Text(text = "Close") }
-        },
-        confirmButton = {
-            Button(
-                enabled = habitText.value?.isNotEmpty() == true && iconName.value?.isNotEmpty() == true,
-                onClick = {
-                    iconName.value?.let { iconName ->
-                        habitText.value?.let { habitText ->
-                            onConfirm(
-                                Habit(
-                                    name = habitText,
-                                    goal = goal.value,
-                                    best = 1,
-                                    streak = currentStreak.value,
-                                    image = iconName,
-                                    date = Calendar.getInstance().time
-                                )
-                            )
-                        }
-                    }
-                }) { Text(text = "Add habit") }
-        },
-        title = { Text(text = "Adding habit") },
-        text = {
-            Column {
-                OutlinedTextField(
-                    value = habitText.value ?: "", label = { Text(text = "Habit name") },
-                    onValueChange = { habitText.value = it },
-                    placeholder = { Text(text = "Enter habit name") },
-                    trailingIcon = {
-                        iconName.value?.let { iconName ->
-                            ICONS.find { it.name == iconName }?.let { icon ->
-                                Icon(imageVector = icon, contentDescription = null)
-                            }
-                        }
-                    })
-                OutlinedTextField(
-                    value = currentStreak.value.toString(), label = { Text(text = "Streak") },
-                    onValueChange = {
-                        if (it.isNotEmpty() && it.isDigitsOnly())
-                            currentStreak.value = it.toInt()
-                    },
-                    placeholder = { Text(text = "Current streak") },
-                    trailingIcon = {
-                        iconName.value?.let { iconName ->
-                            ICONS.find { it.name == iconName }?.let { icon ->
-                                Icon(imageVector = icon, contentDescription = null)
-                            }
-                        }
-                    })
-                OutlinedTextField(
-                    value = goal.value.toString(), label = { Text(text = "Goal") },
-                    onValueChange = {
-                        if (it.isNotEmpty() && it.isDigitsOnly())
-                            goal.value = it.toInt()
-                    },
-                    placeholder = { Text(text = "Goal") },
-                    trailingIcon = {
-                        iconName.value?.let { iconName ->
-                            ICONS.find { it.name == iconName }?.let { icon ->
-                                Icon(imageVector = icon, contentDescription = null)
-                            }
-                        }
-                    })
-                Button(modifier = Modifier.padding(top = 15.dp), onClick = {
-                    openImageDialog.value = true
-                }) {
-                    Text(text = "Open image picker")
-                }
-            }
-        })
+    LaunchedEffect(key1 = visibilityState?.value) {
+
+        println(visibilityState?.value)
+    }
+
+
+    Column(
+        modifier = if (visibilityState?.value == true) modifier.fillMaxSize() else modifier.size(
+            animatedFade.value.dp
+        ), horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        AddTaskDialogTopBar()
+
+        Icon(
+            modifier = Modifier
+                .padding(vertical = 15.dp)
+                .size(55.dp),
+            imageVector = Icons.Default.CheckCircle,
+            contentDescription = "Customized habit",
+            tint = Color.White
+        )
+
+        Text(
+            "Tasks start each day as incomplete , Mark a task as done to increase your streak",
+            color = Color(255, 196, 194, 255),
+            modifier = Modifier.padding(top = 30.dp, start = 15.dp, end = 15.dp),
+            fontWeight = FontWeight.Bold
+        )
+        Text(
+            "CREATE YOUR OWN:",
+            color = Color(255, 196, 194, 255),
+            modifier = Modifier
+                .padding(15.dp)
+                .align(Alignment.Start), fontSize = 18.sp,
+            fontWeight = FontWeight.Bold
+        )
+
+        TextField(
+            modifier = Modifier.fillMaxWidth(),
+            colors = TextFieldDefaults.textFieldColors(containerColor = Color(197, 62, 63)),
+            value = habitText.value ?: "",
+            onValueChange = { habitText.value = it },
+            placeholder = { Text(text = "Enter task title...", color = Color(255, 196, 194, 255)) },
+        )
+    }
     if (openImageDialog.value) {
         HabitAlertImageDialog(iconName.value, {
             openImageDialog.value = false
