@@ -18,16 +18,13 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.habittracker.data.constants.ALERT_DIALOG_ANIMATION_DURATION_MILLIS
 import com.example.habittracker.data.constants.ORIGINAL_ALERT_POSITION_Y
-import com.example.habittracker.data.model.Habit
 import java.util.*
 
 @Preview(showBackground = true)
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HabitAlertDialog(
-    visibilityState: State<Boolean>? = null,
-    onConfirm: (Habit.() -> Unit)? = null,
-    onClose: (() -> Unit)? = null
+    visibilityState: MutableState<Boolean>? = null
 ) {
     val modifier = remember {
         Modifier
@@ -40,12 +37,12 @@ fun HabitAlertDialog(
     val habitText = remember {
         mutableStateOf<String?>(null)
     }
-    val animatedFade = remember {
+    val animatedOffset = remember {
         Animatable(ORIGINAL_ALERT_POSITION_Y)
     }
 
     LaunchedEffect(key1 = visibilityState?.value) {
-        animatedFade.animateTo(
+        animatedOffset.animateTo(
             targetValue = if (visibilityState?.value == true) 0f else ORIGINAL_ALERT_POSITION_Y,
             animationSpec = tween(
                 durationMillis = ALERT_DIALOG_ANIMATION_DURATION_MILLIS.toInt(),
@@ -56,13 +53,18 @@ fun HabitAlertDialog(
 
 
     Column(
-        modifier = if (visibilityState?.value == true) modifier
-            .fillMaxSize()
-            .offset { IntOffset(x = 0, y = animatedFade.value.toInt()) } else modifier.size(
-            0.dp
-        ), horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        AddTaskDialogTopBar()
+        modifier = modifier.run {
+            if (visibilityState?.value == false)
+                if (animatedOffset.value != ORIGINAL_ALERT_POSITION_Y)
+                    offset { IntOffset(x = 0, y = animatedOffset.value.toInt()) }
+                else
+                    size(0.dp)
+            else
+                offset { IntOffset(x = 0, y = animatedOffset.value.toInt()) }.fillMaxSize()
+        }, horizontalAlignment = Alignment.CenterHorizontally
+    )
+    {
+        AddTaskDialogTopBar { visibilityState?.value = false }
 
         Icon(
             modifier = Modifier

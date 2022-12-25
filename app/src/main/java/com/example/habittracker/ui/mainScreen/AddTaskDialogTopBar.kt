@@ -1,6 +1,7 @@
 package com.example.habittracker.ui.mainScreen
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -17,7 +18,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun AddTaskDialogTopBar() {
+fun AddTaskDialogTopBar(closeDialog: (() -> Unit)? = null) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -28,9 +29,11 @@ fun AddTaskDialogTopBar() {
             Icons.Default.Close,
             contentDescription = "Close the dialog",
             tint = Color.White,
-            modifier = Modifier.weight(
-                1f
-            )
+            modifier = Modifier
+                .weight(
+                    1f
+                )
+                .clickable { closeDialog?.apply { invoke() } }
         )
         Spacer(modifier = Modifier.weight(4f))
         Text(

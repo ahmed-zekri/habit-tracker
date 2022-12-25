@@ -98,12 +98,8 @@ fun HabitsCreationScreen(
         })
 
         HabitAlertDialog(
-            openDialog,
-            onConfirm = {
-                openDialog.value = false
-                mainScreenViewModel.addHabit(habit = this)
-                mainScreenViewModel.getHabits()
-            })
+            openDialog
+            )
     }
 }
 
