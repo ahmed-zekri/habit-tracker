@@ -1,6 +1,7 @@
 package com.example.habittracker.ui.mainScreen
 
 import androidx.compose.animation.core.Animatable
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
@@ -12,8 +13,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.habittracker.data.constants.ALERT_DIALOG_ANIMATION_DURATION_MILLIS
+import com.example.habittracker.data.constants.ORIGINAL_ALERT_POSITION_Y
 import com.example.habittracker.data.model.Habit
 import java.util.*
 
@@ -37,18 +41,25 @@ fun HabitAlertDialog(
         mutableStateOf<String?>(null)
     }
     val animatedFade = remember {
-        Animatable(0f)
+        Animatable(ORIGINAL_ALERT_POSITION_Y)
     }
 
     LaunchedEffect(key1 = visibilityState?.value) {
-
-        println(visibilityState?.value)
+        animatedFade.animateTo(
+            targetValue = if (visibilityState?.value == true) 0f else ORIGINAL_ALERT_POSITION_Y,
+            animationSpec = tween(
+                durationMillis = ALERT_DIALOG_ANIMATION_DURATION_MILLIS.toInt(),
+                delayMillis = 0
+            )
+        )
     }
 
 
     Column(
-        modifier = if (visibilityState?.value == true) modifier.fillMaxSize() else modifier.size(
-            animatedFade.value.dp
+        modifier = if (visibilityState?.value == true) modifier
+            .fillMaxSize()
+            .offset { IntOffset(x = 0, y = animatedFade.value.toInt()) } else modifier.size(
+            0.dp
         ), horizontalAlignment = Alignment.CenterHorizontally
     ) {
         AddTaskDialogTopBar()
