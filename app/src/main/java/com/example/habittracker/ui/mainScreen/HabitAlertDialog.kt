@@ -143,7 +143,7 @@ fun HabitAlertDialog(
             }
         )
         Text(
-            "${habitText.value?.length?:0} / $MAXIMUM_HABIT_CHARACTERS",
+            "${habitText.value?.length ?: 0} / $MAXIMUM_HABIT_CHARACTERS",
             color = Color(255, 196, 194, 255),
             modifier = Modifier
                 .padding(15.dp)
