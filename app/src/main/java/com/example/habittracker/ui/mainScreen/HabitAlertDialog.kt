@@ -3,6 +3,7 @@ package com.example.habittracker.ui.mainScreen
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowForward
@@ -111,7 +112,8 @@ fun HabitAlertDialog(
                             Icon(
                                 modifier = Modifier
                                     .padding(15.dp)
-                                    .size(20.dp),
+                                    .size(20.dp)
+                                    .clickable { habitText.value = "" },
                                 imageVector = Icons.Default.Delete,
                                 contentDescription = "Clear habit text",
                                 tint = Color.White
@@ -125,7 +127,8 @@ fun HabitAlertDialog(
                                 Icon(
                                     modifier = Modifier
                                         .size(20.dp)
-                                        .align(Alignment.Center),
+                                        .align(Alignment.Center)
+                                        .clickable { },
                                     imageVector = Icons.Default.ArrowForward,
                                     contentDescription = "Proceed to save habit",
                                     tint = Color.White
@@ -136,12 +139,11 @@ fun HabitAlertDialog(
             }
         )
     }
-    if (openImageDialog.value) {
+    if (openImageDialog.value)
         HabitAlertImageDialog(iconName.value, {
             openImageDialog.value = false
             iconName.value = this
         }) {
             openImageDialog.value = false
         }
-    }
 }
