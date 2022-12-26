@@ -4,7 +4,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
 
 val ICONS = listOf(
-
     Icons.Filled.Sports,
     Icons.Filled.Book,
     Icons.Filled.MonitorHeart,
@@ -15,4 +14,6 @@ val ICONS = listOf(
     Icons.Filled.Watch,
     Icons.Filled.SmokeFree,
     Icons.Filled.AcUnit,
-    )
+)
+const val ORIGINAL_ALERT_POSITION_Y = 1500f
+const val ALERT_DIALOG_ANIMATION_DURATION_MILLIS:Long = 250
