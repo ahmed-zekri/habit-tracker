@@ -1,7 +1,5 @@
 package com.example.habittracker.ui.mainScreen
 
-import androidx.compose.animation.core.Animatable
-import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -17,20 +15,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.habittracker.data.constants.ALERT_DIALOG_ANIMATION_DURATION_MILLIS
+import androidx.navigation.NavHostController
 import com.example.habittracker.data.constants.MAXIMUM_HABIT_CHARACTERS
-import com.example.habittracker.data.constants.ORIGINAL_ALERT_POSITION_Y
+import com.example.habittracker.ui.Destinations
 import java.util.*
 
-@Preview(showBackground = true)
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HabitAlertDialog(
-    visibilityState: MutableState<Boolean>? = null
+    navHostController: NavHostController
 ) {
     val modifier = remember {
         Modifier
@@ -39,37 +34,15 @@ fun HabitAlertDialog(
     val habitText = remember {
         mutableStateOf<String?>(null)
     }
-    val animatedOffset = remember {
-        Animatable(ORIGINAL_ALERT_POSITION_Y)
-    }
     val confirmHabitAlertDialogVisibility = remember {
         mutableStateOf(false)
     }
 
-    LaunchedEffect(key1 = visibilityState?.value) {
-        animatedOffset.animateTo(
-            targetValue = if (visibilityState?.value == true) 0f else ORIGINAL_ALERT_POSITION_Y,
-            animationSpec = tween(
-                durationMillis = ALERT_DIALOG_ANIMATION_DURATION_MILLIS.toInt(),
-                delayMillis = 0
-            )
-        )
-    }
-
-
     Column(
-        modifier = modifier.run {
-            if (visibilityState?.value == false)
-                if (animatedOffset.value != ORIGINAL_ALERT_POSITION_Y)
-                    offset { IntOffset(x = 0, y = animatedOffset.value.toInt()) }
-                else
-                    size(0.dp)
-            else
-                offset { IntOffset(x = 0, y = animatedOffset.value.toInt()) }.fillMaxSize()
-        }, horizontalAlignment = Alignment.CenterHorizontally
+        modifier = modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally
     )
     {
-        DialogTopBar(Icons.Default.Close) { visibilityState?.value = false }
+        DialogTopBar(Icons.Default.Close) { navHostController.navigate(Destinations.Home.path) }
 
         Icon(
             modifier = Modifier
@@ -153,8 +126,5 @@ fun HabitAlertDialog(
             fontWeight = FontWeight.Bold
         )
     }
-    if (confirmHabitAlertDialogVisibility.value) {
-        visibilityState?.value = false
-        HabitConfirmAlertDialog(habitText = habitText.value!!)
-    }
+
 }

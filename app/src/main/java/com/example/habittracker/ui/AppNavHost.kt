@@ -1,31 +1,39 @@
 package com.example.habittracker.ui
 
+import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.slideInVertically
+import androidx.compose.animation.slideOutVertically
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
-import androidx.navigation.compose.rememberNavController
-import com.example.habittracker.ui.mainScreen.HabitCreationViewModel
-import com.example.habittracker.ui.mainScreen.habitScreen
-import com.example.habittracker.ui.mainScreen.HabitViewModel
-import com.example.habittracker.ui.mainScreen.HabitsCreationScreen
+import com.example.habittracker.ui.mainScreen.*
+import com.google.accompanist.navigation.animation.AnimatedNavHost
+import com.google.accompanist.navigation.animation.composable
+import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 
+@OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun AppNavHost(
     modifier: Modifier = Modifier,
     startDestination: String = Destinations.Home.path,
-    navHostController: NavHostController = rememberNavController(),
+    navHostController: NavHostController = rememberAnimatedNavController(),
     habitCreationViewModel: HabitCreationViewModel,
     habitViewModel: HabitViewModel
 ) {
-    NavHost(
+    AnimatedNavHost(
         modifier = modifier,
         navController = navHostController,
         startDestination = startDestination
     ) {
-        composable(startDestination) {
+        composable(
+            startDestination,
+            enterTransition = { slideInVertically(animationSpec = tween(500)) },
+            exitTransition = {slideOutVertically(animationSpec = tween(500)) }) {
             HabitsCreationScreen(habitCreationViewModel, navHostController)
+        }
+        composable(Destinations.HabitCreation.path) {
+            HabitAlertDialog(navHostController)
         }
         composable(Destinations.Habit.path) {
             habitScreen(habitViewModel, navHostController)

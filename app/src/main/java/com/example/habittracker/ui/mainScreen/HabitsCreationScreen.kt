@@ -12,9 +12,6 @@ import androidx.compose.material.icons.filled.NoTransfer
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -34,8 +31,6 @@ fun HabitsCreationScreen(
     navHostController: NavHostController
 ) {
     val habits = mainScreenViewModel.state.value.habits
-    val openDialog = remember { mutableStateOf(false) }
-    rememberCoroutineScope()
     Box(modifier = Modifier.fillMaxSize()) {
         LazyVerticalGrid(modifier = Modifier
             .background(color = Color(255, 112, 76))
@@ -46,7 +41,7 @@ fun HabitsCreationScreen(
                         .size(210.dp)
                         .clickable {
                             if (index == habits.size)
-                                openDialog.value = true
+                                navHostController.navigate(Destinations.HabitCreation.path)
                             else
                                 showHabit(habits[index], navHostController)
                         }
@@ -96,10 +91,6 @@ fun HabitsCreationScreen(
                 }
             }
         })
-
-        HabitAlertDialog(
-            openDialog
-            )
     }
 }
 
