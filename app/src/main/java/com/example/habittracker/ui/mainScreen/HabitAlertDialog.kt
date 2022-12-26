@@ -21,6 +21,7 @@ import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.habittracker.data.constants.ALERT_DIALOG_ANIMATION_DURATION_MILLIS
+import com.example.habittracker.data.constants.MAXIMUM_HABIT_CHARACTERS
 import com.example.habittracker.data.constants.ORIGINAL_ALERT_POSITION_Y
 import java.util.*
 
@@ -103,7 +104,10 @@ fun HabitAlertDialog(
                 textColor = Color.White
             ),
             value = habitText.value ?: "",
-            onValueChange = { habitText.value = it },
+            onValueChange = {
+                if (it.length <= MAXIMUM_HABIT_CHARACTERS)
+                    habitText.value = it
+            },
             placeholder = { Text(text = "Enter task title...", color = Color(255, 196, 194, 255)) },
             trailingIcon = {
                 habitText.value?.apply {
@@ -137,6 +141,14 @@ fun HabitAlertDialog(
                         }
                 }
             }
+        )
+        Text(
+            "${habitText.value?.length?:0} / $MAXIMUM_HABIT_CHARACTERS",
+            color = Color(255, 196, 194, 255),
+            modifier = Modifier
+                .padding(15.dp)
+                .align(Alignment.Start), fontSize = 18.sp,
+            fontWeight = FontWeight.Bold
         )
     }
     if (openImageDialog.value)
