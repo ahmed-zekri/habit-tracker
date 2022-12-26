@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowForward
 import androidx.compose.material.icons.filled.CheckCircle
+import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -35,15 +36,14 @@ fun HabitAlertDialog(
         Modifier
             .background(Color(red = 219, green = 71, blue = 71))
     }
-    val openImageDialog = remember { mutableStateOf(false) }
-    val iconName = remember {
-        mutableStateOf<String?>(null)
-    }
     val habitText = remember {
         mutableStateOf<String?>(null)
     }
     val animatedOffset = remember {
         Animatable(ORIGINAL_ALERT_POSITION_Y)
+    }
+    val confirmHabitAlertDialogVisibility = remember {
+        mutableStateOf(false)
     }
 
     LaunchedEffect(key1 = visibilityState?.value) {
@@ -69,7 +69,7 @@ fun HabitAlertDialog(
         }, horizontalAlignment = Alignment.CenterHorizontally
     )
     {
-        AddTaskDialogTopBar { visibilityState?.value = false }
+        DialogTopBar(Icons.Default.Close) { visibilityState?.value = false }
 
         Icon(
             modifier = Modifier
@@ -132,7 +132,9 @@ fun HabitAlertDialog(
                                     modifier = Modifier
                                         .size(20.dp)
                                         .align(Alignment.Center)
-                                        .clickable { },
+                                        .clickable {
+                                            confirmHabitAlertDialogVisibility.value = true
+                                        },
                                     imageVector = Icons.Default.ArrowForward,
                                     contentDescription = "Proceed to save habit",
                                     tint = Color.White
@@ -151,11 +153,8 @@ fun HabitAlertDialog(
             fontWeight = FontWeight.Bold
         )
     }
-    if (openImageDialog.value)
-        HabitAlertImageDialog(iconName.value, {
-            openImageDialog.value = false
-            iconName.value = this
-        }) {
-            openImageDialog.value = false
-        }
+    if (confirmHabitAlertDialogVisibility.value) {
+        visibilityState?.value = false
+        HabitConfirmAlertDialog(habitText = habitText.value!!)
+    }
 }
