@@ -23,6 +23,8 @@ import com.example.habittracker.data.constants.MAXIMUM_HABIT_CHARACTERS
 import com.example.habittracker.ui.navigation.Destinations
 import com.example.habittracker.ui.ScreenTopBar
 import com.example.habittracker.ui.screenUtils.RoundedIcon
+import compose.icons.AllIcons
+import compose.icons.TablerIcons
 import java.util.*
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -35,6 +37,7 @@ fun HabitConfirmScreen(
         Modifier.background(color = primaryColor)
     }
     val habitText = navHostController?.currentBackStackEntry?.arguments?.getString("habitText")
+    val icon = navHostController?.currentBackStackEntry?.arguments?.getString("icon")
     Column(modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally) {
         Column(
             modifier = modifier
@@ -62,7 +65,8 @@ fun HabitConfirmScreen(
                         )
                 ) {
                     Icon(
-                        imageVector = Icons.Default.Brush,
+                        imageVector = TablerIcons.AllIcons.find { it.name == (icon ?: "") }
+                            ?: Icons.Default.Brush,
                         contentDescription = null,
                         modifier = Modifier
                             .size(70.dp)
@@ -74,7 +78,9 @@ fun HabitConfirmScreen(
                     modifier = Modifier
                         .size(50.dp)
                         .background(Color.White, shape = CircleShape)
-                        .align(Alignment.BottomEnd).clickable { navHostController?.navigate(Destinations.HabitIconSelection.path) }, horizontalArrangement = Arrangement.Center
+                        .align(Alignment.BottomEnd)
+                        .clickable { navHostController?.navigate(Destinations.HabitIconSelection.path) },
+                    horizontalArrangement = Arrangement.Center
                 ) {
                     (1..3).forEach { _ ->
                         Box(
