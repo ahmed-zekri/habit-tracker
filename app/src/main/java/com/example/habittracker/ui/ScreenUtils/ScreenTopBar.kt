@@ -1,4 +1,4 @@
-package com.example.habittracker.ui.mainScreen
+package com.example.habittracker.ui
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -17,7 +17,7 @@ import androidx.compose.ui.unit.sp
 import com.example.habittracker.R
 
 @Composable
-fun DialogTopBar(
+fun ScreenTopBar(
     icon: ImageVector,
     text: String,
     iconSize: Dp? = null,

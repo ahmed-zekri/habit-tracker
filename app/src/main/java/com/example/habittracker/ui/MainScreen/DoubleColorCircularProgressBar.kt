@@ -1,4 +1,4 @@
-package com.example.habittracker.ui.mainScreen
+package com.example.habittracker.ui.MainScreen
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.size

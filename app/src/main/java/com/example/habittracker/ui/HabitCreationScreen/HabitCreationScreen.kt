@@ -1,4 +1,4 @@
-package com.example.habittracker.ui.mainScreen
+package com.example.habittracker.ui.HabitCreationScreen
 
 import android.os.Bundle
 import androidx.compose.foundation.background
@@ -23,7 +23,8 @@ import androidx.navigation.NavHostController
 import com.example.habittracker.R
 import com.example.habittracker.data.constants.MAXIMUM_HABIT_CHARACTERS
 import com.example.habittracker.data.utils.navigate
-import com.example.habittracker.ui.Destinations
+import com.example.habittracker.ui.navigation.Destinations
+import com.example.habittracker.ui.ScreenTopBar
 import java.util.*
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -44,7 +45,7 @@ fun HabitCreationScreen(
         modifier = modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally
     )
     {
-        DialogTopBar(
+        ScreenTopBar(
             Icons.Default.Close,
             "Add task"
         ) { navHostController.navigate(Destinations.Home.path) }

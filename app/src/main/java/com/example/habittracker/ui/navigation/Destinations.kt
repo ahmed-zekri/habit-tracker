@@ -1,4 +1,4 @@
-package com.example.habittracker.ui
+package com.example.habittracker.ui.navigation
 
 sealed class Destinations(val path: String) {
     object HabitCreation : Destinations("HABIT_CREATION_PATH")

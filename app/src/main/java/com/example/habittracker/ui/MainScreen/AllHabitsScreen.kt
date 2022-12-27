@@ -1,4 +1,4 @@
-package com.example.habittracker.ui.mainScreen
+package com.example.habittracker.ui
 
 import android.os.Bundle
 import androidx.compose.foundation.background
@@ -24,8 +24,10 @@ import androidx.navigation.NavHostController
 import com.example.habittracker.data.constants.ICONS
 import com.example.habittracker.data.model.Habit
 import com.example.habittracker.data.utils.navigate
-import com.example.habittracker.ui.Destinations
 import com.example.habittracker.R
+import com.example.habittracker.ui.HabitCreationScreen.HabitCreationViewModel
+import com.example.habittracker.ui.MainScreen.DoubleColorCircularProgressBar
+import com.example.habittracker.ui.navigation.Destinations
 
 @Composable
 fun HabitsCreationScreen(
