@@ -1,4 +1,4 @@
-package com.example.habittracker.ui.mainScreen
+package com.example.habittracker.ui
 
 import android.os.Bundle
 import androidx.compose.foundation.background
@@ -12,12 +12,10 @@ import androidx.compose.material.icons.filled.NoTransfer
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -26,7 +24,10 @@ import androidx.navigation.NavHostController
 import com.example.habittracker.data.constants.ICONS
 import com.example.habittracker.data.model.Habit
 import com.example.habittracker.data.utils.navigate
-import com.example.habittracker.ui.Destinations
+import com.example.habittracker.R
+import com.example.habittracker.ui.habitCreationScreen.HabitCreationViewModel
+import com.example.habittracker.ui.mainScreen.DoubleColorCircularProgressBar
+import com.example.habittracker.ui.navigation.Destinations
 
 @Composable
 fun HabitsCreationScreen(
@@ -34,11 +35,9 @@ fun HabitsCreationScreen(
     navHostController: NavHostController
 ) {
     val habits = mainScreenViewModel.state.value.habits
-    val openDialog = remember { mutableStateOf(false) }
-    rememberCoroutineScope()
     Box(modifier = Modifier.fillMaxSize()) {
         LazyVerticalGrid(modifier = Modifier
-            .background(color = Color(255, 112, 76))
+            .background(color = colorResource(id = R.color.primary))
             .fillMaxSize(), columns = GridCells.Fixed(2), content = {
             items(habits.size + 1) { index ->
                 Box(
@@ -46,7 +45,7 @@ fun HabitsCreationScreen(
                         .size(210.dp)
                         .clickable {
                             if (index == habits.size)
-                                openDialog.value = true
+                                navHostController.navigate(Destinations.HabitCreation.path)
                             else
                                 showHabit(habits[index], navHostController)
                         }
@@ -96,10 +95,6 @@ fun HabitsCreationScreen(
                 }
             }
         })
-
-        HabitAlertDialog(
-            openDialog
-            )
     }
 }
 

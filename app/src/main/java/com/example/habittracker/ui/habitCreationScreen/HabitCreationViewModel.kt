@@ -1,4 +1,4 @@
-package com.example.habittracker.ui.mainScreen
+package com.example.habittracker.ui.habitCreationScreen
 
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
@@ -41,7 +41,7 @@ class HabitCreationViewModel @Inject constructor(
         }
     }
 
-    fun getHabits() {
+    private fun getHabits() {
         viewModelScope.launch(Dispatchers.Main) {
             getAllHabitsUseCase().collect {
                 when (it) {

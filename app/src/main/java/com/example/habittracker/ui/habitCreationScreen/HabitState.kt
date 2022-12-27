@@ -1,4 +1,4 @@
-package com.example.habittracker.ui.mainScreen
+package com.example.habittracker.ui.habitCreationScreen
 
 import com.example.habittracker.data.model.Habit
 

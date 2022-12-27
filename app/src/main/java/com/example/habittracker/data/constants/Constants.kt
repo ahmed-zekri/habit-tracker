@@ -15,6 +15,5 @@ val ICONS = listOf(
     Icons.Filled.SmokeFree,
     Icons.Filled.AcUnit,
 )
-const val ORIGINAL_ALERT_POSITION_Y = 1500f
-const val ALERT_DIALOG_ANIMATION_DURATION_MILLIS:Long = 250
+const val ALERT_DIALOG_ANIMATION_DURATION_MILLIS: Long = 250
 const val MAXIMUM_HABIT_CHARACTERS = 28

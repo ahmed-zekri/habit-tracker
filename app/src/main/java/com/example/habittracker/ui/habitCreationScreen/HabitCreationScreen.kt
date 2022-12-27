@@ -1,75 +1,54 @@
-package com.example.habittracker.ui.mainScreen
+package com.example.habittracker.ui.habitCreationScreen
 
-import androidx.compose.animation.core.Animatable
-import androidx.compose.animation.core.tween
+import android.os.Bundle
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowForward
 import androidx.compose.material.icons.filled.CheckCircle
+import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.habittracker.data.constants.ALERT_DIALOG_ANIMATION_DURATION_MILLIS
+import androidx.navigation.NavHostController
+import com.example.habittracker.R
 import com.example.habittracker.data.constants.MAXIMUM_HABIT_CHARACTERS
-import com.example.habittracker.data.constants.ORIGINAL_ALERT_POSITION_Y
+import com.example.habittracker.data.utils.navigate
+import com.example.habittracker.ui.navigation.Destinations
+import com.example.habittracker.ui.ScreenTopBar
 import java.util.*
 
-@Preview(showBackground = true)
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HabitAlertDialog(
-    visibilityState: MutableState<Boolean>? = null
+fun HabitCreationScreen(
+    navHostController: NavHostController
 ) {
+    val primaryColor = colorResource(id = R.color.primary)
     val modifier = remember {
         Modifier
-            .background(Color(red = 219, green = 71, blue = 71))
-    }
-    val openImageDialog = remember { mutableStateOf(false) }
-    val iconName = remember {
-        mutableStateOf<String?>(null)
+            .background(primaryColor)
     }
     val habitText = remember {
         mutableStateOf<String?>(null)
     }
-    val animatedOffset = remember {
-        Animatable(ORIGINAL_ALERT_POSITION_Y)
-    }
-
-    LaunchedEffect(key1 = visibilityState?.value) {
-        animatedOffset.animateTo(
-            targetValue = if (visibilityState?.value == true) 0f else ORIGINAL_ALERT_POSITION_Y,
-            animationSpec = tween(
-                durationMillis = ALERT_DIALOG_ANIMATION_DURATION_MILLIS.toInt(),
-                delayMillis = 0
-            )
-        )
-    }
-
 
     Column(
-        modifier = modifier.run {
-            if (visibilityState?.value == false)
-                if (animatedOffset.value != ORIGINAL_ALERT_POSITION_Y)
-                    offset { IntOffset(x = 0, y = animatedOffset.value.toInt()) }
-                else
-                    size(0.dp)
-            else
-                offset { IntOffset(x = 0, y = animatedOffset.value.toInt()) }.fillMaxSize()
-        }, horizontalAlignment = Alignment.CenterHorizontally
+        modifier = modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally
     )
     {
-        AddTaskDialogTopBar { visibilityState?.value = false }
+        ScreenTopBar(
+            Icons.Default.Close,
+            "Add task"
+        ) { navHostController.navigate(Destinations.Home.path) }
 
         Icon(
             modifier = Modifier
@@ -82,13 +61,13 @@ fun HabitAlertDialog(
 
         Text(
             "Tasks start each day as incomplete , Mark a task as done to increase your streak",
-            color = Color(255, 196, 194, 255),
+            color = colorResource(id = R.color.darkGray),
             modifier = Modifier.padding(top = 30.dp, start = 15.dp, end = 15.dp),
             fontWeight = FontWeight.Bold
         )
         Text(
             "CREATE YOUR OWN:",
-            color = Color(255, 196, 194, 255),
+            color = colorResource(id = R.color.darkGray),
             modifier = Modifier
                 .padding(15.dp)
                 .align(Alignment.Start), fontSize = 18.sp,
@@ -108,7 +87,7 @@ fun HabitAlertDialog(
                 if (it.length <= MAXIMUM_HABIT_CHARACTERS)
                     habitText.value = it
             },
-            placeholder = { Text(text = "Enter task title...", color = Color(255, 196, 194, 255)) },
+            placeholder = { Text(text = "Enter task title...", color = colorResource(id = R.color.darkGray)) },
             trailingIcon = {
                 habitText.value?.apply {
                     if (isNotEmpty())
@@ -132,7 +111,15 @@ fun HabitAlertDialog(
                                     modifier = Modifier
                                         .size(20.dp)
                                         .align(Alignment.Center)
-                                        .clickable { },
+                                        .clickable {
+                                            navHostController.apply {
+                                                navigate(
+                                                    route = Destinations.HabitCreationConfirmation.path,
+                                                    args = Bundle().apply {
+                                                        putString("habitText", habitText.value)
+                                                    })
+                                            }
+                                        },
                                     imageVector = Icons.Default.ArrowForward,
                                     contentDescription = "Proceed to save habit",
                                     tint = Color.White
@@ -144,18 +131,11 @@ fun HabitAlertDialog(
         )
         Text(
             "${habitText.value?.length ?: 0} / $MAXIMUM_HABIT_CHARACTERS",
-            color = Color(255, 196, 194, 255),
+            color = colorResource(id = R.color.darkGray),
             modifier = Modifier
                 .padding(15.dp)
                 .align(Alignment.Start), fontSize = 18.sp,
             fontWeight = FontWeight.Bold
         )
     }
-    if (openImageDialog.value)
-        HabitAlertImageDialog(iconName.value, {
-            openImageDialog.value = false
-            iconName.value = this
-        }) {
-            openImageDialog.value = false
-        }
 }

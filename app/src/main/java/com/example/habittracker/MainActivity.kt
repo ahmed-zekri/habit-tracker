@@ -8,10 +8,9 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
-import com.example.habittracker.ui.AppNavHost
-import com.example.habittracker.ui.mainScreen.HabitCreationViewModel
-import com.example.habittracker.ui.mainScreen.HabitViewModel
-import com.example.habittracker.ui.theme.HabitTrackerTheme
+import com.example.habittracker.ui.navigation.Navigation
+import com.example.habittracker.ui.habitCreationScreen.HabitCreationViewModel
+import com.example.habittracker.ui.habitViewScreen.HabitViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -21,17 +20,15 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            HabitTrackerTheme {
-                // A surface container using the 'background' color from the theme
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
-                ) {
-                    AppNavHost(
-                        habitCreationViewModel = habitCreationViewModel,
-                        habitViewModel = habitViewModel
-                    )
-                }
+            // A surface container using the 'background' color from the theme
+            Surface(
+                modifier = Modifier.fillMaxSize(),
+                color = MaterialTheme.colorScheme.background
+            ) {
+                Navigation(
+                    habitCreationViewModel = habitCreationViewModel,
+                    habitViewModel = habitViewModel
+                )
             }
         }
     }
