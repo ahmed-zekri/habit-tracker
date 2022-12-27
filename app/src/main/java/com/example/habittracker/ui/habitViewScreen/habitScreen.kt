@@ -1,4 +1,4 @@
-package com.example.habittracker.ui.HabitViewScreen
+package com.example.habittracker.ui.habitViewScreen
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*

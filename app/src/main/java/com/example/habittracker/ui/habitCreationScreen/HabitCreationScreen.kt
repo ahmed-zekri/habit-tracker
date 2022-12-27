@@ -1,4 +1,4 @@
-package com.example.habittracker.ui.HabitCreationScreen
+package com.example.habittracker.ui.habitCreationScreen
 
 import android.os.Bundle
 import androidx.compose.foundation.background

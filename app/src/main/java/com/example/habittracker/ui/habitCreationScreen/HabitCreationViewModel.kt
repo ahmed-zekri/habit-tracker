@@ -1,4 +1,4 @@
-package com.example.habittracker.ui.HabitCreationScreen
+package com.example.habittracker.ui.habitCreationScreen
 
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf

@@ -9,8 +9,8 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import com.example.habittracker.ui.navigation.Navigation
-import com.example.habittracker.ui.HabitCreationScreen.HabitCreationViewModel
-import com.example.habittracker.ui.HabitViewScreen.HabitViewModel
+import com.example.habittracker.ui.habitCreationScreen.HabitCreationViewModel
+import com.example.habittracker.ui.habitViewScreen.HabitViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

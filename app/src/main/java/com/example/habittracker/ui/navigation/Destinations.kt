@@ -6,4 +6,6 @@ sealed class Destinations(val path: String) {
     object Habit : Destinations("HABIT")
     object HabitCreationConfirmation :
         Destinations("Habit_CREATION_CONFIRMATION")
+
+    object HabitIconSelection : Destinations("HABIT_ICON_SELECTION")
 }

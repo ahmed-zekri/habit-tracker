@@ -25,8 +25,8 @@ import com.example.habittracker.data.constants.ICONS
 import com.example.habittracker.data.model.Habit
 import com.example.habittracker.data.utils.navigate
 import com.example.habittracker.R
-import com.example.habittracker.ui.HabitCreationScreen.HabitCreationViewModel
-import com.example.habittracker.ui.MainScreen.DoubleColorCircularProgressBar
+import com.example.habittracker.ui.habitCreationScreen.HabitCreationViewModel
+import com.example.habittracker.ui.mainScreen.DoubleColorCircularProgressBar
 import com.example.habittracker.ui.navigation.Destinations
 
 @Composable

@@ -6,12 +6,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import com.example.habittracker.data.constants.ALERT_DIALOG_ANIMATION_DURATION_MILLIS
-import com.example.habittracker.ui.HabitCreationScreen.HabitConfirmScreen
-import com.example.habittracker.ui.HabitCreationScreen.HabitCreationScreen
-import com.example.habittracker.ui.HabitCreationScreen.HabitCreationViewModel
-import com.example.habittracker.ui.HabitViewScreen.HabitViewModel
+import com.example.habittracker.ui.habitCreationScreen.HabitConfirmScreen
+import com.example.habittracker.ui.habitCreationScreen.HabitCreationScreen
+import com.example.habittracker.ui.habitCreationScreen.HabitCreationViewModel
+import com.example.habittracker.ui.habitViewScreen.HabitViewModel
 import com.example.habittracker.ui.HabitsCreationScreen
-import com.example.habittracker.ui.HabitViewScreen.habitScreen
+import com.example.habittracker.ui.habitCreationScreen.HabitIconSelection
+import com.example.habittracker.ui.habitViewScreen.habitScreen
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.composable
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
@@ -71,6 +72,28 @@ fun Navigation(
         }
         composable(Destinations.Habit.path) {
             habitScreen(habitViewModel, navHostController)
+        }
+
+        composable(
+            startDestination,
+            enterTransition = {
+                slideInVertically(
+                    animationSpec = tween(
+                        ALERT_DIALOG_ANIMATION_DURATION_MILLIS.toInt()
+                    )
+                )
+            },
+            exitTransition = {
+                slideOutVertically(
+                    animationSpec = tween(
+                        ALERT_DIALOG_ANIMATION_DURATION_MILLIS.toInt()
+                    )
+                )
+            }) {
+            HabitsCreationScreen(habitCreationViewModel, navHostController)
+        }
+        composable(Destinations.HabitIconSelection.path) {
+            HabitIconSelection(navHostController)
         }
     }
 }

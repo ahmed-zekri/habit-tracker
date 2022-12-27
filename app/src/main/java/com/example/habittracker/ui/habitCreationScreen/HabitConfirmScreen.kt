@@ -1,11 +1,8 @@
-package com.example.habittracker.ui.HabitCreationScreen
+package com.example.habittracker.ui.habitCreationScreen
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.border
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
@@ -25,7 +22,7 @@ import com.example.habittracker.R
 import com.example.habittracker.data.constants.MAXIMUM_HABIT_CHARACTERS
 import com.example.habittracker.ui.navigation.Destinations
 import com.example.habittracker.ui.ScreenTopBar
-import com.example.habittracker.ui.RoundedIcon
+import com.example.habittracker.ui.screenUtils.RoundedIcon
 import java.util.*
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -77,7 +74,7 @@ fun HabitConfirmScreen(
                     modifier = Modifier
                         .size(50.dp)
                         .background(Color.White, shape = CircleShape)
-                        .align(Alignment.BottomEnd), horizontalArrangement = Arrangement.Center
+                        .align(Alignment.BottomEnd).clickable { navHostController?.navigate(Destinations.HabitIconSelection.path) }, horizontalArrangement = Arrangement.Center
                 ) {
                     (1..3).forEach { _ ->
                         Box(

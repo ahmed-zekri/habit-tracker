@@ -1,4 +1,4 @@
-package com.example.habittracker.ui.HabitViewScreen
+package com.example.habittracker.ui.habitViewScreen
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
