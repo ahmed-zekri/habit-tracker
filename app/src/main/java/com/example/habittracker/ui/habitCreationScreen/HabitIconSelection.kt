@@ -1,6 +1,7 @@
 package com.example.habittracker.ui.habitCreationScreen
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
@@ -16,6 +17,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
@@ -24,7 +26,9 @@ import com.example.habittracker.ui.ScreenTopBar
 import com.example.habittracker.ui.navigation.Destinations
 import com.example.habittracker.ui.screenUtils.RoundedIcon
 import compose.icons.AllIcons
-import compose.icons.FontAwesomeIcons
+import compose.icons.TablerIcons
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -39,19 +43,25 @@ fun HabitIconSelection(navHostController: NavHostController) =
             mutableStateOf("")
         }
         val iconsList = remember {
-            mutableStateOf(FontAwesomeIcons.AllIcons)
+            mutableStateOf(TablerIcons.AllIcons)
+        }
+        val selectedIcon = remember {
+            mutableStateOf<ImageVector?>(null)
         }
         ScreenTopBar(icon = Icons.Default.ExitToApp, text = "Select icon") {
             navHostController.navigate(Destinations.HabitCreationConfirmation.path)
         }
         LaunchedEffect(key1 = searchItem.value) {
             if (searchItem.value.isEmpty())
-                iconsList.value = FontAwesomeIcons.AllIcons
+                iconsList.value = TablerIcons.AllIcons
             else
                 iconsList.value =
-                    FontAwesomeIcons.AllIcons.filter {
-                        searchItem.value.lowercase().trim() in it.name.lowercase()
+                    withContext(Dispatchers.IO) {
+                        TablerIcons.AllIcons.filter {
+                            searchItem.value.lowercase().trim() in it.name.lowercase()
+                        }
                     }
+
         }
 
         Spacer(modifier = Modifier.height(15.dp))
@@ -82,16 +92,30 @@ fun HabitIconSelection(navHostController: NavHostController) =
 
         LazyVerticalGrid(columns = GridCells.Adaptive(120.dp)) {
             items(iconsList.value.size) { index ->
-                Box(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .padding(20.dp)
-                ) {
-                    RoundedIcon(
-                        circleColor = colorResource(id = R.color.primaryDark),
-                        icon = iconsList.value[index], padding = 20.dp, iconSize = 40.dp
-                    )
+                iconsList.value[index].apply {
+                    Box(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(20.dp)
+                    ) {
+                        RoundedIcon(
+                            modifier = Modifier.clickable {
+                                if (selectedIcon.value == this@apply)
+                                    selectedIcon.value = null
+                                else
+                                    selectedIcon.value = this@apply
+                            },
+                            circleColor = if (this@apply == selectedIcon.value) Color.White else colorResource(
+                                id = R.color.primaryDark
+                            ),
+                            icon = this@apply,
+                            padding = 20.dp,
+                            iconSize = 40.dp,
+                            iconTint = if (this@apply == selectedIcon.value) Color.Black else Color.White
+                        )
+                    }
                 }
+
             }
         }
     }
