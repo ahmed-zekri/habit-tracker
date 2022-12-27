@@ -41,7 +41,7 @@ class HabitCreationViewModel @Inject constructor(
         }
     }
 
-    fun getHabits() {
+    private fun getHabits() {
         viewModelScope.launch(Dispatchers.Main) {
             getAllHabitsUseCase().collect {
                 when (it) {

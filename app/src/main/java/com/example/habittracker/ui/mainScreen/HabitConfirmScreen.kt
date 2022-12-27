@@ -127,7 +127,7 @@ fun HabitConfirmScreen(
                 Row(
                     Modifier
                         .fillMaxWidth()
-                        .padding(top = 10.dp)
+                        .padding(vertical = 10.dp)
                 ) {
                     Row(
                         horizontalArrangement = Arrangement.SpaceBetween,
@@ -181,7 +181,7 @@ fun HabitConfirmScreen(
                         modifier = Modifier
                             .weight(2f)
                             .align(CenterVertically)
-                            .padding(top = 10.dp)
+                            .padding(vertical = 10.dp)
                     ) {
                         Box(
                             modifier = Modifier
@@ -239,7 +239,7 @@ fun HabitConfirmScreen(
                         modifier = Modifier
                             .weight(2f)
                             .align(CenterVertically)
-                            .padding(top = 10.dp)
+                            .padding(vertical = 10.dp)
                     ) {
                         Box(
                             modifier = Modifier
