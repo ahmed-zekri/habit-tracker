@@ -15,6 +15,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -24,6 +25,7 @@ import com.example.habittracker.data.constants.ICONS
 import com.example.habittracker.data.model.Habit
 import com.example.habittracker.data.utils.navigate
 import com.example.habittracker.ui.Destinations
+import com.example.habittracker.R
 
 @Composable
 fun HabitsCreationScreen(
@@ -33,7 +35,7 @@ fun HabitsCreationScreen(
     val habits = mainScreenViewModel.state.value.habits
     Box(modifier = Modifier.fillMaxSize()) {
         LazyVerticalGrid(modifier = Modifier
-            .background(color = Color(255, 112, 76))
+            .background(color = colorResource(id = R.color.primary))
             .fillMaxSize(), columns = GridCells.Fixed(2), content = {
             items(habits.size + 1) { index ->
                 Box(

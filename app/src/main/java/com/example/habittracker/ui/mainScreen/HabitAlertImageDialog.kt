@@ -55,7 +55,7 @@ fun HabitAlertImageDialog(icon: String?, onConfirm: String.() -> Unit, onDismiss
                                     }
                                     .background(
                                         if (iconName.value != ICONS[index].name) Color.Transparent else colorResource(
-                                            id = R.color.purple_200
+                                            id = R.color.primary
                                         )
                                     )
                                     .size(50.dp)

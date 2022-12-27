@@ -14,11 +14,13 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
+import com.example.habittracker.R
 import com.example.habittracker.data.constants.MAXIMUM_HABIT_CHARACTERS
 import com.example.habittracker.data.utils.navigate
 import com.example.habittracker.ui.Destinations
@@ -29,9 +31,10 @@ import java.util.*
 fun HabitCreationScreen(
     navHostController: NavHostController
 ) {
+    val primaryColor = colorResource(id = R.color.primary)
     val modifier = remember {
         Modifier
-            .background(Color(red = 219, green = 71, blue = 71))
+            .background(primaryColor)
     }
     val habitText = remember {
         mutableStateOf<String?>(null)
@@ -41,7 +44,10 @@ fun HabitCreationScreen(
         modifier = modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally
     )
     {
-        DialogTopBar(Icons.Default.Close,"Add task") { navHostController.navigate(Destinations.Home.path) }
+        DialogTopBar(
+            Icons.Default.Close,
+            "Add task"
+        ) { navHostController.navigate(Destinations.Home.path) }
 
         Icon(
             modifier = Modifier

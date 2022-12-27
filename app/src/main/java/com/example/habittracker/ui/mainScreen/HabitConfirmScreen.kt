@@ -15,24 +15,25 @@ import androidx.compose.ui.Alignment.Companion.Center
 import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
+import com.example.habittracker.R
 import com.example.habittracker.data.constants.MAXIMUM_HABIT_CHARACTERS
 import com.example.habittracker.ui.Destinations
 import java.util.*
 
 @OptIn(ExperimentalMaterial3Api::class)
-@Preview
 @Composable
 fun HabitConfirmScreen(
     navHostController: NavHostController? = null,
 ) {
+    val primaryColor = colorResource(id = R.color.primary)
     val modifier = remember {
-        Modifier.background(Color(red = 219, green = 71, blue = 71))
+        Modifier.background(color = primaryColor)
     }
     val habitText = navHostController?.currentBackStackEntry?.arguments?.getString("habitText")
     Column(modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally) {
@@ -323,7 +324,8 @@ fun HabitConfirmScreen(
             onClick = { /*TODO*/ },
             modifier = Modifier
                 .padding(10.dp)
-                .fillMaxWidth().weight(1f),
+                .fillMaxWidth()
+                .weight(1f),
             colors = ButtonDefaults.buttonColors(containerColor = Color(50, 11, 12)),
             shape = ButtonDefaults.outlinedShape
         ) {
