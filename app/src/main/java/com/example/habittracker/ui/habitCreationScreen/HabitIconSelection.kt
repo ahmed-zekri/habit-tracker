@@ -10,6 +10,7 @@ import androidx.compose.material.icons.filled.ExitToApp
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -42,6 +43,15 @@ fun HabitIconSelection(navHostController: NavHostController) =
         }
         ScreenTopBar(icon = Icons.Default.ExitToApp, text = "Select icon") {
             navHostController.navigate(Destinations.HabitCreationConfirmation.path)
+        }
+        LaunchedEffect(key1 = searchItem.value) {
+            if (searchItem.value.isEmpty())
+                iconsList.value = FontAwesomeIcons.AllIcons
+            else
+                iconsList.value =
+                    FontAwesomeIcons.AllIcons.filter {
+                        searchItem.value.lowercase().trim() in it.name.lowercase()
+                    }
         }
 
         Spacer(modifier = Modifier.height(15.dp))
