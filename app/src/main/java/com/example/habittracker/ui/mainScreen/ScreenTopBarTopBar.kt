@@ -9,10 +9,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.habittracker.R
 
 @Composable
 fun DialogTopBar(
@@ -24,7 +26,7 @@ fun DialogTopBar(
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .background(Color(red = 190, green = 60, blue = 60))
+            .background(colorResource(id = R.color.primaryDark))
             .padding(vertical = 15.dp)
     ) {
         Icon(

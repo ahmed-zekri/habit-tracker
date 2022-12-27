@@ -56,7 +56,11 @@ fun HabitConfirmScreen(
                 Box(
                     modifier = Modifier
                         .size(130.dp)
-                        .border(width = 10.dp, color = Color(102, 48, 56), shape = CircleShape)
+                        .border(
+                            width = 10.dp,
+                            color = colorResource(id = R.color.darkerGray),
+                            shape = CircleShape
+                        )
                 ) {
                     Icon(
                         imageVector = Icons.Default.Brush,
@@ -93,7 +97,7 @@ fun HabitConfirmScreen(
 
             Text(
                 "Title",
-                color = Color(255, 196, 194, 255),
+                color = colorResource(id = R.color.darkGray),
                 modifier = Modifier
                     .padding(15.dp)
                     .align(Alignment.Start),
@@ -105,14 +109,14 @@ fun HabitConfirmScreen(
                 enabled = false,
                 textStyle = TextStyle(fontWeight = FontWeight.Bold, fontSize = 17.sp),
                 colors = TextFieldDefaults.textFieldColors(
-                    containerColor = Color(197, 62, 63), disabledTextColor = Color.White
+                    containerColor = colorResource(id = R.color.primaryDarkLighter), disabledTextColor = Color.White
                 ),
                 onValueChange = {},
                 value = habitText ?: "",
             )
             Text(
                 "${habitText?.length ?: 0} / $MAXIMUM_HABIT_CHARACTERS",
-                color = Color(255, 196, 194, 255),
+                color = colorResource(id = R.color.darkGray),
                 modifier = Modifier
                     .padding(15.dp)
                     .align(Alignment.Start),
@@ -122,7 +126,7 @@ fun HabitConfirmScreen(
             Spacer(modifier = Modifier.height(8.dp))
             Column(
                 Modifier
-                    .background(Color(197, 62, 63))
+                    .background(colorResource(id = R.color.primaryDarkLighter))
                     .padding(10.dp)
             ) {
                 Row(
@@ -136,23 +140,12 @@ fun HabitConfirmScreen(
                             .weight(2f)
                             .align(CenterVertically)
                     ) {
-                        Box(
-                            modifier = Modifier
-                                .background(
-                                    color = Color(164, 51, 51, 255),
-                                    shape = CircleShape
-                                )
-                                .align(CenterVertically)
-                                .size(50.dp)
-                        ) {
-                            Icon(
-                                imageVector = Icons.Default.CalendarToday,
-                                contentDescription = null,
-                                modifier = Modifier.align(
-                                    Center
-                                ), tint = Color.White
-                            )
-                        }
+                        RoundedIcon(
+                            modifier = Modifier.size(50.dp),
+                            circleColor = colorResource(id = R.color.primaryDark),
+                            icon = Icons.Default.CalendarToday
+                        )
+
                         Text(
                             text = "Daily task",
                             color = Color.White,
@@ -163,7 +156,7 @@ fun HabitConfirmScreen(
                     Row(
                         modifier
                             .weight(3.8f)
-                            .background(Color(197, 62, 63))
+                            .background(colorResource(id = R.color.primaryDarkLighter))
                             .align(CenterVertically),
                         horizontalArrangement = Arrangement.End
                     ) {
@@ -184,23 +177,12 @@ fun HabitConfirmScreen(
                             .align(CenterVertically)
                             .padding(vertical = 10.dp)
                     ) {
-                        Box(
-                            modifier = Modifier
-                                .background(
-                                    color = Color(164, 51, 51, 255),
-                                    shape = CircleShape
-                                )
-                                .align(CenterVertically)
-                                .size(50.dp)
-                        ) {
-                            Icon(
-                                imageVector = Icons.Default.CalendarMonth,
-                                contentDescription = null,
-                                modifier = Modifier.align(
-                                    Center
-                                ), tint = Color.White
-                            )
-                        }
+                        RoundedIcon(
+                            modifier = Modifier.size(50.dp),
+                            circleColor = colorResource(id = R.color.primaryDark),
+                            icon = Icons.Default.CalendarMonth
+                        )
+
                         Text(
                             text = "Task days",
                             color = Color.White,
@@ -211,13 +193,13 @@ fun HabitConfirmScreen(
                     Row(
                         modifier
                             .weight(3.8f)
-                            .background(Color(197, 62, 63))
+                            .background(colorResource(id = R.color.primaryDarkLighter))
                             .align(CenterVertically),
                         horizontalArrangement = Arrangement.End
                     ) {
                         Text(
                             "Every day",
-                            color = Color(255, 196, 194, 255),
+                            color = colorResource(id = R.color.darkGray),
                             modifier = Modifier
                                 .padding(end = 15.dp)
                                 .align(CenterVertically),
@@ -242,23 +224,11 @@ fun HabitConfirmScreen(
                             .align(CenterVertically)
                             .padding(vertical = 10.dp)
                     ) {
-                        Box(
-                            modifier = Modifier
-                                .background(
-                                    color = Color(164, 51, 51, 255),
-                                    shape = CircleShape
-                                )
-                                .align(CenterVertically)
-                                .size(50.dp)
-                        ) {
-                            Icon(
-                                imageVector = Icons.Default.CheckCircleOutline,
-                                contentDescription = null,
-                                modifier = Modifier.align(
-                                    Center
-                                ), tint = Color.White
-                            )
-                        }
+                        RoundedIcon(
+                            modifier = Modifier.size(50.dp),
+                            circleColor = colorResource(id = R.color.primaryDark),
+                            icon = Icons.Default.CheckCircle
+                        )
                         Text(
                             text = "1 time/day",
                             color = Color.White,
@@ -269,45 +239,21 @@ fun HabitConfirmScreen(
                     Row(
                         modifier
                             .weight(3.8f)
-                            .background(Color(197, 62, 63))
+                            .background(colorResource(id = R.color.primaryDarkLighter))
                             .align(CenterVertically),
                         horizontalArrangement = Arrangement.End
                     ) {
-                        Box(
-                            modifier = Modifier
-                                .background(
-                                    color = Color(164, 51, 51, 255),
-                                    shape = CircleShape
-                                )
-                                .align(CenterVertically)
-                                .size(50.dp)
-                        ) {
-                            Icon(
-                                imageVector = Icons.Default.Remove,
-                                contentDescription = null,
-                                modifier = Modifier.align(
-                                    Center
-                                ), tint = Color.White
-                            )
-                        }
+                        RoundedIcon(
+                            modifier = Modifier.size(50.dp),
+                            circleColor = colorResource(id = R.color.primaryDark),
+                            icon = Icons.Default.Remove
+                        )
                         Spacer(modifier = Modifier.width(5.dp))
-                        Box(
-                            modifier = Modifier
-                                .background(
-                                    color = Color(164, 51, 51, 255),
-                                    shape = CircleShape
-                                )
-                                .align(CenterVertically)
-                                .size(50.dp)
-                        ) {
-                            Icon(
-                                imageVector = Icons.Default.Add,
-                                contentDescription = null,
-                                modifier = Modifier.align(
-                                    Center
-                                ), tint = Color.White
-                            )
-                        }
+                        RoundedIcon(
+                            modifier = Modifier.size(50.dp),
+                            circleColor = colorResource(id = R.color.primaryDark),
+                            icon = Icons.Default.Add
+                        )
                         Icon(
                             imageVector = Icons.Default.ChevronRight,
                             contentDescription = null,
@@ -326,7 +272,7 @@ fun HabitConfirmScreen(
                 .padding(10.dp)
                 .fillMaxWidth()
                 .weight(1f),
-            colors = ButtonDefaults.buttonColors(containerColor = Color(50, 11, 12)),
+            colors = ButtonDefaults.buttonColors(containerColor = colorResource(id = R.color.darkestTone)),
             shape = ButtonDefaults.outlinedShape
         ) {
             Text(text = "Save Task", color = Color.White)

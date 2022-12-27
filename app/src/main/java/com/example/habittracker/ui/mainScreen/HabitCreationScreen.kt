@@ -60,13 +60,13 @@ fun HabitCreationScreen(
 
         Text(
             "Tasks start each day as incomplete , Mark a task as done to increase your streak",
-            color = Color(255, 196, 194, 255),
+            color = colorResource(id = R.color.darkGray),
             modifier = Modifier.padding(top = 30.dp, start = 15.dp, end = 15.dp),
             fontWeight = FontWeight.Bold
         )
         Text(
             "CREATE YOUR OWN:",
-            color = Color(255, 196, 194, 255),
+            color = colorResource(id = R.color.darkGray),
             modifier = Modifier
                 .padding(15.dp)
                 .align(Alignment.Start), fontSize = 18.sp,
@@ -86,7 +86,7 @@ fun HabitCreationScreen(
                 if (it.length <= MAXIMUM_HABIT_CHARACTERS)
                     habitText.value = it
             },
-            placeholder = { Text(text = "Enter task title...", color = Color(255, 196, 194, 255)) },
+            placeholder = { Text(text = "Enter task title...", color = colorResource(id = R.color.darkGray)) },
             trailingIcon = {
                 habitText.value?.apply {
                     if (isNotEmpty())
@@ -130,7 +130,7 @@ fun HabitCreationScreen(
         )
         Text(
             "${habitText.value?.length ?: 0} / $MAXIMUM_HABIT_CHARACTERS",
-            color = Color(255, 196, 194, 255),
+            color = colorResource(id = R.color.darkGray),
             modifier = Modifier
                 .padding(15.dp)
                 .align(Alignment.Start), fontSize = 18.sp,
