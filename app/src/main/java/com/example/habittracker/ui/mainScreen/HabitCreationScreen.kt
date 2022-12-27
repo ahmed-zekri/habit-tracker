@@ -1,5 +1,6 @@
 package com.example.habittracker.ui.mainScreen
 
+import android.os.Bundle
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -19,12 +20,13 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.example.habittracker.data.constants.MAXIMUM_HABIT_CHARACTERS
+import com.example.habittracker.data.utils.navigate
 import com.example.habittracker.ui.Destinations
 import java.util.*
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HabitAlertDialog(
+fun HabitCreationScreen(
     navHostController: NavHostController
 ) {
     val modifier = remember {
@@ -33,9 +35,6 @@ fun HabitAlertDialog(
     }
     val habitText = remember {
         mutableStateOf<String?>(null)
-    }
-    val confirmHabitAlertDialogVisibility = remember {
-        mutableStateOf(false)
     }
 
     Column(
@@ -106,7 +105,13 @@ fun HabitAlertDialog(
                                         .size(20.dp)
                                         .align(Alignment.Center)
                                         .clickable {
-                                            confirmHabitAlertDialogVisibility.value = true
+                                            navHostController.apply {
+                                                navigate(
+                                                    route = Destinations.HabitCreationConfirmation.path,
+                                                    args = Bundle().apply {
+                                                        putString("habitText", habitText.value)
+                                                    })
+                                            }
                                         },
                                     imageVector = Icons.Default.ArrowForward,
                                     contentDescription = "Proceed to save habit",
@@ -126,5 +131,4 @@ fun HabitAlertDialog(
             fontWeight = FontWeight.Bold
         )
     }
-
 }

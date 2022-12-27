@@ -8,7 +8,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
-import com.example.habittracker.ui.AppNavHost
+import com.example.habittracker.ui.Navigation
 import com.example.habittracker.ui.mainScreen.HabitCreationViewModel
 import com.example.habittracker.ui.mainScreen.HabitViewModel
 import com.example.habittracker.ui.theme.HabitTrackerTheme
@@ -27,7 +27,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    AppNavHost(
+                    Navigation(
                         habitCreationViewModel = habitCreationViewModel,
                         habitViewModel = habitViewModel
                     )
