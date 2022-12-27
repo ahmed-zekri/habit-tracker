@@ -109,7 +109,8 @@ fun HabitConfirmScreen(
                 enabled = false,
                 textStyle = TextStyle(fontWeight = FontWeight.Bold, fontSize = 17.sp),
                 colors = TextFieldDefaults.textFieldColors(
-                    containerColor = colorResource(id = R.color.primaryDarkLighter), disabledTextColor = Color.White
+                    containerColor = colorResource(id = R.color.primaryDarkLighter),
+                    disabledTextColor = Color.White
                 ),
                 onValueChange = {},
                 value = habitText ?: "",
@@ -262,6 +263,97 @@ fun HabitConfirmScreen(
                                 .size(40.dp), tint = Color.White
                         )
                     }
+                }
+            }
+            Spacer(modifier = Modifier.height(30.dp))
+            Row(
+                Modifier
+                    .background(colorResource(id = R.color.primaryDarkLighter))
+                    .padding(10.dp)
+            ) {
+                Row(
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    modifier = Modifier
+                        .weight(2.4f)
+                        .align(CenterVertically)
+                ) {
+                    RoundedIcon(
+                        modifier = Modifier.size(50.dp),
+                        circleColor = colorResource(id = R.color.primaryDark),
+                        icon = Icons.Default.Notifications
+                    )
+
+                    Text(
+                        text = "Notifications",
+                        color = Color.White,
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 15.sp, modifier = Modifier.align(CenterVertically)
+                    )
+                }
+                Row(
+                    modifier
+                        .weight(3.8f)
+                        .background(colorResource(id = R.color.primaryDarkLighter))
+                        .align(CenterVertically),
+                    horizontalArrangement = Arrangement.End
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.ChevronRight,
+                        contentDescription = null,
+                        modifier = Modifier
+                            .align(CenterVertically)
+                            .size(40.dp), tint = Color.White
+                    )
+                }
+            }
+            Spacer(modifier = Modifier.height(30.dp))
+            Row(
+                Modifier
+                    .background(colorResource(id = R.color.primaryDarkLighter))
+                    .padding(10.dp)
+            ) {
+                Row(
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    modifier = Modifier
+                        .weight(2.5f)
+                        .align(CenterVertically)
+                ) {
+                    RoundedIcon(
+                        modifier = Modifier.size(50.dp),
+                        circleColor = colorResource(id = R.color.primaryDark),
+                        icon = Icons.Default.CallToAction
+                    )
+
+                    Text(
+                        text = "Action Button",
+                        color = Color.White,
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 15.sp, modifier = Modifier.align(CenterVertically)
+                    )
+                }
+                Row(
+                    modifier
+                        .weight(3.8f)
+                        .background(colorResource(id = R.color.primaryDarkLighter))
+                        .align(CenterVertically),
+                    horizontalArrangement = Arrangement.End
+                ) {
+                    Text(
+                        "None",
+                        color = colorResource(id = R.color.darkGray),
+                        modifier = Modifier
+                            .padding(end = 15.dp)
+                            .align(CenterVertically),
+                        fontSize = 16.sp,
+                        fontWeight = FontWeight.Bold
+                    )
+                    Icon(
+                        imageVector = Icons.Default.ChevronRight,
+                        contentDescription = null,
+                        modifier = Modifier
+                            .align(CenterVertically)
+                            .size(40.dp), tint = Color.White
+                    )
                 }
             }
         }
