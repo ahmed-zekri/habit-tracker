@@ -41,7 +41,7 @@ fun HabitCreationScreen(
         modifier = modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally
     )
     {
-        DialogTopBar(Icons.Default.Close) { navHostController.navigate(Destinations.Home.path) }
+        DialogTopBar(Icons.Default.Close,"Add task") { navHostController.navigate(Destinations.Home.path) }
 
         Icon(
             modifier = Modifier

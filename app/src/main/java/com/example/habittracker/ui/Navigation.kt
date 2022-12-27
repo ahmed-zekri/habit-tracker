@@ -61,7 +61,7 @@ fun Navigation(
                     )
                 )
             }) {
-            HabitConfirmAlertDialog(navHostController)
+            HabitConfirmScreen(navHostController)
         }
         composable(Destinations.Habit.path) {
             habitScreen(habitViewModel, navHostController)
