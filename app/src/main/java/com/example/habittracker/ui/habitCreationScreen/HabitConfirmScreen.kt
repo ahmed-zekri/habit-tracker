@@ -25,6 +25,7 @@ import com.example.habittracker.ui.ScreenTopBar
 import com.example.habittracker.ui.navigation.Destinations
 import com.example.habittracker.ui.screenUtils.RoundedIcon
 import compose.icons.AllIcons
+import compose.icons.FontAwesomeIcons
 import compose.icons.TablerIcons
 import java.util.*
 
@@ -67,7 +68,10 @@ fun HabitConfirmScreen(
                         )
                 ) {
                     Icon(
-                        imageVector = TablerIcons.AllIcons.find { it.name == icon }
+                        imageVector = buildList {
+                            addAll(FontAwesomeIcons.AllIcons)
+                            addAll(TablerIcons.AllIcons)
+                        }.find { it.name == icon }
                             ?: Icons.Default.Brush,
                         contentDescription = null,
                         modifier = Modifier
@@ -145,7 +149,7 @@ fun HabitConfirmScreen(
                     Row(
                         horizontalArrangement = Arrangement.SpaceBetween,
                         modifier = Modifier
-                            .weight(2.2f)
+                            .weight(2.4f)
                             .align(CenterVertically)
                     ) {
                         RoundedIcon(
@@ -181,7 +185,7 @@ fun HabitConfirmScreen(
                     Row(
                         horizontalArrangement = Arrangement.SpaceBetween,
                         modifier = Modifier
-                            .weight(2.2f)
+                            .weight(2.4f)
                             .align(CenterVertically)
                             .padding(vertical = 10.dp)
                     ) {
@@ -228,7 +232,7 @@ fun HabitConfirmScreen(
                     Row(
                         horizontalArrangement = Arrangement.SpaceBetween,
                         modifier = Modifier
-                            .weight(2.2f)
+                            .weight(2.4f)
                             .align(CenterVertically)
                             .padding(vertical = 10.dp)
                     ) {
@@ -281,7 +285,7 @@ fun HabitConfirmScreen(
                 Row(
                     horizontalArrangement = Arrangement.SpaceBetween,
                     modifier = Modifier
-                        .weight(2.2f)
+                        .weight(2.7f)
                         .align(CenterVertically)
                 ) {
                     RoundedIcon(
@@ -322,7 +326,7 @@ fun HabitConfirmScreen(
                 Row(
                     horizontalArrangement = Arrangement.SpaceBetween,
                     modifier = Modifier
-                        .weight(2.5f)
+                        .weight(2.7f)
                         .align(CenterVertically)
                 ) {
                     RoundedIcon(

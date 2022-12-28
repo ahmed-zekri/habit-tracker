@@ -7,7 +7,7 @@ import kotlinx.coroutines.cancel
 import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.flow.flow
 
-class AddHabitUseCase constructor(private val habitsRepository: HabitsRepository) {
+class AddHabitUseCase (private val habitsRepository: HabitsRepository) {
     operator fun invoke(habit: Habit) = flow {
         try {
             if (habit.name == null)
