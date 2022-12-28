@@ -6,9 +6,8 @@ import androidx.navigation.*
 
 fun NavController.navigateToRoute(
     route: String,
-    args: Bundle?=null,
-    navOptions: NavOptions = NavOptions.Builder().setRestoreState(true).setLaunchSingleTop(true)
-        .build(),
+    args: Bundle? = null,
+    navOptions: NavOptions? = null,
     navigatorExtras: Navigator.Extras? = null
 ) {
     val routeLink = NavDeepLinkRequest
