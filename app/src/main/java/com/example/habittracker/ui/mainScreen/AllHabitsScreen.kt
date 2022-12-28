@@ -23,7 +23,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import com.example.habittracker.data.constants.ICONS
 import com.example.habittracker.data.model.Habit
-import com.example.habittracker.data.utils.navigate
+import com.example.habittracker.data.utils.navigateToRoute
 import com.example.habittracker.R
 import com.example.habittracker.ui.habitCreationScreen.HabitCreationViewModel
 import com.example.habittracker.ui.mainScreen.DoubleColorCircularProgressBar
@@ -45,7 +45,7 @@ fun HabitsCreationScreen(
                         .size(210.dp)
                         .clickable {
                             if (index == habits.size)
-                                navHostController.navigate(Destinations.HabitCreation.path)
+                                navHostController.navigateToRoute(Destinations.HabitCreation.path)
                             else
                                 showHabit(habits[index], navHostController)
                         }
@@ -83,7 +83,7 @@ fun HabitsCreationScreen(
                         }
                         if (index < habits.size)
                             Text(
-                                text = habits[index].name,
+                                text = habits[index].name?:"",
                                 color = Color.White,
                                 fontWeight = FontWeight.Bold,
                                 fontSize = 20.sp,
@@ -100,7 +100,7 @@ fun HabitsCreationScreen(
 
 fun showHabit(habit: Habit, navHostController: NavHostController) {
     navHostController.apply {
-        navigate(route = Destinations.Habit.path, args = Bundle().apply {
+        navigateToRoute(route = Destinations.Habit.path, args = Bundle().apply {
             putParcelable("habit", habit)
         })
     }

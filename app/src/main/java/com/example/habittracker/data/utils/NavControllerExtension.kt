@@ -4,10 +4,11 @@ import android.os.Bundle
 import androidx.core.net.toUri
 import androidx.navigation.*
 
-fun NavController.navigate(
+fun NavController.navigateToRoute(
     route: String,
-    args: Bundle,
-    navOptions: NavOptions? = null,
+    args: Bundle?=null,
+    navOptions: NavOptions = NavOptions.Builder().setRestoreState(true).setLaunchSingleTop(true)
+        .build(),
     navigatorExtras: Navigator.Extras? = null
 ) {
     val routeLink = NavDeepLinkRequest

@@ -20,8 +20,9 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.example.habittracker.R
 import com.example.habittracker.data.constants.MAXIMUM_HABIT_CHARACTERS
-import com.example.habittracker.ui.navigation.Destinations
+import com.example.habittracker.data.utils.navigateToRoute
 import com.example.habittracker.ui.ScreenTopBar
+import com.example.habittracker.ui.navigation.Destinations
 import com.example.habittracker.ui.screenUtils.RoundedIcon
 import compose.icons.AllIcons
 import compose.icons.TablerIcons
@@ -31,13 +32,14 @@ import java.util.*
 @Composable
 fun HabitConfirmScreen(
     navHostController: NavHostController? = null,
+    habitCreationViewModel: HabitCreationViewModel
 ) {
     val primaryColor = colorResource(id = R.color.primary)
     val modifier = remember {
         Modifier.background(color = primaryColor)
     }
-    val habitText = navHostController?.currentBackStackEntry?.arguments?.getString("habitText")
-    val icon = navHostController?.currentBackStackEntry?.arguments?.getString("icon")
+    val habitText = habitCreationViewModel.updateOrGetHabit()?.name
+    val icon = habitCreationViewModel.updateOrGetHabit()?.image ?: ""
     Column(modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally) {
         Column(
             modifier = modifier
@@ -46,7 +48,7 @@ fun HabitConfirmScreen(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             ScreenTopBar(Icons.Default.ChevronLeft, "Confirm task", iconSize = 25.dp) {
-                navHostController?.navigate(
+                navHostController?.navigateToRoute(
                     Destinations.HabitCreation.path
                 )
             }
@@ -65,7 +67,7 @@ fun HabitConfirmScreen(
                         )
                 ) {
                     Icon(
-                        imageVector = TablerIcons.AllIcons.find { it.name == (icon ?: "") }
+                        imageVector = TablerIcons.AllIcons.find { it.name == icon }
                             ?: Icons.Default.Brush,
                         contentDescription = null,
                         modifier = Modifier
@@ -79,7 +81,7 @@ fun HabitConfirmScreen(
                         .size(50.dp)
                         .background(Color.White, shape = CircleShape)
                         .align(Alignment.BottomEnd)
-                        .clickable { navHostController?.navigate(Destinations.HabitIconSelection.path) },
+                        .clickable { navHostController?.navigateToRoute(Destinations.HabitIconSelection.path) },
                     horizontalArrangement = Arrangement.Center
                 ) {
                     (1..3).forEach { _ ->
@@ -143,7 +145,7 @@ fun HabitConfirmScreen(
                     Row(
                         horizontalArrangement = Arrangement.SpaceBetween,
                         modifier = Modifier
-                            .weight(2f)
+                            .weight(2.2f)
                             .align(CenterVertically)
                     ) {
                         RoundedIcon(
@@ -179,7 +181,7 @@ fun HabitConfirmScreen(
                     Row(
                         horizontalArrangement = Arrangement.SpaceBetween,
                         modifier = Modifier
-                            .weight(2f)
+                            .weight(2.2f)
                             .align(CenterVertically)
                             .padding(vertical = 10.dp)
                     ) {
@@ -226,7 +228,7 @@ fun HabitConfirmScreen(
                     Row(
                         horizontalArrangement = Arrangement.SpaceBetween,
                         modifier = Modifier
-                            .weight(2f)
+                            .weight(2.2f)
                             .align(CenterVertically)
                             .padding(vertical = 10.dp)
                     ) {
@@ -279,7 +281,7 @@ fun HabitConfirmScreen(
                 Row(
                     horizontalArrangement = Arrangement.SpaceBetween,
                     modifier = Modifier
-                        .weight(2.4f)
+                        .weight(2.2f)
                         .align(CenterVertically)
                 ) {
                     RoundedIcon(

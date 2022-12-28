@@ -11,10 +11,10 @@ import java.util.*
 data class Habit(
     @PrimaryKey(autoGenerate = true)
     var id: Int? = null,
-    val name: String,
-    val streak: Int,
-    val best: Int,
-    val goal: Int,
-    val image: String,
-    val date: Date
+    var name: String? = null,
+    var streak: Int = 0,
+    var best: Int = 0,
+    var goal: Int = 0,
+    var image: String? = null,
+    var date: Date? = null
 ) : Parcelable

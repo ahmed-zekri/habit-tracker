@@ -1,6 +1,5 @@
 package com.example.habittracker.ui.habitCreationScreen
 
-import android.os.Bundle
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -22,15 +21,15 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.example.habittracker.R
 import com.example.habittracker.data.constants.MAXIMUM_HABIT_CHARACTERS
-import com.example.habittracker.data.utils.navigate
-import com.example.habittracker.ui.navigation.Destinations
+import com.example.habittracker.data.utils.navigateToRoute
 import com.example.habittracker.ui.ScreenTopBar
+import com.example.habittracker.ui.navigation.Destinations
 import java.util.*
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HabitCreationScreen(
-    navHostController: NavHostController
+    navHostController: NavHostController, habitCreationViewModel: HabitCreationViewModel
 ) {
     val primaryColor = colorResource(id = R.color.primary)
     val modifier = remember {
@@ -38,7 +37,7 @@ fun HabitCreationScreen(
             .background(primaryColor)
     }
     val habitText = remember {
-        mutableStateOf<String?>(null)
+        mutableStateOf(habitCreationViewModel.updateOrGetHabit()?.name)
     }
 
     Column(
@@ -48,7 +47,7 @@ fun HabitCreationScreen(
         ScreenTopBar(
             Icons.Default.Close,
             "Add task"
-        ) { navHostController.navigate(Destinations.Home.path) }
+        ) { navHostController.navigateToRoute(Destinations.Home.path) }
 
         Icon(
             modifier = Modifier
@@ -87,7 +86,12 @@ fun HabitCreationScreen(
                 if (it.length <= MAXIMUM_HABIT_CHARACTERS)
                     habitText.value = it
             },
-            placeholder = { Text(text = "Enter task title...", color = colorResource(id = R.color.darkGray)) },
+            placeholder = {
+                Text(
+                    text = "Enter task title...",
+                    color = colorResource(id = R.color.darkGray)
+                )
+            },
             trailingIcon = {
                 habitText.value?.apply {
                     if (isNotEmpty())
@@ -112,12 +116,11 @@ fun HabitCreationScreen(
                                         .size(20.dp)
                                         .align(Alignment.Center)
                                         .clickable {
+                                            habitCreationViewModel.updateOrGetHabit(habitName = habitText.value)
                                             navHostController.apply {
-                                                navigate(
+                                                navigateToRoute(
                                                     route = Destinations.HabitCreationConfirmation.path,
-                                                    args = Bundle().apply {
-                                                        putString("habitText", habitText.value)
-                                                    })
+                                                )
                                             }
                                         },
                                     imageVector = Icons.Default.ArrowForward,

@@ -50,7 +50,7 @@ fun Navigation(
             HabitsCreationScreen(habitCreationViewModel, navHostController)
         }
         composable(Destinations.HabitCreation.path) {
-            HabitCreationScreen(navHostController)
+            HabitCreationScreen(navHostController, habitCreationViewModel)
         }
         composable(
             Destinations.HabitCreationConfirmation.path,
@@ -68,7 +68,7 @@ fun Navigation(
                     )
                 )
             }) {
-            HabitConfirmScreen(navHostController)
+            HabitConfirmScreen(navHostController, habitCreationViewModel)
         }
         composable(Destinations.Habit.path) {
             habitScreen(habitViewModel, navHostController)
@@ -93,7 +93,7 @@ fun Navigation(
             HabitsCreationScreen(habitCreationViewModel, navHostController)
         }
         composable(Destinations.HabitIconSelection.path) {
-            HabitIconSelection(navHostController)
+            HabitIconSelection(habitCreationViewModel, navHostController)
         }
     }
 }
