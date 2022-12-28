@@ -1,6 +1,7 @@
 package com.example.habittracker.ui.habitCreationScreen
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -10,6 +11,7 @@ import androidx.compose.material.icons.filled.ChevronLeft
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.CenterVertically
@@ -21,6 +23,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.example.habittracker.R
+import com.example.habittracker.data.model.PeriodMeasurement
 import com.example.habittracker.data.utils.navigateToRoute
 import com.example.habittracker.ui.navigation.Destinations
 import com.example.habittracker.ui.screenUtils.RoundedIcon
@@ -39,6 +42,9 @@ fun HabitDurationMeasurementScreen(
     val modifier = remember {
         Modifier.background(color = primaryColor)
     }
+    val selectionState = remember {
+        mutableStateOf(habitCreationViewModel.updateOrGetHabit()?.periodMeasurement)
+    }
 
     Column(modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally) {
         Column(
@@ -49,7 +55,7 @@ fun HabitDurationMeasurementScreen(
         ) {
             ScreenTopBar(Icons.Default.ChevronLeft, "Duration measurement", iconSize = 25.dp) {
                 navHostController?.navigateToRoute(
-                    Destinations.HabitCreation.path
+                    Destinations.HabitCreationConfirmation.path
                 )
             }
 
@@ -67,6 +73,10 @@ fun HabitDurationMeasurementScreen(
                 Modifier
                     .background(colorResource(id = R.color.primaryDarkLighter))
                     .padding(10.dp)
+                    .clickable {
+                        habitCreationViewModel.updateOrGetHabit(periodMeasurement = PeriodMeasurement.DAILY)
+                        selectionState.value = PeriodMeasurement.DAILY
+                    }
             ) {
                 Row(
                     horizontalArrangement = Arrangement.SpaceBetween,
@@ -94,13 +104,14 @@ fun HabitDurationMeasurementScreen(
                         .align(CenterVertically),
                     horizontalArrangement = Arrangement.End
                 ) {
-                    Icon(
-                        imageVector = FontAwesomeIcons.Regular.CheckCircle,
-                        contentDescription = null,
-                        modifier = Modifier
-                            .align(CenterVertically)
-                            .size(40.dp), tint = Color.White
-                    )
+                    if (selectionState.value == PeriodMeasurement.DAILY)
+                        Icon(
+                            imageVector = FontAwesomeIcons.Regular.CheckCircle,
+                            contentDescription = null,
+                            modifier = Modifier
+                                .align(CenterVertically)
+                                .size(40.dp), tint = Color.White
+                        )
                 }
             }
 
@@ -111,6 +122,10 @@ fun HabitDurationMeasurementScreen(
                 Modifier
                     .background(colorResource(id = R.color.primaryDarkLighter))
                     .padding(10.dp)
+                    .clickable {
+                        habitCreationViewModel.updateOrGetHabit(periodMeasurement = PeriodMeasurement.WEEKLY)
+                        selectionState.value = PeriodMeasurement.WEEKLY
+                    }
             ) {
                 Row(
                     horizontalArrangement = Arrangement.SpaceBetween,
@@ -138,13 +153,14 @@ fun HabitDurationMeasurementScreen(
                         .align(CenterVertically),
                     horizontalArrangement = Arrangement.End
                 ) {
-                    Icon(
-                        imageVector = FontAwesomeIcons.Regular.CheckCircle,
-                        contentDescription = null,
-                        modifier = Modifier
-                            .align(CenterVertically)
-                            .size(40.dp), tint = Color.White
-                    )
+                    if (selectionState.value == PeriodMeasurement.WEEKLY)
+                        Icon(
+                            imageVector = FontAwesomeIcons.Regular.CheckCircle,
+                            contentDescription = null,
+                            modifier = Modifier
+                                .align(CenterVertically)
+                                .size(40.dp), tint = Color.White
+                        )
                 }
             }
 

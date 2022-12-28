@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.habittracker.data.ResultHolder
 import com.example.habittracker.data.model.Habit
+import com.example.habittracker.data.model.PeriodMeasurement
 import com.example.habittracker.domain.use_case.AddHabitUseCase
 import com.example.habittracker.domain.use_case.GetAllHabitsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -53,7 +54,8 @@ class HabitCreationViewModel @Inject constructor(
         goal: Int? = null,
         best: Int? = null,
         icon: String? = null,
-        date: Date? = null
+        date: Date? = null,
+        periodMeasurement: PeriodMeasurement? = null
     ): Habit? {
         habitName?.let {
             habit = habit?.run {
@@ -103,6 +105,14 @@ class HabitCreationViewModel @Inject constructor(
                 this
 
             } ?: Habit(best = it)
+
+        }
+        periodMeasurement?.let {
+            habit = habit?.run {
+                this.periodMeasurement = it
+                this
+
+            } ?: Habit(periodMeasurement = it)
 
         }
         return habit

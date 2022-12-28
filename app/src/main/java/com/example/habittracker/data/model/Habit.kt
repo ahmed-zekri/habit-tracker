@@ -16,5 +16,10 @@ data class Habit(
     var best: Int = 0,
     var goal: Int = 0,
     var icon: String? = null,
-    var date: Date? = null
+    var date: Date? = null,
+    var periodMeasurement: PeriodMeasurement? = null
 ) : Parcelable
+
+enum class PeriodMeasurement {
+    DAILY, WEEKLY
+}
