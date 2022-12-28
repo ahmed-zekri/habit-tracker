@@ -4,9 +4,9 @@ import android.os.Bundle
 import androidx.core.net.toUri
 import androidx.navigation.*
 
-fun NavController.navigate(
+fun NavController.navigateToRoute(
     route: String,
-    args: Bundle,
+    args: Bundle? = null,
     navOptions: NavOptions? = null,
     navigatorExtras: Navigator.Extras? = null
 ) {

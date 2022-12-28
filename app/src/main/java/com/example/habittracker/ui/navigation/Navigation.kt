@@ -1,17 +1,14 @@
 package com.example.habittracker.ui.navigation
 
 import androidx.compose.animation.*
-import androidx.compose.animation.core.tween
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
-import com.example.habittracker.data.constants.ALERT_DIALOG_ANIMATION_DURATION_MILLIS
-import com.example.habittracker.ui.habitCreationScreen.HabitConfirmScreen
-import com.example.habittracker.ui.habitCreationScreen.HabitCreationScreen
-import com.example.habittracker.ui.habitCreationScreen.HabitCreationViewModel
-import com.example.habittracker.ui.habitViewScreen.HabitViewModel
+import com.example.habittracker.data.utils.horizontalAnimation
+import com.example.habittracker.data.utils.verticalAnimation
 import com.example.habittracker.ui.HabitsCreationScreen
-import com.example.habittracker.ui.habitCreationScreen.HabitIconSelection
+import com.example.habittracker.ui.habitCreationScreen.*
+import com.example.habittracker.ui.habitViewScreen.HabitViewModel
 import com.example.habittracker.ui.habitViewScreen.habitScreen
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.composable
@@ -34,41 +31,23 @@ fun Navigation(
         composable(
             startDestination,
             enterTransition = {
-                slideInVertically(
-                    animationSpec = tween(
-                        ALERT_DIALOG_ANIMATION_DURATION_MILLIS.toInt()
-                    )
-                )
+                verticalAnimation().first
             },
             exitTransition = {
-                slideOutVertically(
-                    animationSpec = tween(
-                        ALERT_DIALOG_ANIMATION_DURATION_MILLIS.toInt()
-                    )
-                )
+                verticalAnimation().second
             }) {
             HabitsCreationScreen(habitCreationViewModel, navHostController)
         }
         composable(Destinations.HabitCreation.path) {
-            HabitCreationScreen(navHostController)
+            HabitCreationScreen(navHostController, habitCreationViewModel)
         }
         composable(
             Destinations.HabitCreationConfirmation.path,
-            enterTransition = {
-                slideInHorizontally(
-                    animationSpec = tween(
-                        ALERT_DIALOG_ANIMATION_DURATION_MILLIS.toInt()
-                    )
-                )
-            },
+
             exitTransition = {
-                slideOutHorizontally(
-                    animationSpec = tween(
-                        ALERT_DIALOG_ANIMATION_DURATION_MILLIS.toInt()
-                    )
-                )
+                horizontalAnimation().second
             }) {
-            HabitConfirmScreen(navHostController)
+            HabitConfirmScreen(navHostController, habitCreationViewModel)
         }
         composable(Destinations.Habit.path) {
             habitScreen(habitViewModel, navHostController)
@@ -77,23 +56,30 @@ fun Navigation(
         composable(
             startDestination,
             enterTransition = {
-                slideInVertically(
-                    animationSpec = tween(
-                        ALERT_DIALOG_ANIMATION_DURATION_MILLIS.toInt()
-                    )
-                )
+                verticalAnimation().first
             },
             exitTransition = {
-                slideOutVertically(
-                    animationSpec = tween(
-                        ALERT_DIALOG_ANIMATION_DURATION_MILLIS.toInt()
-                    )
-                )
+                verticalAnimation().second
             }) {
             HabitsCreationScreen(habitCreationViewModel, navHostController)
         }
-        composable(Destinations.HabitIconSelection.path) {
-            HabitIconSelection(navHostController)
+        composable(Destinations.HabitIconSelection.path, enterTransition = {
+            verticalAnimation().first
+        },
+            exitTransition = {
+                verticalAnimation().second
+            }) {
+            HabitIconSelection(habitCreationViewModel, navHostController)
+        }
+
+        composable(Destinations.HabitDurationMeasurement.path, enterTransition = {
+            verticalAnimation().first
+        },
+            exitTransition = {
+                verticalAnimation().second
+            }) {
+            HabitDurationMeasurementScreen(navHostController, habitCreationViewModel)
         }
     }
 }
+

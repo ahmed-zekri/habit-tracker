@@ -1,6 +1,5 @@
 package com.example.habittracker.ui.habitCreationScreen
 
-import android.os.Bundle
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -23,18 +22,22 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.habittracker.R
-import com.example.habittracker.data.utils.navigate
-import com.example.habittracker.ui.ScreenTopBar
+import com.example.habittracker.data.utils.navigateToRoute
+import com.example.habittracker.ui.screenUtils.ScreenTopBar
 import com.example.habittracker.ui.navigation.Destinations
 import com.example.habittracker.ui.screenUtils.RoundedIcon
 import compose.icons.AllIcons
+import compose.icons.FontAwesomeIcons
 import compose.icons.TablerIcons
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HabitIconSelection(navHostController: NavHostController) =
+fun HabitIconSelection(
+    habitCreationViewModel: HabitCreationViewModel, navHostController: NavHostController
+
+) =
     Column(
         Modifier
             .fillMaxSize()
@@ -44,28 +47,31 @@ fun HabitIconSelection(navHostController: NavHostController) =
         val searchItem = remember {
             mutableStateOf("")
         }
-        val iconsList = remember {
-            mutableStateOf(TablerIcons.AllIcons)
+        val allIcons = buildList {
+            addAll(FontAwesomeIcons.AllIcons)
+            addAll(TablerIcons.AllIcons)
+        }
+        val iconsListState = remember {
+            mutableStateOf(allIcons)
         }
         val selectedIcon = remember {
             mutableStateOf<ImageVector?>(null)
         }
         ScreenTopBar(icon = Icons.Default.ExitToApp, text = "Select icon") {
             navHostController.apply {
-                navigate(
-                    route = Destinations.HabitCreationConfirmation.path,
-                    args = Bundle().apply {
-                        putString("icon", selectedIcon.value?.name)
-                    })
+                habitCreationViewModel.updateOrGetHabit(icon = selectedIcon.value?.name)
+                navigateToRoute(
+                    route = Destinations.HabitCreationConfirmation.path
+                )
             }
         }
         LaunchedEffect(key1 = searchItem.value) {
             if (searchItem.value.isEmpty())
-                iconsList.value = TablerIcons.AllIcons
+                iconsListState.value = allIcons
             else
-                iconsList.value =
+                iconsListState.value =
                     withContext(Dispatchers.IO) {
-                        TablerIcons.AllIcons.filter {
+                        allIcons.filter {
                             searchItem.value.lowercase().trim() in it.name.lowercase()
                         }
                     }
@@ -99,8 +105,8 @@ fun HabitIconSelection(navHostController: NavHostController) =
         )
 
         LazyVerticalGrid(columns = GridCells.Adaptive(120.dp)) {
-            items(iconsList.value.size) { index ->
-                iconsList.value[index].apply {
+            items(iconsListState.value.size) { index ->
+                iconsListState.value[index].apply {
                     Box(
                         modifier = Modifier
                             .fillMaxSize()
