@@ -23,7 +23,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.habittracker.R
 import com.example.habittracker.data.utils.navigateToRoute
-import com.example.habittracker.ui.ScreenTopBar
+import com.example.habittracker.ui.screenUtils.ScreenTopBar
 import com.example.habittracker.ui.navigation.Destinations
 import com.example.habittracker.ui.screenUtils.RoundedIcon
 import compose.icons.AllIcons

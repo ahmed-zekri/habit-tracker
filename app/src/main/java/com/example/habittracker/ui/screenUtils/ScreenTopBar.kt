@@ -1,11 +1,16 @@
-package com.example.habittracker.ui
+package com.example.habittracker.ui.screenUtils
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment.Companion.Center
+import androidx.compose.ui.Alignment.Companion.CenterStart
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -23,7 +28,7 @@ fun ScreenTopBar(
     iconSize: Dp? = null,
     onIconClicked: (() -> Unit)? = null
 ) {
-    Row(
+    Box(
         modifier = Modifier
             .fillMaxWidth()
             .background(colorResource(id = R.color.primaryDark))
@@ -34,20 +39,23 @@ fun ScreenTopBar(
             contentDescription = "Close the dialog",
             tint = Color.White,
             modifier = Modifier
-                .weight(
-                    1f
+                .align(
+                    CenterStart
                 )
                 .clickable { onIconClicked?.apply { invoke() } }.run {
                     iconSize?.let { size(it) } ?: this
                 }
         )
-        Spacer(modifier = Modifier.weight(4f))
+
+
+
         Text(
             text = text,
             fontWeight = FontWeight.Bold,
             fontSize = 20.sp,
-            color = Color.White, modifier = Modifier.weight(4f)
+            color = Color.White, modifier = Modifier.align(Center)
         )
-        Spacer(modifier = Modifier.weight(4f))
+
+
     }
 }

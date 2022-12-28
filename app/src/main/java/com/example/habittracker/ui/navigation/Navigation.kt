@@ -7,10 +7,7 @@ import androidx.navigation.NavHostController
 import com.example.habittracker.data.utils.horizontalAnimation
 import com.example.habittracker.data.utils.verticalAnimation
 import com.example.habittracker.ui.HabitsCreationScreen
-import com.example.habittracker.ui.habitCreationScreen.HabitConfirmScreen
-import com.example.habittracker.ui.habitCreationScreen.HabitCreationScreen
-import com.example.habittracker.ui.habitCreationScreen.HabitCreationViewModel
-import com.example.habittracker.ui.habitCreationScreen.HabitIconSelection
+import com.example.habittracker.ui.habitCreationScreen.*
 import com.example.habittracker.ui.habitViewScreen.HabitViewModel
 import com.example.habittracker.ui.habitViewScreen.habitScreen
 import com.google.accompanist.navigation.animation.AnimatedNavHost
@@ -74,5 +71,15 @@ fun Navigation(
             }) {
             HabitIconSelection(habitCreationViewModel, navHostController)
         }
+
+        composable(Destinations.HabitDurationMeasurement.path, enterTransition = {
+            verticalAnimation().first
+        },
+            exitTransition = {
+                verticalAnimation().second
+            }) {
+            HabitDurationMeasurementScreen(navHostController, habitCreationViewModel)
+        }
     }
 }
+

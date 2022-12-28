@@ -29,21 +29,23 @@ class HabitCreationViewModel @Inject constructor(
         getHabits()
     }
 
-    fun addHabit(habit: Habit) {
+    fun addHabit() = updateOrGetHabit()?.let { habit ->
         viewModelScope.launch(Dispatchers.IO) {
             addHabitUseCase(
                 habit
             ).collect {
-                when (it) {
-                    is ResultHolder.Error<*> ->
-                        withContext(Dispatchers.IO) {
+                withContext(Dispatchers.Main) {
+                    when (it) {
+                        is ResultHolder.Error<*> -> {
 
                         }
-                    else -> {}
+                        else -> {}
+                    }
                 }
             }
         }
     }
+
 
     fun updateOrGetHabit(
         habitName: String? = null,
@@ -53,47 +55,55 @@ class HabitCreationViewModel @Inject constructor(
         icon: String? = null,
         date: Date? = null
     ): Habit? {
-        habitName?.apply {
-            habit?.let {
-                it.name = this
-                return it
-            }
-            habit = Habit(name = this)
+        habitName?.let {
+            habit = habit?.run {
+                this.name = it
+                this
+
+            } ?: Habit(name = it)
+
         }
-        streak?.apply {
-            habit?.let {
-                it.streak = this
-                return it
-            }
-            habit = Habit(streak = this)
+        streak?.let {
+            habit = habit?.run {
+                this.streak = it
+                this
+
+            } ?: Habit(streak = it)
+
         }
-        goal?.apply {
-            habit?.let {
-                it.goal = this
-                return it
-            }
-            habit = Habit(goal = this)
+        goal?.let {
+            habit = habit?.run {
+                this.goal = it
+                this
+
+            } ?: Habit(goal = it)
+
         }
-        best?.apply {
-            habit?.let {
-                it.best = this
-                return it
-            }
-            habit = Habit(goal = this)
+        icon?.let {
+            habit = habit?.run {
+                this.icon = it
+                this
+
+            } ?: Habit(icon = it)
+
         }
-        icon?.apply {
-            habit?.let {
-                it.image = this
-                return it
-            }
-            habit = Habit(image = this)
+
+        date?.let {
+            habit = habit?.run {
+                this.date = it
+                this
+
+            } ?: Habit(date = it)
+
         }
-        date?.apply {
-            habit?.let {
-                it.date = this
-                return it
-            }
-            habit = Habit(date = this)
+
+        best?.let {
+            habit = habit?.run {
+                this.best = it
+                this
+
+            } ?: Habit(best = it)
+
         }
         return habit
     }

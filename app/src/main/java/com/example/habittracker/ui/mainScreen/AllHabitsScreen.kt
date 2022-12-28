@@ -67,7 +67,7 @@ fun HabitsCreationScreen(
                                 Icon(
                                     modifier = Modifier
                                         .size(70.dp),
-                                    imageVector = if (index < habits.size) ICONS.find { it.name == habits[index].image }
+                                    imageVector = if (index < habits.size) ICONS.find { it.name == habits[index].icon }
                                         ?: Icons.Default.NoTransfer else Icons.Default.Add,
                                     contentDescription = null, tint = Color.White
                                 )

@@ -8,4 +8,5 @@ sealed class Destinations(val path: String) {
         Destinations("Habit_CREATION_CONFIRMATION")
 
     object HabitIconSelection : Destinations("HABIT_ICON_SELECTION")
+    object HabitDurationMeasurement  : Destinations("HABIT_DURATION_MEASUREMENT")
 }

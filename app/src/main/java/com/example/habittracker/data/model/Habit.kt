@@ -15,6 +15,6 @@ data class Habit(
     var streak: Int = 0,
     var best: Int = 0,
     var goal: Int = 0,
-    var image: String? = null,
+    var icon: String? = null,
     var date: Date? = null
 ) : Parcelable

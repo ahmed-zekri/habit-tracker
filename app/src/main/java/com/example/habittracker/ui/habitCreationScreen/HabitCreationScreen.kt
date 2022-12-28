@@ -22,7 +22,7 @@ import androidx.navigation.NavHostController
 import com.example.habittracker.R
 import com.example.habittracker.data.constants.MAXIMUM_HABIT_CHARACTERS
 import com.example.habittracker.data.utils.navigateToRoute
-import com.example.habittracker.ui.ScreenTopBar
+import com.example.habittracker.ui.screenUtils.ScreenTopBar
 import com.example.habittracker.ui.navigation.Destinations
 import java.util.*
 

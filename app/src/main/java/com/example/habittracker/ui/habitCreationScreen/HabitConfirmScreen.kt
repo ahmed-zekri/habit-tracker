@@ -21,7 +21,7 @@ import androidx.navigation.NavHostController
 import com.example.habittracker.R
 import com.example.habittracker.data.constants.MAXIMUM_HABIT_CHARACTERS
 import com.example.habittracker.data.utils.navigateToRoute
-import com.example.habittracker.ui.ScreenTopBar
+import com.example.habittracker.ui.screenUtils.ScreenTopBar
 import com.example.habittracker.ui.navigation.Destinations
 import com.example.habittracker.ui.screenUtils.RoundedIcon
 import compose.icons.AllIcons
@@ -40,7 +40,7 @@ fun HabitConfirmScreen(
         Modifier.background(color = primaryColor)
     }
     val habitText = habitCreationViewModel.updateOrGetHabit()?.name
-    val icon = habitCreationViewModel.updateOrGetHabit()?.image ?: ""
+    val icon = habitCreationViewModel.updateOrGetHabit()?.icon ?: ""
     Column(modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally) {
         Column(
             modifier = modifier
@@ -145,6 +145,7 @@ fun HabitConfirmScreen(
                     Modifier
                         .fillMaxWidth()
                         .padding(vertical = 10.dp)
+                        .clickable { navHostController?.navigate(Destinations.HabitDurationMeasurement.path) }
                 ) {
                     Row(
                         horizontalArrangement = Arrangement.SpaceBetween,

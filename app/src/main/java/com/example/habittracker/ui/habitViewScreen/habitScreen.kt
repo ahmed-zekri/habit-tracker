@@ -52,7 +52,7 @@ fun habitScreen(
                     fontSize = 20.sp,
                     color = Color.White
                 )
-                ICONS.find { it.name == habit.image }?.let {
+                ICONS.find { it.name == habit.icon }?.let {
                     Box(
                         modifier = Modifier
                             .size(80.dp)
