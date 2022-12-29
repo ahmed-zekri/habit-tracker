@@ -2,10 +2,10 @@ package com.example.habittracker.data.model
 
 
 sealed class TaskDays {
-    class SpecificDaysTarget(var days: Set<Int>? = null) : TaskDays()
-    class WeeklyDaysTarget(var number: DaysPerWeek? = null) : TaskDays()
-    class MonthlyDaysTarget(var number: DaysPerMonth? = null) : TaskDays()
-    class SpacedDaysTarget(var number: DaysInterval? = null) : TaskDays()
+    class SpecificDaysTarget(days: Set<Int>? = null) : TaskDays()
+    class WeeklyDaysTarget(number: DaysPerWeek? = null) : TaskDays()
+    class MonthlyDaysTarget(number: DaysPerMonth? = null) : TaskDays()
+    class SpacedDaysTarget(number: DaysInterval? = null) : TaskDays()
 
 }
 

@@ -66,7 +66,10 @@ fun TaskDaysScreen(
                 Modifier
                     .background(colorResource(id = R.color.primaryDarkLighter))
                     .fillMaxWidth()
-                    .padding(15.dp)
+                    .padding(
+                        horizontal = 15.dp,
+                        vertical = if (selectionState.value is TaskDays) 15.dp else 25.dp
+                    )
                     .clickable {
                         if (selectionState.value is TaskDays.SpecificDaysTarget) selectionState.value =
                             null
@@ -86,12 +89,13 @@ fun TaskDaysScreen(
                     fontSize = 15.sp,
                     modifier = Modifier.align(CenterVertically)
                 )
-                Icon(
-                    imageVector = FontAwesomeIcons.Regular.CheckCircle,
-                    contentDescription = null,
-                    modifier = Modifier.size(40.dp),
-                    tint = Color.White
-                )
+                if (selectionState.value is TaskDays.SpecificDaysTarget)
+                    Icon(
+                        imageVector = FontAwesomeIcons.Regular.CheckCircle,
+                        contentDescription = null,
+                        modifier = Modifier.size(40.dp),
+                        tint = Color.White
+                    )
 
             }
 
