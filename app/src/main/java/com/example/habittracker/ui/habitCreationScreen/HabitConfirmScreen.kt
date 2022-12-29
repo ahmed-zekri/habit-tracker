@@ -182,7 +182,10 @@ fun HabitConfirmScreen(
                         )
                     }
                 }
-                Row(Modifier.fillMaxWidth()) {
+                Row(
+                    Modifier
+                        .fillMaxWidth()
+                        .clickable { navHostController?.navigate(Destinations.HabitTaskDays.path) }) {
                     Row(
                         horizontalArrangement = Arrangement.SpaceBetween,
                         modifier = Modifier
