@@ -3,6 +3,8 @@ package com.example.habittracker.ui.habitCreationScreen
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
@@ -24,6 +26,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.example.habittracker.R
+import com.example.habittracker.data.model.DaysPerMonth
 import com.example.habittracker.data.model.DaysPerWeek
 import com.example.habittracker.data.model.TaskDays
 import com.example.habittracker.data.utils.navigateToRoute
@@ -45,10 +48,25 @@ fun TaskDaysScreen(
         mutableStateOf(habitCreationViewModel.updateOrGetHabit()?.taskDays)
     }
     val selectedSpecifiedDays = remember {
-        mutableStateOf(setOf(0, 1, 2, 3, 4, 5, 6))
+        mutableStateOf(
+            habitCreationViewModel.updateOrGetHabit()?.taskDays?.let {
+                (it as? TaskDays.SpecificDaysTarget)?.days ?: setOf(0, 1, 2, 3, 4, 5, 6)
+            } ?: setOf(0, 1, 2, 3, 4, 5, 6)
+        )
     }
     val selectedWeeklyDays = remember {
-        mutableStateOf(DaysPerWeek(1))
+        mutableStateOf(
+            habitCreationViewModel.updateOrGetHabit()?.taskDays?.let {
+                (it as? TaskDays.WeeklyDaysTarget)?.number ?: DaysPerWeek(1)
+            } ?: DaysPerWeek(1)
+        )
+    }
+    val selectedMonthlyDays = remember {
+        mutableStateOf(
+            habitCreationViewModel.updateOrGetHabit()?.taskDays?.let {
+                (it as? TaskDays.MonthlyDaysTarget)?.number ?: DaysPerMonth(7)
+            } ?: DaysPerMonth(7)
+        )
     }
 
     Column(modifier.fillMaxSize(), horizontalAlignment = CenterHorizontally) {
@@ -113,7 +131,7 @@ fun TaskDaysScreen(
 
             ) {
                 (0..6).forEach { day ->
-                   
+
                     Box(modifier = Modifier
                         .size(40.dp)
                         .background(
@@ -203,12 +221,6 @@ fun TaskDaysScreen(
 
             ) {
                 (1..7).forEach { day ->
-                    val backgroundColor = remember {
-                        mutableStateOf(Color.White)
-                    }
-                    val textColor = remember {
-                        mutableStateOf(Color.Black)
-                    }
                     Box(modifier = Modifier
                         .size(40.dp)
                         .background(
@@ -243,7 +255,91 @@ fun TaskDaysScreen(
             }
 
 
+
+
+
+            Spacer(modifier = Modifier.height(10.dp))
+            Row(
+                Modifier
+                    .background(colorResource(id = R.color.primaryDarkLighter))
+                    .fillMaxWidth()
+                    .padding(
+                        horizontal = 15.dp,
+                        vertical = if (selectionState.value is TaskDays.WeeklyDaysTarget) 15.dp else 25.dp
+                    )
+                    .clickable {
+                        if (selectionState.value is TaskDays.MonthlyDaysTarget) selectionState.value =
+                            null
+                        else selectionState.value =
+                            TaskDays.MonthlyDaysTarget(DaysPerMonth(7))
+
+                    },
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = CenterVertically
+            ) {
+
+
+                Text(
+                    text = "Number of days per month",
+                    color = Color.White,
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 15.sp,
+                    modifier = Modifier.align(CenterVertically)
+                )
+                if (selectionState.value is TaskDays.MonthlyDaysTarget) Icon(
+                    imageVector = FontAwesomeIcons.Regular.CheckCircle,
+                    contentDescription = null,
+                    modifier = Modifier.size(40.dp),
+                    tint = Color.White
+                )
+
+            }
+
+            Spacer(modifier = Modifier.height(15.dp))
+            if (selectionState.value is TaskDays.MonthlyDaysTarget)
+                LazyVerticalGrid(
+                    columns = GridCells.Adaptive(40.dp),
+                    modifier = Modifier
+                        .height(200.dp)
+                        .padding(15.dp)
+                ) {
+                    items(31) { daysCount ->
+                        Box(modifier = Modifier
+                            .size(40.dp)
+                            .background(
+                                if (selectedMonthlyDays.value.daysPerMonth == daysCount + 1) Color.White else Color.Transparent,
+                                CircleShape
+                            )
+
+                            .clickable {
+
+                                selectedMonthlyDays.value = DaysPerMonth(daysCount + 1)
+
+                                selectionState.value =
+                                    TaskDays.MonthlyDaysTarget(selectedMonthlyDays.value)
+                            }) {
+
+                            Text(
+                                text = (daysCount + 1).toString(),
+                                color = if (selectedMonthlyDays.value.daysPerMonth == daysCount + 1) Color.Black else Color.White,
+                                fontSize = 20.sp,
+                                fontWeight = FontWeight.Bold,
+                                modifier = Modifier.align(
+                                    Center
+                                )
+                            )
+
+
+                        }
+                        Spacer(modifier = Modifier.width(5.dp))
+                    }
+                }
+
+
         }
 
+
     }
+
+
 }

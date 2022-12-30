@@ -2,10 +2,10 @@ package com.example.habittracker.data.model
 
 
 sealed class TaskDays {
-    class SpecificDaysTarget(days: Set<Int>? = null) : TaskDays()
-    class WeeklyDaysTarget(number: DaysPerWeek? = null) : TaskDays()
-    class MonthlyDaysTarget(number: DaysPerMonth? = null) : TaskDays()
-    class SpacedDaysTarget(number: DaysInterval? = null) : TaskDays()
+    class SpecificDaysTarget(val days: Set<Int>? = null) : TaskDays()
+    class WeeklyDaysTarget(val number: DaysPerWeek? = null) : TaskDays()
+    class MonthlyDaysTarget(val number: DaysPerMonth? = null) : TaskDays()
+    class SpacedDaysTarget(val number: DaysInterval? = null) : TaskDays()
 
 }
 
@@ -17,14 +17,14 @@ value class DaysPerWeek(val daysPerWeek: Int) {
 }
 
 @JvmInline
-value class DaysPerMonth(private val daysPerMonth: Int) {
+value class DaysPerMonth( val daysPerMonth: Int) {
     init {
-        if (daysPerMonth > 7) throw IllegalStateException("Number of days per month must be less than 31")
+        if (daysPerMonth > 31) throw IllegalStateException("Number of days per month must be less than 32")
     }
 }
 
 @JvmInline
-value class DaysInterval(private val daysInterval: Int) {
+value class DaysInterval( val daysInterval: Int) {
     init {
         if (daysInterval > 15) throw IllegalStateException("Days interval value must be less than 16")
     }
