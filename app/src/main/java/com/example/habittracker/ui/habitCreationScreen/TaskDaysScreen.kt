@@ -24,6 +24,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.example.habittracker.R
+import com.example.habittracker.data.model.DaysPerWeek
 import com.example.habittracker.data.model.TaskDays
 import com.example.habittracker.data.utils.navigateToRoute
 import com.example.habittracker.ui.navigation.Destinations
@@ -46,6 +47,9 @@ fun TaskDaysScreen(
     val selectedSpecifiedDays = remember {
         mutableStateOf(setOf(0, 1, 2, 3, 4, 5, 6))
     }
+    val selectedWeeklyDays = remember {
+        mutableStateOf(DaysPerWeek(1))
+    }
 
     Column(modifier.fillMaxSize(), horizontalAlignment = CenterHorizontally) {
         Column(
@@ -62,13 +66,14 @@ fun TaskDaysScreen(
             }
 
             Spacer(modifier = Modifier.height(40.dp))
+
             Row(
                 Modifier
                     .background(colorResource(id = R.color.primaryDarkLighter))
                     .fillMaxWidth()
                     .padding(
                         horizontal = 15.dp,
-                        vertical = if (selectionState.value is TaskDays) 15.dp else 25.dp
+                        vertical = if (selectionState.value is TaskDays.SpecificDaysTarget) 15.dp else 25.dp
                     )
                     .clickable {
                         if (selectionState.value is TaskDays.SpecificDaysTarget) selectionState.value =
@@ -89,17 +94,18 @@ fun TaskDaysScreen(
                     fontSize = 15.sp,
                     modifier = Modifier.align(CenterVertically)
                 )
-                if (selectionState.value is TaskDays.SpecificDaysTarget)
-                    Icon(
-                        imageVector = FontAwesomeIcons.Regular.CheckCircle,
-                        contentDescription = null,
-                        modifier = Modifier.size(40.dp),
-                        tint = Color.White
-                    )
+                if (selectionState.value is TaskDays.SpecificDaysTarget) Icon(
+                    imageVector = FontAwesomeIcons.Regular.CheckCircle,
+                    contentDescription = null,
+                    modifier = Modifier.size(40.dp),
+                    tint = Color.White
+                )
 
             }
 
+
             Spacer(modifier = Modifier.height(15.dp))
+
             if (selectionState.value is TaskDays.SpecificDaysTarget) Row(
                 Modifier
                     .fillMaxWidth()
@@ -107,29 +113,25 @@ fun TaskDaysScreen(
 
             ) {
                 (0..6).forEach { day ->
-                    val backgroundColor = remember {
-                        mutableStateOf(Color.White)
-                    }
-                    val textColor = remember {
-                        mutableStateOf(Color.Black)
-                    }
+                   
                     Box(modifier = Modifier
                         .size(40.dp)
-                        .background(backgroundColor.value, CircleShape)
+                        .background(
+                            if (day in selectedSpecifiedDays.value) Color.White else Color.Transparent,
+                            CircleShape
+                        )
                         .padding(5.dp)
                         .clickable {
 
                             selectedSpecifiedDays.value = buildSet {
                                 addAll(selectedSpecifiedDays.value)
-                                if (day in selectedSpecifiedDays.value) {
-                                    backgroundColor.value = Color.Transparent
-                                    textColor.value = Color.White
+                                if (day in selectedSpecifiedDays.value)
+
                                     remove(day)
-                                } else {
+                                else
                                     add(day)
-                                    backgroundColor.value = Color.White
-                                    textColor.value = Color.Black
-                                }
+
+
                             }
                             selectionState.value =
                                 TaskDays.SpecificDaysTarget(selectedSpecifiedDays.value)
@@ -137,7 +139,7 @@ fun TaskDaysScreen(
 
                         Text(
                             text = habitCreationViewModel.getDayString(day),
-                            color = textColor.value,
+                            color = if (day in selectedSpecifiedDays.value) Color.Black else Color.White,
                             fontSize = 17.sp,
                             fontWeight = FontWeight.Bold,
                             modifier = Modifier.align(
@@ -152,9 +154,96 @@ fun TaskDaysScreen(
                 }
 
             }
+
+
+
+
+            Spacer(modifier = Modifier.height(10.dp))
+            Row(
+                Modifier
+                    .background(colorResource(id = R.color.primaryDarkLighter))
+                    .fillMaxWidth()
+                    .padding(
+                        horizontal = 15.dp,
+                        vertical = if (selectionState.value is TaskDays.WeeklyDaysTarget) 15.dp else 25.dp
+                    )
+                    .clickable {
+                        if (selectionState.value is TaskDays.WeeklyDaysTarget) selectionState.value =
+                            null
+                        else selectionState.value =
+                            TaskDays.WeeklyDaysTarget(selectedWeeklyDays.value)
+
+                    },
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = CenterVertically
+            ) {
+
+
+                Text(
+                    text = "Number of days per week",
+                    color = Color.White,
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 15.sp,
+                    modifier = Modifier.align(CenterVertically)
+                )
+                if (selectionState.value is TaskDays.WeeklyDaysTarget) Icon(
+                    imageVector = FontAwesomeIcons.Regular.CheckCircle,
+                    contentDescription = null,
+                    modifier = Modifier.size(40.dp),
+                    tint = Color.White
+                )
+
+            }
+
+            Spacer(modifier = Modifier.height(15.dp))
+            if (selectionState.value is TaskDays.WeeklyDaysTarget) Row(
+                Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 25.dp)
+
+            ) {
+                (1..7).forEach { day ->
+                    val backgroundColor = remember {
+                        mutableStateOf(Color.White)
+                    }
+                    val textColor = remember {
+                        mutableStateOf(Color.Black)
+                    }
+                    Box(modifier = Modifier
+                        .size(40.dp)
+                        .background(
+                            if (selectedWeeklyDays.value.daysPerWeek == day) Color.White else Color.Transparent,
+                            CircleShape
+                        )
+                        .padding(5.dp)
+                        .clickable {
+
+                            selectedWeeklyDays.value = DaysPerWeek(day)
+
+                            selectionState.value =
+                                TaskDays.WeeklyDaysTarget(selectedWeeklyDays.value)
+                        }) {
+
+                        Text(
+                            text = day.toString(),
+                            color = if (selectedWeeklyDays.value.daysPerWeek == day) Color.Black else Color.White,
+                            fontSize = 17.sp,
+                            fontWeight = FontWeight.Bold,
+                            modifier = Modifier.align(
+                                Center
+                            )
+                        )
+
+
+                    }
+                    Spacer(modifier = Modifier.width(10.dp))
+
+                }
+
+            }
+
+
         }
 
-
     }
-
 }

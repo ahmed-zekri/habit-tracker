@@ -10,7 +10,7 @@ sealed class TaskDays {
 }
 
 @JvmInline
-value class DaysPerWeek(private val daysPerWeek: Int) {
+value class DaysPerWeek(val daysPerWeek: Int) {
     init {
         if (daysPerWeek > 7) throw IllegalStateException("Number of days per week must be less than 8")
     }
