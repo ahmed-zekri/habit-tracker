@@ -27,6 +27,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.example.habittracker.R
+import com.example.habittracker.data.model.DaysInterval
 import com.example.habittracker.data.model.DaysPerMonth
 import com.example.habittracker.data.model.DaysPerWeek
 import com.example.habittracker.data.model.TaskDays
@@ -70,6 +71,14 @@ fun TaskDaysScreen(
         )
     }
 
+    val selectedSpacedDays = remember {
+        mutableStateOf(
+            habitCreationViewModel.updateOrGetHabit()?.taskDays?.let {
+                (it as? TaskDays.SpacedDaysTarget)?.number ?: DaysInterval(2)
+            } ?: DaysInterval(2)
+        )
+    }
+
     Column(modifier.fillMaxSize(), horizontalAlignment = CenterHorizontally) {
         Column(
             modifier = modifier
@@ -106,7 +115,8 @@ fun TaskDaysScreen(
             ) {
 
 
-                Text(fontFamily=FontFamily.Serif,                    text = "Specific days of the week",
+                Text(
+                    fontFamily = FontFamily.Serif, text = "Specific days of the week",
                     color = Color.White,
                     fontWeight = FontWeight.Bold,
                     fontSize = 15.sp,
@@ -155,7 +165,9 @@ fun TaskDaysScreen(
                                 TaskDays.SpecificDaysTarget(selectedSpecifiedDays.value)
                         }) {
 
-                        Text(fontFamily=FontFamily.Serif,                            text = habitCreationViewModel.getDayString(day),
+                        Text(
+                            fontFamily = FontFamily.Serif,
+                            text = habitCreationViewModel.getDayString(day),
                             color = if (day in selectedSpecifiedDays.value) Color.Black else Color.White,
                             fontSize = 17.sp,
                             fontWeight = FontWeight.Bold,
@@ -196,7 +208,8 @@ fun TaskDaysScreen(
             ) {
 
 
-                Text(fontFamily=FontFamily.Serif,                    text = "Number of days per week",
+                Text(
+                    fontFamily = FontFamily.Serif, text = "Number of days per week",
                     color = Color.White,
                     fontWeight = FontWeight.Bold,
                     fontSize = 15.sp,
@@ -234,7 +247,8 @@ fun TaskDaysScreen(
                                 TaskDays.WeeklyDaysTarget(selectedWeeklyDays.value)
                         }) {
 
-                        Text(fontFamily=FontFamily.Serif,                            text = day.toString(),
+                        Text(
+                            fontFamily = FontFamily.Serif, text = day.toString(),
                             color = if (selectedWeeklyDays.value.daysPerWeek == day) Color.Black else Color.White,
                             fontSize = 17.sp,
                             fontWeight = FontWeight.Bold,
@@ -268,7 +282,7 @@ fun TaskDaysScreen(
                         if (selectionState.value is TaskDays.MonthlyDaysTarget) selectionState.value =
                             null
                         else selectionState.value =
-                            TaskDays.MonthlyDaysTarget(DaysPerMonth(7))
+                            TaskDays.MonthlyDaysTarget(selectedMonthlyDays.value)
 
                     },
                 horizontalArrangement = Arrangement.SpaceBetween,
@@ -276,7 +290,8 @@ fun TaskDaysScreen(
             ) {
 
 
-                Text(fontFamily=FontFamily.Serif,                    text = "Number of days per month",
+                Text(
+                    fontFamily = FontFamily.Serif, text = "Number of days per month",
                     color = Color.White,
                     fontWeight = FontWeight.Bold,
                     fontSize = 15.sp,
@@ -315,8 +330,91 @@ fun TaskDaysScreen(
                                     TaskDays.MonthlyDaysTarget(selectedMonthlyDays.value)
                             }) {
 
-                            Text(text = (daysCount + 1).toString(),
+                            Text(
+                                text = (daysCount + 1).toString(),
                                 color = if (selectedMonthlyDays.value.daysPerMonth == daysCount + 1) Color.Black else Color.White,
+                                fontSize = 20.sp,
+                                fontWeight = FontWeight.Bold,
+                                modifier = Modifier.align(
+                                    Center
+                                ),
+                                fontFamily = FontFamily.Serif
+                            )
+
+
+                        }
+                        Spacer(modifier = Modifier.width(5.dp))
+                    }
+                }
+
+
+
+
+            Spacer(modifier = Modifier.height(10.dp))
+            Row(
+                Modifier
+                    .background(colorResource(id = R.color.primaryDarkLighter))
+                    .fillMaxWidth()
+                    .padding(
+                        horizontal = 15.dp,
+                        vertical = if (selectionState.value is TaskDays.WeeklyDaysTarget) 15.dp else 25.dp
+                    )
+                    .clickable {
+                        if (selectionState.value is TaskDays.SpacedDaysTarget) selectionState.value =
+                            null
+                        else selectionState.value =
+                            TaskDays.SpacedDaysTarget(selectedSpacedDays.value)
+
+                    },
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = CenterVertically
+            ) {
+
+
+                Text(
+                    fontFamily = FontFamily.Serif,
+                    text = "Every ${selectedSpacedDays.value.daysInterval} days",
+                    color = Color.White,
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 15.sp,
+                    modifier = Modifier.align(CenterVertically)
+                )
+                if (selectionState.value is TaskDays.SpacedDaysTarget) Icon(
+                    imageVector = FontAwesomeIcons.Regular.CheckCircle,
+                    contentDescription = null,
+                    modifier = Modifier.size(40.dp),
+                    tint = Color.White
+                )
+
+            }
+
+            Spacer(modifier = Modifier.height(15.dp))
+            if (selectionState.value is TaskDays.SpacedDaysTarget)
+                LazyVerticalGrid(
+                    columns = GridCells.Adaptive(40.dp),
+                    modifier = Modifier
+                        .height(200.dp)
+                        .padding(15.dp)
+                ) {
+                    items(14) { daysCount ->
+                        Box(modifier = Modifier
+                            .size(40.dp)
+                            .background(
+                                if (selectedSpacedDays.value.daysInterval == daysCount + 2) Color.White else Color.Transparent,
+                                CircleShape
+                            )
+
+                            .clickable {
+
+                                selectedSpacedDays.value = DaysInterval(daysCount + 2)
+
+                                selectionState.value =
+                                    TaskDays.SpacedDaysTarget(selectedSpacedDays.value)
+                            }) {
+
+                            Text(
+                                text = (daysCount + 2).toString(),
+                                color = if (selectedSpacedDays.value.daysInterval == daysCount + 2) Color.Black else Color.White,
                                 fontSize = 20.sp,
                                 fontWeight = FontWeight.Bold,
                                 modifier = Modifier.align(
