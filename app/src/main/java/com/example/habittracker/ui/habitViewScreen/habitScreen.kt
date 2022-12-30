@@ -12,6 +12,7 @@ import androidx.compose.ui.Alignment.Companion.Center
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -45,6 +46,7 @@ fun habitScreen(
                 val calendar = habit.date?.run { Calendar.getInstance().apply { time = this@run } }
                     ?: Calendar.getInstance()
                 Text(
+                    fontFamily = FontFamily.Serif,
                     text = habitViewModel.extractDateString(calendar),
                     modifier = Modifier
                         .padding(30.dp),
@@ -72,7 +74,7 @@ fun habitScreen(
                     }
                 }
                 Text(
-                    text = habit.name ?: "",
+                    fontFamily = FontFamily.Serif, text = habit.name ?: "",
                     fontWeight = FontWeight.Bold,
                     fontSize = 20.sp,
                     color = Color.White, modifier = Modifier.padding(top = 10.dp)

@@ -16,6 +16,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -72,8 +73,7 @@ fun HabitsCreationScreen(
                                     contentDescription = null, tint = Color.White
                                 )
                                 if (index < habits.size)
-                                    Text(
-                                        text = habits[index].streak.toString(),
+                                    Text(fontFamily= FontFamily.Serif,                                        text = habits[index].streak.toString(),
                                         color = Color.Black,
                                         fontWeight = FontWeight.Bold,
                                         fontSize = 17.sp,
@@ -82,8 +82,7 @@ fun HabitsCreationScreen(
                             }
                         }
                         if (index < habits.size)
-                            Text(
-                                text = habits[index].name?:"",
+                            Text(fontFamily=FontFamily.Serif,                                text = habits[index].name?:"",
                                 color = Color.White,
                                 fontWeight = FontWeight.Bold,
                                 fontSize = 20.sp,

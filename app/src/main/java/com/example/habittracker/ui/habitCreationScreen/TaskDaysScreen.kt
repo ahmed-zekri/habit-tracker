@@ -21,6 +21,7 @@ import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -105,8 +106,7 @@ fun TaskDaysScreen(
             ) {
 
 
-                Text(
-                    text = "Specific days of the week",
+                Text(fontFamily=FontFamily.Serif,                    text = "Specific days of the week",
                     color = Color.White,
                     fontWeight = FontWeight.Bold,
                     fontSize = 15.sp,
@@ -155,8 +155,7 @@ fun TaskDaysScreen(
                                 TaskDays.SpecificDaysTarget(selectedSpecifiedDays.value)
                         }) {
 
-                        Text(
-                            text = habitCreationViewModel.getDayString(day),
+                        Text(fontFamily=FontFamily.Serif,                            text = habitCreationViewModel.getDayString(day),
                             color = if (day in selectedSpecifiedDays.value) Color.Black else Color.White,
                             fontSize = 17.sp,
                             fontWeight = FontWeight.Bold,
@@ -197,8 +196,7 @@ fun TaskDaysScreen(
             ) {
 
 
-                Text(
-                    text = "Number of days per week",
+                Text(fontFamily=FontFamily.Serif,                    text = "Number of days per week",
                     color = Color.White,
                     fontWeight = FontWeight.Bold,
                     fontSize = 15.sp,
@@ -236,8 +234,7 @@ fun TaskDaysScreen(
                                 TaskDays.WeeklyDaysTarget(selectedWeeklyDays.value)
                         }) {
 
-                        Text(
-                            text = day.toString(),
+                        Text(fontFamily=FontFamily.Serif,                            text = day.toString(),
                             color = if (selectedWeeklyDays.value.daysPerWeek == day) Color.Black else Color.White,
                             fontSize = 17.sp,
                             fontWeight = FontWeight.Bold,
@@ -279,8 +276,7 @@ fun TaskDaysScreen(
             ) {
 
 
-                Text(
-                    text = "Number of days per month",
+                Text(fontFamily=FontFamily.Serif,                    text = "Number of days per month",
                     color = Color.White,
                     fontWeight = FontWeight.Bold,
                     fontSize = 15.sp,
@@ -319,14 +315,14 @@ fun TaskDaysScreen(
                                     TaskDays.MonthlyDaysTarget(selectedMonthlyDays.value)
                             }) {
 
-                            Text(
-                                text = (daysCount + 1).toString(),
+                            Text(text = (daysCount + 1).toString(),
                                 color = if (selectedMonthlyDays.value.daysPerMonth == daysCount + 1) Color.Black else Color.White,
                                 fontSize = 20.sp,
                                 fontWeight = FontWeight.Bold,
                                 modifier = Modifier.align(
                                     Center
-                                )
+                                ),
+                                fontFamily = FontFamily.Serif
                             )
 
 
