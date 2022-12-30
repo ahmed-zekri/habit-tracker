@@ -4,6 +4,7 @@ import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import kotlinx.parcelize.Parcelize
+import kotlinx.parcelize.RawValue
 import java.util.*
 
 @Entity(tableName = "habit")
@@ -17,7 +18,8 @@ data class Habit(
     var goal: Int = 0,
     var icon: String? = null,
     var date: Date? = null,
-    var periodMeasurement: PeriodMeasurement? = null
+    var periodMeasurement: PeriodMeasurement? = null,
+    var taskDays: @RawValue TaskDays? = null
 ) : Parcelable
 
 enum class PeriodMeasurement {

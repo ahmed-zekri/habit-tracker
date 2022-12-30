@@ -80,6 +80,15 @@ fun Navigation(
             }) {
             HabitDurationMeasurementScreen(navHostController, habitCreationViewModel)
         }
+
+        composable(Destinations.HabitTaskDays.path, enterTransition = {
+            verticalAnimation().first
+        },
+            exitTransition = {
+                verticalAnimation().second
+            }) {
+            TaskDaysScreen(navHostController, habitCreationViewModel)
+        }
     }
 }
 

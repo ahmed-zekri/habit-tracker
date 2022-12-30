@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.habittracker.data.ResultHolder
 import com.example.habittracker.data.model.Habit
 import com.example.habittracker.data.model.PeriodMeasurement
+import com.example.habittracker.data.model.TaskDays
 import com.example.habittracker.domain.use_case.AddHabitUseCase
 import com.example.habittracker.domain.use_case.GetAllHabitsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -55,7 +56,8 @@ class HabitCreationViewModel @Inject constructor(
         best: Int? = null,
         icon: String? = null,
         date: Date? = null,
-        periodMeasurement: PeriodMeasurement? = null
+        periodMeasurement: PeriodMeasurement? = null,
+        taskDays: TaskDays? = null
     ): Habit? {
         habitName?.let {
             habit = habit?.run {
@@ -115,6 +117,14 @@ class HabitCreationViewModel @Inject constructor(
             } ?: Habit(periodMeasurement = it)
 
         }
+        taskDays?.let {
+            habit = habit?.run {
+                this.taskDays = it
+                this
+
+            } ?: Habit(taskDays = it)
+
+        }
         return habit
     }
 
@@ -129,5 +139,18 @@ class HabitCreationViewModel @Inject constructor(
                 }
             }
         }
+    }
+
+    fun getDayString(day: Int) = when (day) {
+
+        0 -> "S"
+        1 -> "M"
+        2 -> "T"
+        3 -> "W"
+        4 -> "T"
+        5 -> "F"
+        6 -> "S"
+        else -> throw IllegalStateException("Day value must be less than 7")
+
     }
 }

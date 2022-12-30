@@ -73,6 +73,7 @@ dependencies {
     implementation "com.google.accompanist:accompanist-navigation-animation:0.28.0"
     implementation "br.com.devsrsouza.compose.icons.android:tabler-icons:1.0.0"
     implementation "br.com.devsrsouza.compose.icons.android:font-awesome:1.0.0"
+    implementation 'com.google.code.gson:gson:2.8.6'
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.4'

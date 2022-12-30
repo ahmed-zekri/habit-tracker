@@ -15,6 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -59,13 +60,14 @@ fun HabitCreationScreen(
         )
 
         Text(
-            "Tasks start each day as incomplete , Mark a task as done to increase your streak",
+            fontFamily = FontFamily.Serif,
+            text = "Tasks start each day as incomplete , Mark a task as done to increase your streak",
             color = colorResource(id = R.color.darkGray),
             modifier = Modifier.padding(top = 30.dp, start = 15.dp, end = 15.dp),
             fontWeight = FontWeight.Bold
         )
         Text(
-            "CREATE YOUR OWN:",
+            fontFamily = FontFamily.Serif, text = "CREATE YOUR OWN:",
             color = colorResource(id = R.color.darkGray),
             modifier = Modifier
                 .padding(15.dp)
@@ -88,7 +90,7 @@ fun HabitCreationScreen(
             },
             placeholder = {
                 Text(
-                    text = "Enter task title...",
+                    fontFamily = FontFamily.Serif, text = "Enter task title...",
                     color = colorResource(id = R.color.darkGray)
                 )
             },
@@ -133,11 +135,13 @@ fun HabitCreationScreen(
             }
         )
         Text(
-            "${habitText.value?.length ?: 0} / $MAXIMUM_HABIT_CHARACTERS",
+            fontFamily = FontFamily.Serif,
+            text = "${habitText.value?.length ?: 0} / $MAXIMUM_HABIT_CHARACTERS",
             color = colorResource(id = R.color.darkGray),
             modifier = Modifier
                 .padding(15.dp)
-                .align(Alignment.Start), fontSize = 18.sp,
+                .align(Alignment.Start),
+            fontSize = 18.sp,
             fontWeight = FontWeight.Bold
         )
     }

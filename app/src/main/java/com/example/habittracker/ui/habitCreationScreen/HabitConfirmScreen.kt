@@ -14,6 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -100,14 +101,14 @@ fun HabitConfirmScreen(
             }
             Spacer(modifier = Modifier.height(8.dp))
             Text(
-                text = habitText ?: "",
+                fontFamily = FontFamily.Serif, text = habitText ?: "",
                 color = Color.White,
                 fontWeight = FontWeight.Bold,
                 fontSize = 20.sp
             )
 
             Text(
-                "Title",
+                fontFamily = FontFamily.Serif, text = "Title",
                 color = colorResource(id = R.color.darkGray),
                 modifier = Modifier
                     .padding(15.dp)
@@ -127,7 +128,8 @@ fun HabitConfirmScreen(
                 value = habitText ?: "",
             )
             Text(
-                "${habitText?.length ?: 0} / $MAXIMUM_HABIT_CHARACTERS",
+                fontFamily = FontFamily.Serif,
+                text = "${habitText?.length ?: 0} / $MAXIMUM_HABIT_CHARACTERS",
                 color = colorResource(id = R.color.darkGray),
                 modifier = Modifier
                     .padding(15.dp)
@@ -150,7 +152,7 @@ fun HabitConfirmScreen(
                     Row(
                         horizontalArrangement = Arrangement.SpaceBetween,
                         modifier = Modifier
-                            .weight(2.4f)
+                            .weight(2.8f)
                             .align(CenterVertically)
                     ) {
                         RoundedIcon(
@@ -160,7 +162,7 @@ fun HabitConfirmScreen(
                         )
 
                         Text(
-                            text = "Daily task",
+                            fontFamily = FontFamily.Serif, text = "Daily task",
                             color = Color.White,
                             fontWeight = FontWeight.Bold,
                             fontSize = 15.sp, modifier = Modifier.align(CenterVertically)
@@ -182,11 +184,14 @@ fun HabitConfirmScreen(
                         )
                     }
                 }
-                Row(Modifier.fillMaxWidth()) {
+                Row(
+                    Modifier
+                        .fillMaxWidth()
+                        .clickable { navHostController?.navigate(Destinations.HabitTaskDays.path) }) {
                     Row(
                         horizontalArrangement = Arrangement.SpaceBetween,
                         modifier = Modifier
-                            .weight(2.4f)
+                            .weight(2.7f)
                             .align(CenterVertically)
                             .padding(vertical = 10.dp)
                     ) {
@@ -197,7 +202,7 @@ fun HabitConfirmScreen(
                         )
 
                         Text(
-                            text = "Task days",
+                            fontFamily = FontFamily.Serif, text = "Task days",
                             color = Color.White,
                             fontWeight = FontWeight.Bold,
                             fontSize = 15.sp, modifier = Modifier.align(CenterVertically)
@@ -211,7 +216,7 @@ fun HabitConfirmScreen(
                         horizontalArrangement = Arrangement.End
                     ) {
                         Text(
-                            "Every day",
+                            fontFamily = FontFamily.Serif, text = "Every day",
                             color = colorResource(id = R.color.darkGray),
                             modifier = Modifier
                                 .padding(end = 15.dp)
@@ -233,7 +238,7 @@ fun HabitConfirmScreen(
                     Row(
                         horizontalArrangement = Arrangement.SpaceBetween,
                         modifier = Modifier
-                            .weight(2.4f)
+                            .weight(2.8f)
                             .align(CenterVertically)
                             .padding(vertical = 10.dp)
                     ) {
@@ -243,7 +248,7 @@ fun HabitConfirmScreen(
                             icon = Icons.Default.CheckCircle
                         )
                         Text(
-                            text = "1 time/day",
+                            fontFamily = FontFamily.Serif, text = "1 time/day",
                             color = Color.White,
                             fontWeight = FontWeight.Bold,
                             fontSize = 15.sp, modifier = Modifier.align(CenterVertically)
@@ -286,7 +291,7 @@ fun HabitConfirmScreen(
                 Row(
                     horizontalArrangement = Arrangement.SpaceBetween,
                     modifier = Modifier
-                        .weight(2.7f)
+                        .weight(3.7f)
                         .align(CenterVertically)
                 ) {
                     RoundedIcon(
@@ -296,7 +301,7 @@ fun HabitConfirmScreen(
                     )
 
                     Text(
-                        text = "Notifications",
+                        fontFamily = FontFamily.Serif, text = "Notifications",
                         color = Color.White,
                         fontWeight = FontWeight.Bold,
                         fontSize = 15.sp, modifier = Modifier.align(CenterVertically)
@@ -327,7 +332,7 @@ fun HabitConfirmScreen(
                 Row(
                     horizontalArrangement = Arrangement.SpaceBetween,
                     modifier = Modifier
-                        .weight(2.7f)
+                        .weight(3.7f)
                         .align(CenterVertically)
                 ) {
                     RoundedIcon(
@@ -337,7 +342,7 @@ fun HabitConfirmScreen(
                     )
 
                     Text(
-                        text = "Action Button",
+                        fontFamily = FontFamily.Serif, text = "Action Button",
                         color = Color.White,
                         fontWeight = FontWeight.Bold,
                         fontSize = 15.sp, modifier = Modifier.align(CenterVertically)
@@ -351,7 +356,7 @@ fun HabitConfirmScreen(
                     horizontalArrangement = Arrangement.End
                 ) {
                     Text(
-                        "None",
+                        fontFamily = FontFamily.Serif, text="None",
                         color = colorResource(id = R.color.darkGray),
                         modifier = Modifier
                             .padding(end = 15.dp)

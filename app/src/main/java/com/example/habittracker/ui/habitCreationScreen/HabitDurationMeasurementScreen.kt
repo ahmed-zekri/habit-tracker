@@ -18,6 +18,7 @@ import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -62,7 +63,8 @@ fun HabitDurationMeasurementScreen(
 
             Spacer(modifier = Modifier.height(8.dp))
             Text(
-                "Determines the period of time a single completion is measured over",
+                fontFamily = FontFamily.Serif,
+                text = "Determines the period of time a single completion is measured over",
                 color = colorResource(id = R.color.darkGray),
                 modifier = Modifier.padding(top = 30.dp, start = 15.dp, end = 15.dp),
                 fontWeight = FontWeight.Bold
@@ -91,7 +93,7 @@ fun HabitDurationMeasurementScreen(
                     )
 
                     Text(
-                        text = "Daily Task",
+                        fontFamily = FontFamily.Serif, text = "Daily Task",
                         color = Color.White,
                         fontWeight = FontWeight.Bold,
                         fontSize = 15.sp, modifier = Modifier.align(CenterVertically)
@@ -140,7 +142,7 @@ fun HabitDurationMeasurementScreen(
                     )
 
                     Text(
-                        text = "Weekly Task",
+                        fontFamily = FontFamily.Serif, text = "Weekly Task",
                         color = Color.White,
                         fontWeight = FontWeight.Bold,
                         fontSize = 15.sp, modifier = Modifier.align(CenterVertically)

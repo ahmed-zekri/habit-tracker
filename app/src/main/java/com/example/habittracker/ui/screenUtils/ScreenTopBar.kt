@@ -15,6 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -50,7 +51,7 @@ fun ScreenTopBar(
 
 
         Text(
-            text = text,
+            fontFamily = FontFamily.Serif, text = text,
             fontWeight = FontWeight.Bold,
             fontSize = 20.sp,
             color = Color.White, modifier = Modifier.align(Center)
