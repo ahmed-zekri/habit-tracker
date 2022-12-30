@@ -6,9 +6,6 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ExitToApp
-import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -23,12 +20,14 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.habittracker.R
 import com.example.habittracker.data.utils.navigateToRoute
-import com.example.habittracker.ui.screenUtils.ScreenTopBar
 import com.example.habittracker.ui.navigation.Destinations
 import com.example.habittracker.ui.screenUtils.RoundedIcon
+import com.example.habittracker.ui.screenUtils.ScreenTopBar
 import compose.icons.AllIcons
 import compose.icons.FontAwesomeIcons
 import compose.icons.TablerIcons
+import compose.icons.tablericons.ChevronLeft
+import compose.icons.tablericons.Search
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
@@ -57,7 +56,7 @@ fun HabitIconSelection(
         val selectedIcon = remember {
             mutableStateOf<ImageVector?>(null)
         }
-        ScreenTopBar(icon = Icons.Default.ExitToApp, text = "Select icon") {
+        ScreenTopBar(icon = TablerIcons.ChevronLeft, text = "Select icon") {
             navHostController.apply {
                 habitCreationViewModel.updateOrGetHabit(icon = selectedIcon.value?.name)
                 navigateToRoute(
@@ -83,7 +82,7 @@ fun HabitIconSelection(
         TextField(
             leadingIcon = {
                 Icon(
-                    imageVector = Icons.Default.Search,
+                    imageVector = TablerIcons.Search,
                     contentDescription = null,
                     tint = Color.White
                 )

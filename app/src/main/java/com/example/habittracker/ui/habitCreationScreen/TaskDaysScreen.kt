@@ -8,8 +8,6 @@ import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ChevronLeft
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -35,8 +33,10 @@ import com.example.habittracker.data.utils.navigateToRoute
 import com.example.habittracker.ui.navigation.Destinations
 import com.example.habittracker.ui.screenUtils.ScreenTopBar
 import compose.icons.FontAwesomeIcons
+import compose.icons.TablerIcons
 import compose.icons.fontawesomeicons.Regular
 import compose.icons.fontawesomeicons.regular.CheckCircle
+import compose.icons.tablericons.ChevronLeft
 
 @Composable
 fun TaskDaysScreen(
@@ -86,7 +86,7 @@ fun TaskDaysScreen(
                 .weight(8f),
             horizontalAlignment = CenterHorizontally
         ) {
-            ScreenTopBar(Icons.Default.ChevronLeft, "Task Days", iconSize = 25.dp) {
+            ScreenTopBar(TablerIcons.ChevronLeft, "Task Days", iconSize = 25.dp) {
                 habitCreationViewModel.updateOrGetHabit(taskDays = selectionState.value)
                 navHostController?.navigateToRoute(
                     Destinations.HabitCreationConfirmation.path

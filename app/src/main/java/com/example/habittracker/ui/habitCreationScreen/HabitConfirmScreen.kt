@@ -3,7 +3,6 @@ package com.example.habittracker.ui.habitCreationScreen
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -22,12 +21,13 @@ import androidx.navigation.NavHostController
 import com.example.habittracker.R
 import com.example.habittracker.data.constants.MAXIMUM_HABIT_CHARACTERS
 import com.example.habittracker.data.utils.navigateToRoute
-import com.example.habittracker.ui.screenUtils.ScreenTopBar
 import com.example.habittracker.ui.navigation.Destinations
 import com.example.habittracker.ui.screenUtils.RoundedIcon
+import com.example.habittracker.ui.screenUtils.ScreenTopBar
 import compose.icons.AllIcons
 import compose.icons.FontAwesomeIcons
 import compose.icons.TablerIcons
+import compose.icons.tablericons.*
 import java.util.*
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -49,7 +49,7 @@ fun HabitConfirmScreen(
                 .weight(8f),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            ScreenTopBar(Icons.Default.ChevronLeft, "Confirm task", iconSize = 25.dp) {
+            ScreenTopBar(TablerIcons.ChevronLeft, "Confirm task", iconSize = 25.dp) {
                 navHostController?.navigateToRoute(
                     Destinations.HabitCreation.path
                 )
@@ -73,7 +73,7 @@ fun HabitConfirmScreen(
                             addAll(FontAwesomeIcons.AllIcons)
                             addAll(TablerIcons.AllIcons)
                         }.find { it.name == icon }
-                            ?: Icons.Default.Brush,
+                            ?: TablerIcons.Brush,
                         contentDescription = null,
                         modifier = Modifier
                             .size(70.dp)
@@ -158,7 +158,7 @@ fun HabitConfirmScreen(
                         RoundedIcon(
                             modifier = Modifier.size(50.dp),
                             circleColor = colorResource(id = R.color.primaryDark),
-                            icon = Icons.Default.CalendarToday
+                            icon = TablerIcons.Calendar
                         )
 
                         Text(
@@ -176,7 +176,7 @@ fun HabitConfirmScreen(
                         horizontalArrangement = Arrangement.End
                     ) {
                         Icon(
-                            imageVector = Icons.Default.ChevronRight,
+                            imageVector = TablerIcons.ChevronRight,
                             contentDescription = null,
                             modifier = Modifier
                                 .align(CenterVertically)
@@ -198,7 +198,7 @@ fun HabitConfirmScreen(
                         RoundedIcon(
                             modifier = Modifier.size(50.dp),
                             circleColor = colorResource(id = R.color.primaryDark),
-                            icon = Icons.Default.CalendarMonth
+                            icon = TablerIcons.CalendarTime
                         )
 
                         Text(
@@ -225,7 +225,7 @@ fun HabitConfirmScreen(
                             fontWeight = FontWeight.Bold
                         )
                         Icon(
-                            imageVector = Icons.Default.ChevronRight,
+                            imageVector = TablerIcons.ChevronRight,
                             contentDescription = null,
                             modifier = Modifier
                                 .align(CenterVertically)
@@ -245,7 +245,7 @@ fun HabitConfirmScreen(
                         RoundedIcon(
                             modifier = Modifier.size(50.dp),
                             circleColor = colorResource(id = R.color.primaryDark),
-                            icon = Icons.Default.CheckCircle
+                            icon = TablerIcons.CircleCheck
                         )
                         Text(
                             fontFamily = FontFamily.Serif, text = "1 time/day",
@@ -264,16 +264,16 @@ fun HabitConfirmScreen(
                         RoundedIcon(
                             modifier = Modifier.size(50.dp),
                             circleColor = colorResource(id = R.color.primaryDark),
-                            icon = Icons.Default.Remove
+                            icon = TablerIcons.Minus
                         )
                         Spacer(modifier = Modifier.width(5.dp))
                         RoundedIcon(
                             modifier = Modifier.size(50.dp),
                             circleColor = colorResource(id = R.color.primaryDark),
-                            icon = Icons.Default.Add
+                            icon = TablerIcons.Plus
                         )
                         Icon(
-                            imageVector = Icons.Default.ChevronRight,
+                            imageVector = TablerIcons.ChevronRight,
                             contentDescription = null,
                             modifier = Modifier
                                 .align(CenterVertically)
@@ -297,7 +297,7 @@ fun HabitConfirmScreen(
                     RoundedIcon(
                         modifier = Modifier.size(50.dp),
                         circleColor = colorResource(id = R.color.primaryDark),
-                        icon = Icons.Default.Notifications
+                        icon = TablerIcons.Notification
                     )
 
                     Text(
@@ -315,7 +315,7 @@ fun HabitConfirmScreen(
                     horizontalArrangement = Arrangement.End
                 ) {
                     Icon(
-                        imageVector = Icons.Default.ChevronRight,
+                        imageVector = TablerIcons.ChevronRight,
                         contentDescription = null,
                         modifier = Modifier
                             .align(CenterVertically)
@@ -338,7 +338,7 @@ fun HabitConfirmScreen(
                     RoundedIcon(
                         modifier = Modifier.size(50.dp),
                         circleColor = colorResource(id = R.color.primaryDark),
-                        icon = Icons.Default.CallToAction
+                        icon = TablerIcons.Activity
                     )
 
                     Text(
@@ -356,7 +356,7 @@ fun HabitConfirmScreen(
                     horizontalArrangement = Arrangement.End
                 ) {
                     Text(
-                        fontFamily = FontFamily.Serif, text="None",
+                        fontFamily = FontFamily.Serif, text = "None",
                         color = colorResource(id = R.color.darkGray),
                         modifier = Modifier
                             .padding(end = 15.dp)
@@ -365,7 +365,7 @@ fun HabitConfirmScreen(
                         fontWeight = FontWeight.Bold
                     )
                     Icon(
-                        imageVector = Icons.Default.ChevronRight,
+                        imageVector = TablerIcons.ChevronRight,
                         contentDescription = null,
                         modifier = Modifier
                             .align(CenterVertically)

@@ -5,9 +5,6 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.CalendarViewMonth
-import androidx.compose.material.icons.filled.ChevronLeft
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -30,9 +27,12 @@ import com.example.habittracker.ui.navigation.Destinations
 import com.example.habittracker.ui.screenUtils.RoundedIcon
 import com.example.habittracker.ui.screenUtils.ScreenTopBar
 import compose.icons.FontAwesomeIcons
+import compose.icons.TablerIcons
 import compose.icons.fontawesomeicons.Regular
 import compose.icons.fontawesomeicons.regular.CalendarPlus
 import compose.icons.fontawesomeicons.regular.CheckCircle
+import compose.icons.tablericons.CalendarTime
+import compose.icons.tablericons.ChevronLeft
 
 @Composable
 fun HabitDurationMeasurementScreen(
@@ -54,7 +54,7 @@ fun HabitDurationMeasurementScreen(
                 .weight(8f),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            ScreenTopBar(Icons.Default.ChevronLeft, "Duration measurement", iconSize = 25.dp) {
+            ScreenTopBar(TablerIcons.ChevronLeft, "Duration measurement", iconSize = 25.dp) {
                 navHostController?.navigateToRoute(
                     Destinations.HabitCreationConfirmation.path
                 )
@@ -138,7 +138,7 @@ fun HabitDurationMeasurementScreen(
                     RoundedIcon(
                         modifier = Modifier.size(50.dp),
                         circleColor = colorResource(id = R.color.primaryDark),
-                        icon = Icons.Default.CalendarViewMonth
+                        icon = TablerIcons.CalendarTime
                     )
 
                     Text(

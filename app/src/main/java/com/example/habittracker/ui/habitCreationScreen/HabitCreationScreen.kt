@@ -3,11 +3,6 @@ package com.example.habittracker.ui.habitCreationScreen
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowForward
-import androidx.compose.material.icons.filled.CheckCircle
-import androidx.compose.material.icons.filled.Close
-import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -23,8 +18,13 @@ import androidx.navigation.NavHostController
 import com.example.habittracker.R
 import com.example.habittracker.data.constants.MAXIMUM_HABIT_CHARACTERS
 import com.example.habittracker.data.utils.navigateToRoute
-import com.example.habittracker.ui.screenUtils.ScreenTopBar
 import com.example.habittracker.ui.navigation.Destinations
+import com.example.habittracker.ui.screenUtils.ScreenTopBar
+import compose.icons.TablerIcons
+import compose.icons.tablericons.ArrowForward
+import compose.icons.tablericons.ChevronLeft
+import compose.icons.tablericons.CircleCheck
+import compose.icons.tablericons.Minus
 import java.util.*
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -46,7 +46,7 @@ fun HabitCreationScreen(
     )
     {
         ScreenTopBar(
-            Icons.Default.Close,
+            TablerIcons.ChevronLeft,
             "Add task"
         ) { navHostController.navigateToRoute(Destinations.Home.path) }
 
@@ -54,7 +54,7 @@ fun HabitCreationScreen(
             modifier = Modifier
                 .padding(vertical = 15.dp)
                 .size(55.dp),
-            imageVector = Icons.Default.CheckCircle,
+            imageVector = TablerIcons.CircleCheck,
             contentDescription = "Customized habit",
             tint = Color.White
         )
@@ -103,7 +103,7 @@ fun HabitCreationScreen(
                                     .padding(15.dp)
                                     .size(20.dp)
                                     .clickable { habitText.value = "" },
-                                imageVector = Icons.Default.Delete,
+                                imageVector = TablerIcons.Minus,
                                 contentDescription = "Clear habit text",
                                 tint = Color.White
                             )
@@ -125,7 +125,7 @@ fun HabitCreationScreen(
                                                 )
                                             }
                                         },
-                                    imageVector = Icons.Default.ArrowForward,
+                                    imageVector = TablerIcons.ArrowForward,
                                     contentDescription = "Proceed to save habit",
                                     tint = Color.White
                                 )

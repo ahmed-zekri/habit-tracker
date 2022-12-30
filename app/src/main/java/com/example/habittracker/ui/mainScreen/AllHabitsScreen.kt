@@ -6,9 +6,6 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.NoTransfer
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -22,13 +19,14 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
-import com.example.habittracker.data.constants.ICONS
 import com.example.habittracker.data.model.Habit
 import com.example.habittracker.data.utils.navigateToRoute
 import com.example.habittracker.R
 import com.example.habittracker.ui.habitCreationScreen.HabitCreationViewModel
 import com.example.habittracker.ui.mainScreen.DoubleColorCircularProgressBar
 import com.example.habittracker.ui.navigation.Destinations
+import compose.icons.TablerIcons
+import compose.icons.tablericons.Plus
 
 @Composable
 fun HabitsCreationScreen(
@@ -68,8 +66,7 @@ fun HabitsCreationScreen(
                                 Icon(
                                     modifier = Modifier
                                         .size(70.dp),
-                                    imageVector = if (index < habits.size) ICONS.find { it.name == habits[index].icon }
-                                        ?: Icons.Default.NoTransfer else Icons.Default.Add,
+                                    imageVector =TablerIcons.Plus,
                                     contentDescription = null, tint = Color.White
                                 )
                                 if (index < habits.size)
