@@ -141,16 +141,28 @@ class HabitCreationViewModel @Inject constructor(
         }
     }
 
-    fun getDayString(day: Int) = when (day) {
+    fun getDayString(day: Int, charMode: Boolean = true) = when (day) {
 
-        0 -> "S"
-        1 -> "M"
-        2 -> "T"
-        3 -> "W"
-        4 -> "T"
-        5 -> "F"
-        6 -> "S"
+        0 -> if (charMode) "S" else "Sunday"
+        1 -> if (charMode) "M" else "Monday"
+        2 -> if (charMode) "T" else "Tuesday"
+        3 -> if (charMode) "W" else "Wednesday"
+        4 -> if (charMode) "T" else "Thursday"
+        5 -> if (charMode) "F" else "Friday"
+        6 -> if (charMode) "S" else "Saturday"
         else -> throw IllegalStateException("Day value must be less than 7")
 
     }
+
+    fun frequencyState(): String = when (val taskDays = habit?.taskDays) {
+        is TaskDays.SpecificDaysTarget -> if (taskDays.days?.size == 7) "Every day"
+        else "Specific days"
+        is TaskDays.SpacedDaysTarget -> "Every ${taskDays.number?.daysInterval} days"
+        is TaskDays.WeeklyDaysTarget -> "${taskDays.number?.daysPerWeek} days per week"
+        is TaskDays.MonthlyDaysTarget -> "${taskDays.number?.daysPerMonth} days per month"
+
+        else -> ""
+    }
+
+
 }

@@ -216,7 +216,7 @@ fun HabitConfirmScreen(
                         horizontalArrangement = Arrangement.End
                     ) {
                         Text(
-                            fontFamily = FontFamily.Serif, text = "Every day",
+                            fontFamily = FontFamily.Serif, text = habitCreationViewModel.frequencyState(),
                             color = colorResource(id = R.color.darkGray),
                             modifier = Modifier
                                 .padding(end = 15.dp)
