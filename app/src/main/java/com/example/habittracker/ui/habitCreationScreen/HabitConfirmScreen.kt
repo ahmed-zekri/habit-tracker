@@ -22,6 +22,7 @@ import com.example.habittracker.R
 import com.example.habittracker.data.constants.MAXIMUM_HABIT_CHARACTERS
 import com.example.habittracker.data.utils.navigateToRoute
 import com.example.habittracker.ui.navigation.Destinations
+import com.example.habittracker.ui.screenUtils.DividedCircle
 import com.example.habittracker.ui.screenUtils.RoundedIcon
 import com.example.habittracker.ui.screenUtils.ScreenTopBar
 import compose.icons.AllIcons
@@ -29,6 +30,7 @@ import compose.icons.FontAwesomeIcons
 import compose.icons.TablerIcons
 import compose.icons.tablericons.*
 import java.util.*
+
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -42,6 +44,9 @@ fun HabitConfirmScreen(
     }
     val habitText = habitCreationViewModel.updateOrGetHabit()?.name
     val icon = habitCreationViewModel.updateOrGetHabit()?.icon ?: ""
+    val dailyFrequency = remember {
+        mutableStateOf(1)
+    }
     Column(modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally) {
         Column(
             modifier = modifier
@@ -216,7 +221,8 @@ fun HabitConfirmScreen(
                         horizontalArrangement = Arrangement.End
                     ) {
                         Text(
-                            fontFamily = FontFamily.Serif, text = habitCreationViewModel.frequencyState(),
+                            fontFamily = FontFamily.Serif,
+                            text = habitCreationViewModel.frequencyState(),
                             color = colorResource(id = R.color.darkGray),
                             modifier = Modifier
                                 .padding(end = 15.dp)
@@ -242,16 +248,28 @@ fun HabitConfirmScreen(
                             .align(CenterVertically)
                             .padding(vertical = 10.dp)
                     ) {
-                        RoundedIcon(
-                            modifier = Modifier.size(50.dp),
-                            circleColor = colorResource(id = R.color.primaryDark),
-                            icon = TablerIcons.CircleCheck
-                        )
+
+                        Box(
+                            Modifier
+                                .size(55.dp)
+                                .background(colorResource(id = R.color.primaryDark), CircleShape)
+                        ) {
+                            DividedCircle(
+                                modifier = Modifier
+                                    .fillMaxSize()
+                                    .padding(10.dp),
+                                arcsNumber = dailyFrequency.value
+                            )
+
+                        }
+
                         Text(
-                            fontFamily = FontFamily.Serif, text = "1 time/day",
+                            fontFamily = FontFamily.Serif,
+                            text = "${dailyFrequency.value} time${if (dailyFrequency.value > 1) "s" else ""}/day",
                             color = Color.White,
                             fontWeight = FontWeight.Bold,
-                            fontSize = 15.sp, modifier = Modifier.align(CenterVertically)
+                            fontSize = 15.sp,
+                            modifier = Modifier.align(CenterVertically)
                         )
                     }
                     Row(
@@ -262,13 +280,20 @@ fun HabitConfirmScreen(
                         horizontalArrangement = Arrangement.End
                     ) {
                         RoundedIcon(
-                            modifier = Modifier.size(50.dp),
+                            modifier = Modifier
+                                .size(50.dp)
+                                .clickable {
+                                    if (dailyFrequency.value > 1)
+                                        dailyFrequency.value -= 1
+                                },
                             circleColor = colorResource(id = R.color.primaryDark),
                             icon = TablerIcons.Minus
                         )
                         Spacer(modifier = Modifier.width(5.dp))
                         RoundedIcon(
-                            modifier = Modifier.size(50.dp),
+                            modifier = Modifier
+                                .size(50.dp)
+                                .clickable { dailyFrequency.value += 1 },
                             circleColor = colorResource(id = R.color.primaryDark),
                             icon = TablerIcons.Plus
                         )
