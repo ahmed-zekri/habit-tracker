@@ -293,7 +293,10 @@ fun HabitConfirmScreen(
                         RoundedIcon(
                             modifier = Modifier
                                 .size(50.dp)
-                                .clickable { dailyFrequency.value += 1 },
+                                .clickable {
+                                    if (dailyFrequency.value < 10)
+                                        dailyFrequency.value += 1
+                                },
                             circleColor = colorResource(id = R.color.primaryDark),
                             icon = TablerIcons.Plus
                         )
