@@ -6,7 +6,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import com.example.habittracker.data.utils.horizontalAnimation
 import com.example.habittracker.data.utils.verticalAnimation
-import com.example.habittracker.ui.HabitsCreationScreen
+import com.example.habittracker.ui.mainScreen.AllHabitsScreen
 import com.example.habittracker.ui.habitCreationScreen.*
 import com.example.habittracker.ui.habitViewScreen.HabitViewModel
 import com.example.habittracker.ui.habitViewScreen.habitScreen
@@ -20,7 +20,7 @@ fun Navigation(
     modifier: Modifier = Modifier,
     startDestination: String = Destinations.Home.path,
     navHostController: NavHostController = rememberAnimatedNavController(),
-    habitCreationViewModel: HabitCreationViewModel,
+    allHabitsViewModel: AllHabitsViewModel,
     habitViewModel: HabitViewModel
 ) {
     AnimatedNavHost(
@@ -36,10 +36,10 @@ fun Navigation(
             exitTransition = {
                 verticalAnimation().second
             }) {
-            HabitsCreationScreen(habitCreationViewModel, navHostController)
+            AllHabitsScreen(allHabitsViewModel, navHostController)
         }
         composable(Destinations.HabitCreation.path) {
-            HabitCreationScreen(navHostController, habitCreationViewModel)
+            HabitCreationScreen(navHostController, allHabitsViewModel)
         }
         composable(
             Destinations.HabitCreationConfirmation.path,
@@ -47,7 +47,7 @@ fun Navigation(
             exitTransition = {
                 horizontalAnimation().second
             }) {
-            HabitConfirmScreen(navHostController, habitCreationViewModel)
+            HabitConfirmScreen(navHostController, allHabitsViewModel)
         }
         composable(Destinations.Habit.path) {
             habitScreen(habitViewModel, navHostController)
@@ -61,7 +61,7 @@ fun Navigation(
             exitTransition = {
                 verticalAnimation().second
             }) {
-            HabitsCreationScreen(habitCreationViewModel, navHostController)
+            AllHabitsScreen(allHabitsViewModel, navHostController)
         }
         composable(Destinations.HabitIconSelection.path, enterTransition = {
             verticalAnimation().first
@@ -69,7 +69,7 @@ fun Navigation(
             exitTransition = {
                 verticalAnimation().second
             }) {
-            HabitIconSelection(habitCreationViewModel, navHostController)
+            HabitIconSelection(allHabitsViewModel, navHostController)
         }
 
         composable(Destinations.HabitDurationMeasurement.path, enterTransition = {
@@ -78,7 +78,7 @@ fun Navigation(
             exitTransition = {
                 verticalAnimation().second
             }) {
-            HabitDurationMeasurementScreen(navHostController, habitCreationViewModel)
+            HabitDurationMeasurementScreen(navHostController, allHabitsViewModel)
         }
 
         composable(Destinations.HabitTaskDays.path, enterTransition = {
@@ -87,7 +87,7 @@ fun Navigation(
             exitTransition = {
                 verticalAnimation().second
             }) {
-            TaskDaysScreen(navHostController, habitCreationViewModel)
+            TaskDaysScreen(navHostController, allHabitsViewModel)
         }
     }
 }

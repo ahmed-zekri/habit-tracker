@@ -9,13 +9,13 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import com.example.habittracker.ui.navigation.Navigation
-import com.example.habittracker.ui.habitCreationScreen.HabitCreationViewModel
+import com.example.habittracker.ui.habitCreationScreen.AllHabitsViewModel
 import com.example.habittracker.ui.habitViewScreen.HabitViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
-    private val habitCreationViewModel: HabitCreationViewModel by viewModels()
+    private val allHabitsViewModel: AllHabitsViewModel by viewModels()
     private val habitViewModel: HabitViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,7 +26,7 @@ class MainActivity : ComponentActivity() {
                 color = MaterialTheme.colorScheme.background
             ) {
                 Navigation(
-                    habitCreationViewModel = habitCreationViewModel,
+                    allHabitsViewModel = allHabitsViewModel,
                     habitViewModel = habitViewModel
                 )
             }

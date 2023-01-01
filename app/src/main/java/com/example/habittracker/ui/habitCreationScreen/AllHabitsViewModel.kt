@@ -1,8 +1,10 @@
 package com.example.habittracker.ui.habitCreationScreen
 
+import android.app.Application
+import android.widget.Toast
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.habittracker.data.ResultHolder
 import com.example.habittracker.data.model.Habit
@@ -14,22 +16,17 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import java.util.Date
+import java.util.*
 import javax.inject.Inject
 
 @HiltViewModel
-class HabitCreationViewModel @Inject constructor(
+class AllHabitsViewModel @Inject constructor(
     private val addHabitUseCase: AddHabitUseCase,
-    private val getAllHabitsUseCase: GetAllHabitsUseCase
-) : ViewModel() {
+    private val getAllHabitsUseCase: GetAllHabitsUseCase, application: Application
+) : AndroidViewModel(application) {
     private val _state = mutableStateOf(HabitsListState())
     val state: State<HabitsListState> = _state
     private var habit: Habit? = null
-
-
-    init {
-        getHabits()
-    }
 
     fun addHabit() = updateOrGetHabit()?.let { habit ->
         viewModelScope.launch(Dispatchers.IO) {
@@ -39,6 +36,7 @@ class HabitCreationViewModel @Inject constructor(
                 withContext(Dispatchers.Main) {
                     when (it) {
                         is ResultHolder.Error<*> -> {
+                            Toast.makeText(getApplication(), it.error, Toast.LENGTH_SHORT).show()
 
                         }
                         else -> {}
@@ -134,8 +132,10 @@ class HabitCreationViewModel @Inject constructor(
                 when (it) {
                     is ResultHolder.Success<*> ->
                         _state.value = HabitsListState(habits = it.data ?: listOf())
-                    is ResultHolder.Error<*> ->
+                    is ResultHolder.Error<*> -> {
                         _state.value = HabitsListState(error = it.error!!)
+                        Toast.makeText(getApplication(), it.error, Toast.LENGTH_SHORT).show()
+                    }
                 }
             }
         }

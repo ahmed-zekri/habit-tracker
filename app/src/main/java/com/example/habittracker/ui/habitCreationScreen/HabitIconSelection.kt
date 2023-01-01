@@ -34,7 +34,7 @@ import kotlinx.coroutines.withContext
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HabitIconSelection(
-    habitCreationViewModel: HabitCreationViewModel, navHostController: NavHostController
+    allHabitsViewModel: AllHabitsViewModel, navHostController: NavHostController
 
 ) =
     Column(
@@ -58,7 +58,7 @@ fun HabitIconSelection(
         }
         ScreenTopBar(icon = TablerIcons.ChevronLeft, text = "Select icon") {
             navHostController.apply {
-                habitCreationViewModel.updateOrGetHabit(icon = selectedIcon.value?.name)
+                allHabitsViewModel.updateOrGetHabit(icon = selectedIcon.value?.name)
                 navigateToRoute(
                     route = Destinations.HabitCreationConfirmation.path
                 )

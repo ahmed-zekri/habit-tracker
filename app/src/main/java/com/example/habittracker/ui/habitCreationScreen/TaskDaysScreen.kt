@@ -40,32 +40,32 @@ import compose.icons.tablericons.ChevronLeft
 
 @Composable
 fun TaskDaysScreen(
-    navHostController: NavHostController? = null, habitCreationViewModel: HabitCreationViewModel
+    navHostController: NavHostController? = null, allHabitsViewModel: AllHabitsViewModel
 ) {
     val primaryColor = colorResource(id = R.color.primary)
     val modifier = remember {
         Modifier.background(color = primaryColor)
     }
     val selectionState = remember {
-        mutableStateOf(habitCreationViewModel.updateOrGetHabit()?.taskDays)
+        mutableStateOf(allHabitsViewModel.updateOrGetHabit()?.taskDays)
     }
     val selectedSpecifiedDays = remember {
         mutableStateOf(
-            habitCreationViewModel.updateOrGetHabit()?.taskDays?.let {
+            allHabitsViewModel.updateOrGetHabit()?.taskDays?.let {
                 (it as? TaskDays.SpecificDaysTarget)?.days ?: setOf(0, 1, 2, 3, 4, 5, 6)
             } ?: setOf(0, 1, 2, 3, 4, 5, 6)
         )
     }
     val selectedWeeklyDays = remember {
         mutableStateOf(
-            habitCreationViewModel.updateOrGetHabit()?.taskDays?.let {
+            allHabitsViewModel.updateOrGetHabit()?.taskDays?.let {
                 (it as? TaskDays.WeeklyDaysTarget)?.number ?: DaysPerWeek(1)
             } ?: DaysPerWeek(1)
         )
     }
     val selectedMonthlyDays = remember {
         mutableStateOf(
-            habitCreationViewModel.updateOrGetHabit()?.taskDays?.let {
+            allHabitsViewModel.updateOrGetHabit()?.taskDays?.let {
                 (it as? TaskDays.MonthlyDaysTarget)?.number ?: DaysPerMonth(7)
             } ?: DaysPerMonth(7)
         )
@@ -73,7 +73,7 @@ fun TaskDaysScreen(
 
     val selectedSpacedDays = remember {
         mutableStateOf(
-            habitCreationViewModel.updateOrGetHabit()?.taskDays?.let {
+            allHabitsViewModel.updateOrGetHabit()?.taskDays?.let {
                 (it as? TaskDays.SpacedDaysTarget)?.number ?: DaysInterval(2)
             } ?: DaysInterval(2)
         )
@@ -87,7 +87,7 @@ fun TaskDaysScreen(
             horizontalAlignment = CenterHorizontally
         ) {
             ScreenTopBar(TablerIcons.ChevronLeft, "Task Days", iconSize = 25.dp) {
-                habitCreationViewModel.updateOrGetHabit(taskDays = selectionState.value)
+                allHabitsViewModel.updateOrGetHabit(taskDays = selectionState.value)
                 navHostController?.navigateToRoute(
                     Destinations.HabitCreationConfirmation.path
                 )
@@ -167,7 +167,7 @@ fun TaskDaysScreen(
 
                         Text(
                             fontFamily = FontFamily.Serif,
-                            text = habitCreationViewModel.getDayString(day),
+                            text = allHabitsViewModel.getDayString(day),
                             color = if (day in selectedSpecifiedDays.value) Color.Black else Color.White,
                             fontSize = 17.sp,
                             fontWeight = FontWeight.Bold,

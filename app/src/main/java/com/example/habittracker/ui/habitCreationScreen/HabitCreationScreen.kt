@@ -30,7 +30,7 @@ import java.util.*
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HabitCreationScreen(
-    navHostController: NavHostController, habitCreationViewModel: HabitCreationViewModel
+    navHostController: NavHostController, allHabitsViewModel: AllHabitsViewModel
 ) {
     val primaryColor = colorResource(id = R.color.primary)
     val modifier = remember {
@@ -38,7 +38,7 @@ fun HabitCreationScreen(
             .background(primaryColor)
     }
     val habitText = remember {
-        mutableStateOf(habitCreationViewModel.updateOrGetHabit()?.name)
+        mutableStateOf(allHabitsViewModel.updateOrGetHabit()?.name)
     }
 
     Column(
@@ -118,7 +118,7 @@ fun HabitCreationScreen(
                                         .size(20.dp)
                                         .align(Alignment.Center)
                                         .clickable {
-                                            habitCreationViewModel.updateOrGetHabit(habitName = habitText.value)
+                                            allHabitsViewModel.updateOrGetHabit(habitName = habitText.value)
                                             navHostController.apply {
                                                 navigateToRoute(
                                                     route = Destinations.HabitCreationConfirmation.path,

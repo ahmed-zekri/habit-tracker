@@ -2,7 +2,7 @@ package com.example.habittracker.data.room
 
 import androidx.room.TypeConverter
 import com.example.habittracker.data.model.TaskDays
-import com.google.gson.Gson
+import kotlinx.serialization.json.Json
 import java.util.*
 
 class Converters {
@@ -18,9 +18,10 @@ class Converters {
 
     @TypeConverter
     fun taskDaysToString(taskDays: TaskDays?): String? =
-        taskDays?.let { Gson().toJson(taskDays) }
+        taskDays?.let { Json.encodeToString(TaskDays.serializer(), it) }
 
     @TypeConverter
     fun taskDaysFromString(taskDays: String?): TaskDays? =
-        taskDays?.let { Gson().fromJson(it, TaskDays::class.java) }
+        taskDays?.let { Json.decodeFromString(TaskDays.serializer(), it) }
+
 }

@@ -37,14 +37,14 @@ import compose.icons.tablericons.ChevronLeft
 @Composable
 fun HabitDurationMeasurementScreen(
     navHostController: NavHostController? = null,
-    habitCreationViewModel: HabitCreationViewModel
+    allHabitsViewModel: AllHabitsViewModel
 ) {
     val primaryColor = colorResource(id = R.color.primary)
     val modifier = remember {
         Modifier.background(color = primaryColor)
     }
     val selectionState = remember {
-        mutableStateOf(habitCreationViewModel.updateOrGetHabit()?.periodMeasurement)
+        mutableStateOf(allHabitsViewModel.updateOrGetHabit()?.periodMeasurement)
     }
 
     Column(modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally) {
@@ -76,7 +76,7 @@ fun HabitDurationMeasurementScreen(
                     .background(colorResource(id = R.color.primaryDarkLighter))
                     .padding(10.dp)
                     .clickable {
-                        habitCreationViewModel.updateOrGetHabit(periodMeasurement = PeriodMeasurement.DAILY)
+                        allHabitsViewModel.updateOrGetHabit(periodMeasurement = PeriodMeasurement.DAILY)
                         selectionState.value = PeriodMeasurement.DAILY
                     }
             ) {
@@ -125,7 +125,7 @@ fun HabitDurationMeasurementScreen(
                     .background(colorResource(id = R.color.primaryDarkLighter))
                     .padding(10.dp)
                     .clickable {
-                        habitCreationViewModel.updateOrGetHabit(periodMeasurement = PeriodMeasurement.WEEKLY)
+                        allHabitsViewModel.updateOrGetHabit(periodMeasurement = PeriodMeasurement.WEEKLY)
                         selectionState.value = PeriodMeasurement.WEEKLY
                     }
             ) {

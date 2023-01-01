@@ -4,6 +4,7 @@ plugins {
     id 'kotlin-parcelize'
     id 'kotlin-kapt'
     id 'com.google.dagger.hilt.android'
+    id "org.jetbrains.kotlin.plugin.serialization"
 }
 
 android {
@@ -73,7 +74,8 @@ dependencies {
     implementation "br.com.devsrsouza.compose.icons.android:tabler-icons:1.0.0"
     implementation "br.com.devsrsouza.compose.icons.android:font-awesome:1.0.0"
     implementation 'com.google.code.gson:gson:2.8.6'
-
+    implementation "org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.1"
+    implementation "com.fasterxml.jackson.core:jackson-annotations:2.9.8"
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.4'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.0'
@@ -107,6 +109,7 @@ dependencies {
     implementation "androidx.room:room-paging:$room_version"
 
     implementation "androidx.room:room-ktx:2.4.3"
+    implementation "org.jetbrains.kotlin:kotlin-reflect:1.7.21"
 }
 
 // Allow references to generated code

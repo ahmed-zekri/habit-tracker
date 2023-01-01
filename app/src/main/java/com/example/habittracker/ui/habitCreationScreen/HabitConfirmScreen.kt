@@ -36,14 +36,14 @@ import java.util.*
 @Composable
 fun HabitConfirmScreen(
     navHostController: NavHostController? = null,
-    habitCreationViewModel: HabitCreationViewModel
+    allHabitsViewModel: AllHabitsViewModel
 ) {
     val primaryColor = colorResource(id = R.color.primary)
     val modifier = remember {
         Modifier.background(color = primaryColor)
     }
-    val habitText = habitCreationViewModel.updateOrGetHabit()?.name
-    val icon = habitCreationViewModel.updateOrGetHabit()?.icon ?: ""
+    val habitText = allHabitsViewModel.updateOrGetHabit()?.name
+    val icon = allHabitsViewModel.updateOrGetHabit()?.icon ?: ""
     val dailyFrequency = remember {
         mutableStateOf(1)
     }
@@ -222,7 +222,7 @@ fun HabitConfirmScreen(
                     ) {
                         Text(
                             fontFamily = FontFamily.Serif,
-                            text = habitCreationViewModel.frequencyState(),
+                            text = allHabitsViewModel.frequencyState(),
                             color = colorResource(id = R.color.darkGray),
                             modifier = Modifier
                                 .padding(end = 15.dp)
@@ -404,11 +404,13 @@ fun HabitConfirmScreen(
         }
 
         Button(
-            onClick = { /*TODO*/ },
+            onClick = { allHabitsViewModel.addHabit()
+                navHostController?.navigate(Destinations.Home.path) },
             modifier = Modifier
                 .padding(10.dp)
                 .fillMaxWidth()
-                .weight(1f),
+                .weight(1f)
+                 ,
             colors = ButtonDefaults.buttonColors(containerColor = colorResource(id = R.color.darkestTone)),
             shape = ButtonDefaults.outlinedShape
         ) {
