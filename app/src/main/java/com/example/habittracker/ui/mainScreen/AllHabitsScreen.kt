@@ -47,7 +47,6 @@ fun AllHabitsScreen(
             .background(color = colorResource(id = R.color.primary))
             .fillMaxSize(), columns = GridCells.Fixed(2), content = {
             items(habits.size + 1) { index ->
-                val habit = habits[index]
                 Box(
                     modifier = Modifier
                         .size(210.dp)
@@ -55,13 +54,13 @@ fun AllHabitsScreen(
                             if (index == habits.size)
                                 navHostController.navigateToRoute(Destinations.HabitCreation.path)
                             else
-                                showHabit(habit, navHostController)
+                                showHabit(habits[index], navHostController)
                         }
                 ) {
                     Column {
                         Box(Modifier.padding(start = 25.dp, top = 20.dp)) {
                             DoubleColorCircularProgressBar(
-                                progress = if (index == habits.size) 1f else habit.streak.toFloat() / habit.goal.let { if (it == 0) 1 else 0 },
+                                progress = if (index == habits.size) 1f else habits[index].streak.toFloat() / habits[index].goal.let { if (it == 0) 1 else 0 },
                                 stroke = 7.dp,
                                 colorProgress = Color.White,
                                 colorRemaining = Color.Black
@@ -81,7 +80,7 @@ fun AllHabitsScreen(
                                 if (index < habits.size)
                                     Text(
                                         fontFamily = FontFamily.Serif,
-                                        text = habit.streak.toString(),
+                                        text = habits[index].streak.toString(),
                                         color = Color.Black,
                                         fontWeight = FontWeight.Bold,
                                         fontSize = 17.sp,
@@ -92,7 +91,7 @@ fun AllHabitsScreen(
                         if (index < habits.size)
                             Text(
                                 fontFamily = FontFamily.Serif,
-                                text = habit.name ?: "",
+                                text = habits[index].name ?: "",
                                 color = Color.White,
                                 fontWeight = FontWeight.Bold,
                                 fontSize = 20.sp,
